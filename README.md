@@ -1,2 +1,2 @@
-# jedi_project
-small project for jedi program in flipkart internship
+# Jedi Project
+small project for Jedi program in Flipkart internship.
