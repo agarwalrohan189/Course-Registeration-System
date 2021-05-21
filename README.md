@@ -1,2 +1,2 @@
 # Jedi Project
-small project for Jedi program in Flipkart internship.
+small project for Jedi training program in Flipkart internship.
