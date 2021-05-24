@@ -19,13 +19,12 @@ public class ProfessorUI {
 		Scanner sc=new Scanner(System.in);
 		
 		while(true) {
-			System.out.println("========= Professor Options ========");
+			System.out.println("========= Available Operations for Professor ========");
 			System.out.println("1. View Courses");
 			System.out.println("2. View Enrolled Students");
 			System.out.println("3. Assign grade");
-			System.out.println("4. Logout");
-			System.out.println("====================================");
-			System.out.println("INP>\tEnter Option : ");
+			System.out.println("4. Logout\n");
+			System.out.println("Enter Option : ");
 			
 			int input=sc.nextInt();
 			switch(input)
@@ -40,15 +39,16 @@ public class ProfessorUI {
 					break;
 					
 				case 3:
-					//add grade for a student
+					//Add grade for a student
 					assignGrades();
 					break;
 				case 4:
 					//Logout
 					sc.close();
+					System.out.println("==================== Logging Out ====================");
 					return;
 				default:
-					System.out.println("ERR>\tWrong Choice");
+					System.err.println("No such operation exists, valid choices 1, 2, 3, 4");
 			}
 		}
 	}
@@ -56,9 +56,19 @@ public class ProfessorUI {
 		
 	}
 	private void viewStudents() {
-		
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter CourseID");
+		int cid = sc.nextInt();
+		sc.close();
 	}
 	private void assignGrades() {
-		
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter CourseID");
+		int cid = sc.nextInt();
+		sc.close();
+	}
+	public static void main(String args[]) {
+		ProfessorUI prof = new ProfessorUI("1");
+		prof.displayUI();
 	}
 }
