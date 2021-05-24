@@ -9,7 +9,7 @@ import java.util.Scanner;
  * @author sayan
  *
  */
-public class AdminMenu {
+public class AdminUI {
 	Scanner scanner = new Scanner(System.in);
 	public void printAdminMenu() {
 		boolean looping = true;

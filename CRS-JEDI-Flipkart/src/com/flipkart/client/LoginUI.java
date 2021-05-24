@@ -9,7 +9,7 @@ import java.util.Scanner;
  * @author sayan
  *
  */
-public class LoginMenu {
+public class LoginUI {
 
 	/**
 	 * @param args
