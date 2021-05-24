@@ -8,7 +8,7 @@ import java.time.LocalDate;
  * @author Shubham
  *
  */
-public class Professor {
+public class Professor extends User {
 
 	String department;
 	Course courseList[];
