@@ -67,8 +67,4 @@ public class ProfessorUI {
 		int cid = sc.nextInt();
 		sc.close();
 	}
-	public static void main(String args[]) {
-		ProfessorUI prof = new ProfessorUI("1");
-		prof.displayUI();
-	}
 }
