@@ -2,7 +2,7 @@
  * 
  */
 package com.flipkart.bean;
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * @author Shubham
@@ -13,7 +13,7 @@ public class Professor extends User {
 	String department;
 	Course courseList[];
 	String qualification;
-	LocalDate dateOfJoining;
+	Date dateOfJoining;
 	
 	public String getDepartment() {
 		return department;
@@ -36,10 +36,10 @@ public class Professor extends User {
 		this.qualification = qualification;
 	}
 	
-	public LocalDate getDateOfJoining() {
+	public Date getDateOfJoining() {
 		return dateOfJoining;
 	}
-	public void setDateOfJoining(LocalDate dateOfJoining) {
+	public void setDateOfJoining(Date dateOfJoining) {
 		this.dateOfJoining = dateOfJoining;
 	}
 	
