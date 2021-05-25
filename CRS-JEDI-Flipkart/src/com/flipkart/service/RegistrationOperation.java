@@ -9,13 +9,14 @@ import com.flipkart.bean.Course;
 
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.PaymentNotification;
-
+import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.exception.CourseLimitExceededException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.CourseSeatsFullException;
+import com.flipkart.exception.DatabaseException;
 import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.dao.RegistrationDaoInterface;
@@ -37,7 +38,7 @@ public class RegistrationOperation implements RegistrationInterface {
 
 	@Override
 	public boolean addCourse(String studentId, int courseCode)
-			throws CourseNotFoundException, CourseLimitExceededException, CourseSeatsFullException, StudentNotFoundException{
+			throws CourseNotFoundException, CourseLimitExceededException, CourseSeatsFullException, StudentNotFoundException, DatabaseException{
 		Course course = registrationDaoInterface.getCourse(courseCode);
 		if(course.getFilledSeats()>=Course.MAX_SEATS){
 			throw new CourseSeatsFullException(course.getCourseId());
@@ -49,36 +50,38 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 
 	@Override
-	public boolean dropCourse(String studentId, int courseCode) throws CourseNotFoundException, StudentNotFoundException{
-		registrationDaoInterface.getCourse(courseCode);
-		try{
-			userInterface.getDetails(studentId);
-			return registrationDaoInterface.dropCourse(studentId, courseCode);
+	public boolean dropCourse(String studentId, int courseCode) throws CourseNotFoundException, StudentNotFoundException, DatabaseException{
+		List<RegisteredCourse> regCourses = viewRegisteredCourses(studentId);
+		boolean isRegistered=false;
+		for(RegisteredCourse course : regCourses){
+			if(course.getCourseId()==courseCode){
+				isRegistered=true;
+			}
 		}
-		catch(Exception e){
-			throw new StudentNotFoundException(studentId);
+		if(!isRegistered){
+			throw new CourseNotFoundException(courseCode);
 		}
+		return registrationDaoInterface.dropCourse(studentId, courseCode);
 	}
 
 	@Override
-	public List<Course> viewRegisteredCourses(String studentId) throws StudentNotFoundException{
-		return get;
-	}
-
-	@Override
-	public float calculateFee(String studentId){
-		// TODO Auto-generated method stub
-		return 100;
+	public List<RegisteredCourse> viewRegisteredCourses(String studentId) throws StudentNotFoundException{
+		return registrationDaoInterface.viewRegisteredCourses(studentId);
 	}
 	
 	@Override
-	public void payFee(String studentId, ModeOfPayment mode, float amount) {
+	public float calculateFee(String studentId) throws StudentNotFoundException{
+		return registrationDaoInterface.calculateFee(studentId);
+	}
+
+	@Override
+	public void payFee(String studentId, ModeOfPayment mode, float amount) throws StudentNotFoundException{
 		
 		float feeToBePaid = calculateFee(studentId);
 		Payment payObj = new Payment(studentId, mode, amount);
 		PaymentNotification notifObj = new PaymentNotification(payObj, feeToBePaid);
 		if(payObj.isStatus()) {
-			//decrement fee
+			decrement_fee();
 		}
 		NotificationOperation NotifOp = new NotificationOperation();
 		NotifOp.sendNotification(notifObj);

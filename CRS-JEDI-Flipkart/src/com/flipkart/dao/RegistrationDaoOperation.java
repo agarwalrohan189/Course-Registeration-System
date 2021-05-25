@@ -1,14 +1,19 @@
 /**
  * 
  */
-package com.flipkart.service;
+package com.flipkart.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.crypto.Data;
+
 import com.flipkart.bean.Course;
+import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.exception.*;
 import com.flipkart.utils.DBUtil;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -26,8 +31,29 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 	@Override
 	public void registerCourses(String studentId) throws StudentNotFoundException{
-		// TODO Auto-generated method stub
-
+		Connection conn = DBUtil.getConnection();
+		try 
+		{
+			statement = conn.prepareStatement(SQLQueries.SET_REGISTRATION_STATUS);
+			statement.setString(1, studentId);
+			statement.executeUpdate();
+		} 
+		catch (SQLException e) 
+        {
+            System.err.println(e.getMessage());
+            throw new StudentNotFoundException(studentId);
+        }
+        finally
+        {
+            try{
+                statement.close();
+                conn.close();
+            }
+            catch(Exception e){
+                System.err.println("Couldn't close connection to database");
+                System.err.println(e.getMessage());
+            }
+        }
 	}
 
     @Override
@@ -39,21 +65,28 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
             statement.setInt(1,courseId);
             ResultSet rs = statement.executeQuery();
 
-            statement = conn.prepareStatement(SQLQueries.GET_USER_NAME);
-            statement.setString(1,catalogue.getString("pid"));
-            ResultSet profName=stmt.executeQuery();
+            statement = conn.prepareStatement(SQLQueries.GET_PROF_NAME);
+            statement.setString(1,rs.getString("pid"));
+            ResultSet profName=statement.executeQuery();
 
-            Course course = new Course(rs.getInt("cid"), rs.getString("cname"), rs.getInt("pid"), instructorName, rs.getInt("filledSeats"));
+            Course course = new Course(rs.getInt("cid"), rs.getString("cname"), rs.getString("pid"), profName.getString("name"), rs.getInt("filledSeats"));
             return course;
         }
         catch (SQLException e) 
         {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
+            throw new CourseNotFoundException(courseId);
         }
         finally
         {
-            statement.close();
-            conn.close();
+            try{
+                statement.close();
+                conn.close();
+            }
+            catch(Exception e){
+                System.err.println("Couldn't close connection to database");
+                System.err.println(e.getMessage());
+            }
         }
 	}
 
@@ -62,48 +95,112 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
         Connection conn = DBUtil.getConnection();
         try
         {
-            statement = conn.prepareStatement(SQLQueriesConstants.ADD_COURSE);
-            statement.setInt(1, studentId);
-            statement.setString(2, courseCode);
+            statement = conn.prepareStatement(SQLQueries.ADD_COURSE);
+            statement.setString(1, studentId);
+            statement.setInt(2, courseCode);
 
             statement.executeUpdate();
             
-            statement = conn.prepareStatement(SQLQueriesConstants.DECREMENT_COURSE_SEATS);
-            statement.setString(1, courseCode);
+            statement = conn.prepareStatement(SQLQueries.DECREMENT_COURSE_SEATS);
+            statement.setInt(1, courseCode);
             statement.executeUpdate();
             return true;
         }
         catch (SQLException e) 
         {
-            logger.info(e.getMessage());
+            System.err.println(e.getMessage());
+            throw new DatabaseException();
         }
         finally
         {
-            statement.close();
-            conn.close();
+            try{
+                statement.close();
+                conn.close();
+            }
+            catch(Exception e){
+                System.err.println("Couldn't close connection to database");
+                System.err.println(e.getMessage());
+            }
         }
 	}
 
 	@Override
-	public boolean dropCourse(String studentId, int courseCode) throws CourseNotFoundException, StudentNotFoundException{
-		// TODO Auto-generated method stub
-		return false;
+	public boolean dropCourse(String studentId, int courseCode) throws DatabaseException{
+		Connection conn = DBUtil.getConnection();	
+        try
+        {
+            statement = conn.prepareStatement(SQLQueries.DROP_COURSE);
+            statement.setInt(1, courseCode);
+            statement.setString(2, studentId);
+            statement.execute();
+            
+            statement = conn.prepareStatement(SQLQueries.INCREMENT_COURSE_SEATS);
+            statement.setInt(1, courseCode);
+            statement.execute();
+            
+            statement.close();
+            
+            return true;
+        }
+        catch (SQLException e) 
+        {
+            System.err.println(e.getMessage());
+            throw new DatabaseException();
+        }
+        finally
+        {
+            try{
+                statement.close();
+                conn.close();
+            }
+            catch(Exception e){
+                System.err.println("Couldn't close connection to database");
+                System.err.println(e.getMessage());
+            }
+        }
 	}
 
 	@Override
-	public List<Course> viewRegisteredCourses(String studentId) throws StudentNotFoundException{
-		// TODO Auto-generated method stub
-		return null;
+	public List<RegisteredCourse> viewRegisteredCourses(String studentId) throws StudentNotFoundException{
+		Connection conn = DBUtil.getConnection();
+		List<RegisteredCourse> registeredCourseList = new ArrayList<>();
+		try 
+		{
+			statement = conn.prepareStatement(SQLQueries.VIEW_REGISTERED_COURSES);
+			statement.setString(1, studentId);
+
+			ResultSet rs = statement.executeQuery();
+
+            statement = conn.prepareStatement(SQLQueries.GET_PROF_NAME);
+            statement.setString(1,rs.getString("pid"));
+            ResultSet profName=statement.executeQuery();
+			
+			while (rs.next()) {
+                RegisteredCourse course = new RegisteredCourse(rs.getString("cname"), profName.getString("name"), studentId, rs.getInt("semesterNum"), rs.getInt("cid"), new Grade(rs.getInt("grade")));
+				registeredCourseList.add(course);
+			}
+		} 
+        catch (SQLException e) 
+        {
+            System.err.println(e.getMessage());
+            throw new DatabaseException();
+        }
+        finally
+        {
+            try{
+                statement.close();
+                conn.close();
+            }
+            catch(Exception e){
+                System.err.println("Couldn't close connection to database");
+                System.err.println(e.getMessage());
+            }
+        }
+		return registeredCourseList;
 	}
 
 	@Override
-	public List<StudentGrade> viewGradeCard(String studentId) throws StudentNotFoundException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public double calculateFee(String studentId) throws StudentNotFoundException{
+	public float calculateFee(String studentId) throws StudentNotFoundException{
 		// TODO Auto-generated method stub
 		return 0;
 	}

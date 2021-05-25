@@ -5,8 +5,7 @@ package com.flipkart.service;
 
 import java.util.List;
 
-import com.flipkart.bean.Course;
-import com.flipkart.bean.StudentGrade;
+import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.exception.*;
 
@@ -32,7 +31,7 @@ public interface RegistrationInterface {
 	 * @throws CourseSeatsFullException
 	 */
 	public boolean addCourse(String studentId, int courseCode)
-			throws CourseNotFoundException, CourseLimitExceededException, CourseSeatsFullException, StudentNotFoundException;
+			throws CourseNotFoundException, CourseLimitExceededException, CourseSeatsFullException, StudentNotFoundException, DatabaseException;
 
 	/**
 	 * Drop a course
@@ -41,14 +40,14 @@ public interface RegistrationInterface {
 	 * @return
 	 * @throws CourseNotFoundException
 	 */
-	public boolean dropCourse(String studentId, int courseCode) throws CourseNotFoundException, StudentNotFoundException;
+	public boolean dropCourse(String studentId, int courseCode) throws CourseNotFoundException, StudentNotFoundException, DatabaseException;
 
 	/**
 	 * View registered courses
 	 * @param studentId
 	 * @return
 	 */
-	public List<Course> viewRegisteredCourses(String studentId) throws StudentNotFoundException;
+	public List<RegisteredCourse> viewRegisteredCourses(String studentId) throws StudentNotFoundException;
 
 	/**
 	 * @param studentId
@@ -56,10 +55,6 @@ public interface RegistrationInterface {
 	 */
 
 	public float calculateFee(String studentId) throws StudentNotFoundException;
-	// public List<Course> viewCourses(String studentId);
 
-
-	void payFee(String studentId, ModeOfPayment mode, float amount);
-
-// public List<Course> viewCourses(String studentId);
+	public void payFee(String studentId, ModeOfPayment mode, float amount) throws StudentNotFoundException;
 }
