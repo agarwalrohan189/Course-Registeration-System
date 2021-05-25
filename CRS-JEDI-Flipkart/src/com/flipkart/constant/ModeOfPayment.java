@@ -32,4 +32,18 @@ public enum ModeOfPayment {
 		}
 			
 	}
+	
+	public static String getStringModeOfPayment(ModeOfPayment mode) {
+		switch(mode) {
+			case CREDIT_CARD:
+				return "Credit Card";
+			case NET_BANKING:
+				return "Net Banking";
+			case DEBIT_CARD:
+				return "Debit Card";
+			default:
+				return "Invalid Mode";
+			
+		}
+	}
 }
