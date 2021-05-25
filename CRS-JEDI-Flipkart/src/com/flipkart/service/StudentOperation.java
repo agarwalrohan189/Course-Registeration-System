@@ -8,6 +8,7 @@ import java.util.List;
 
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.exception.StudentNotFoundException;
@@ -29,7 +30,7 @@ public class StudentOperation implements StudentInterface {
 	}
 
 	@Override
-	public List<StudentGrade> viewGrades(String StudentId) throws StudentNotFoundException {
+	public List<RegisteredCourse> viewGrades(String StudentId) throws StudentNotFoundException {
 		// TODO Auto-generated method stub
 		
 		//Dao method 
