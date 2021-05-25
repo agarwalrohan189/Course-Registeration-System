@@ -94,10 +94,15 @@ public class StudentMenu {
 	 * View all available courses
 	 */
 	private void viewCourseCatalogue() {
-		List<Course> courses = studentInterface.viewCourseCatalogue(studentID);
-		System.out.println("Course ID\tCourse Name\tSeats");
-		for (Course course : courses) {
-			System.out.printf(course.getCourseId() + "\t" + course.getCourseName() + "\t" + course.getSeats());
+		try {
+			List<Course> courses = studentInterface.viewCourseCatalogue();
+			System.out.println("Course ID\tCourse Name\tSeats");
+			for (Course course : courses) {
+				System.out.printf(course.getCourseId() + "\t" + course.getCourseName() + "\t" + course.getSeats());
+			}
+		}
+		catch (Exception e) {
+			
 		}
 	}
 
@@ -105,10 +110,15 @@ public class StudentMenu {
 	 * View grades for the semester
 	 */
 	private void viewGrades() {
-		List<StudentGrade> grades = studentInterface.viewGrades(studentID);
-		System.out.println("Course ID\tCourse Name\tGrade");
-		for(StudentGrade grade:grades) {
-			System.out.println(grade.getCourseCode() + "\t" + grade.getCourseName() + "\t" + grade.getGrade());
+		try {
+			List<StudentGrade> grades = studentInterface.viewGrades(studentID);
+			System.out.println("Course ID\tCourse Name\tGrade");
+			for(StudentGrade grade:grades) {
+				System.out.println(grade.getCourseCode() + "\t" + grade.getCourseName() + "\t" + grade.getGrade());
+			}
+		}
+		catch (Exception e) {
+			
 		}
 	}
 
