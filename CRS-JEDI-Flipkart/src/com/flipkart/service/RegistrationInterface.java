@@ -51,18 +51,15 @@ public interface RegistrationInterface {
 	public List<Course> viewRegisteredCourses(String studentId) throws StudentNotFoundException;
 
 	/**
-	 * View grade card for the semester
 	 * @param studentId
 	 * @return
 	 */
-	public List<StudentGrade> viewGradeCard(String studentId) throws StudentNotFoundException;
 
-	/**
-	 * @param studentId
-	 * @return
-	 */
 	public float calculateFee(String studentId) throws StudentNotFoundException;
-// public List<Course> viewCourses(String studentId);
+	// public List<Course> viewCourses(String studentId);
+
 
 	void payFee(String studentId, ModeOfPayment mode, float amount);
+
+// public List<Course> viewCourses(String studentId);
 }

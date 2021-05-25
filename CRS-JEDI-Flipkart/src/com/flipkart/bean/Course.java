@@ -9,25 +9,26 @@ package com.flipkart.bean;
  */
 public class Course {
 	
-	private String courseId;
+	private int courseId;
 	private String courseName;
 	private String instructorId;
 	private String instructorName;
-	private int seats = 10;
+	public static final int MAX_SEATS = 10;
+	private int filledSeats;
 	
-	public Course(String courseId, String courseName, String instructorId, String instructorName, int seats) {
+	public Course(int courseId, String courseName, String instructorId, String instructorName, int filledSeats) {
 		this.courseId = courseId;
 		this.courseName = courseName;
 		this.instructorId = instructorId;
 		this.instructorName = instructorName;
-		this.seats = seats;
+		this.filledSeats = filledSeats;
 	}
 
-	public String getCourseId() {
+	public int getCourseId() {
 		return courseId;
 	}
 
-	public void setCourseId(String courseId) {
+	public void setCourseId(int courseId) {
 		this.courseId = courseId;
 	}
 
@@ -55,12 +56,12 @@ public class Course {
 		this.instructorName = instructorName;
 	}
 
-	public int getSeats() {
-		return seats;
+	public int getFilledSeats() {
+		return filledSeats;
 	}
 
-	public void setSeats(int seats) {
-		this.seats = seats;
+	public void setFilledSeats(int seats) {
+		this.filledSeats = seats;
 	}
 	
 	

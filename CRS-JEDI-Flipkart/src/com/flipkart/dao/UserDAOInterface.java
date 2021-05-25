@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.flipkart.service;
+package com.flipkart.dao;
 
 import com.flipkart.bean.User;
 import com.flipkart.exception.PasswordIsWeakException;
@@ -11,11 +11,16 @@ import com.flipkart.exception.ProfNotFoundException;
 import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.exception.UserNotFoundException;
 
-public interface UserInterface {
-	
-    public boolean login(String userID,String password) throws UserNotFoundException, PasswordMismatchException;
+/**
+ * @author Shubham
+ *
+ */
+public interface UserDAOInterface {
+
+	public boolean login(String userID,String password) throws PasswordMismatchException;
 
     boolean setPassword(String userID, String newPassword) throws UserNotFoundException, PasswordMatchedOldException, PasswordIsWeakException;
 
-    public User getDetails(String userId) throws UserNotFoundException, ProfNotFoundException, StudentNotFoundException;
+    public User getDetails(String userId) throws UserNotFoundException, StudentNotFoundException, ProfNotFoundException;
+	
 }

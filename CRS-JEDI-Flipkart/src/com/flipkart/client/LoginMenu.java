@@ -5,6 +5,10 @@ package com.flipkart.client;
 
 import java.util.Scanner;
 
+import com.flipkart.exception.PasswordMismatchException;
+import com.flipkart.exception.UserNotFoundException;
+import com.flipkart.service.UserOperation;
+
 /**
  * @author sayan
  *
@@ -59,7 +63,16 @@ public class LoginMenu {
 
 	private static void loginMain(String uName, String password) {
 		// TODO Auto-generated method stub
-		System.out.println("Login " + uName);
+		try {
+			UserOperation.getInstance().login(uName, password);
+			System.out.println("Login " + uName);
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		} catch (PasswordMismatchException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private static void registration() {

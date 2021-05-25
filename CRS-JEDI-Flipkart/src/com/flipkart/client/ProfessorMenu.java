@@ -108,7 +108,7 @@ public class ProfessorMenu {
 		System.out.println("Enter Grade");
 		String grade = sc.next();
 		try {
-			professorInterface.assignGrade(professorID, studentID, courseID, grade);	
+			professorInterface.assignGrade(studentID, courseID, grade);
 		}
 		catch(Exception E){
 			
