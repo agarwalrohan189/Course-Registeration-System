@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.HashMap;
 
 import com.flipkart.bean.Admin;
 import com.flipkart.bean.Professor;
@@ -31,6 +30,23 @@ import com.flipkart.utils.DBUtil;
  */
 public class UserDAOOperation implements UserDAOInterface{
 
+	private static volatile UserDAOOperation instance = null;
+	
+	private UserDAOOperation()
+	{		
+	}
+	
+	public static UserDAOOperation getInstance()
+	{
+		if(instance==null)
+		{
+			synchronized(UserDAOOperation.class){
+				instance=new UserDAOOperation();
+			}
+		}
+		return instance;
+	}
+	
 	public boolean login(String userID, String password) throws PasswordMismatchException {
 		Connection conn = DBUtil.getConnection();
 		try
