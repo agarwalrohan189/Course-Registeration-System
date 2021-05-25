@@ -9,6 +9,7 @@ import java.util.Scanner;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.service.RegistrationInterface;
+import com.flipkart.service.RegistrationOperation;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentOperation;
 
@@ -100,14 +101,19 @@ public class StudentMenu {
 
 	private void register() {
 //		if(notregistered)
-		registrationInterface.register();
+		registrationInterface.registerCourses(studentID);
 	}
 
 	private void addCourse() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter CourseID");
 		int courseID = sc.nextInt();
-		registrationInterface.addCourse(studentID, courseID);
+		try {
+			registrationInterface.addCourse(studentID, courseID);
+		}
+		catch(Exception E) {
+			
+		}
 		sc.close();
 	}
 
@@ -115,7 +121,12 @@ public class StudentMenu {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter CourseID");
 		int courseID = sc.nextInt();
-		registrationInterface.dropCourse(studentID, courseID);
+		try {
+			registrationInterface.dropCourse(studentID, courseID);
+		}
+		catch(Exception E) {
+			
+		}
 		sc.close();
 	}
 
