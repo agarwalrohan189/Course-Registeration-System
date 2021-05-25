@@ -11,7 +11,7 @@ public class RegisteredCourse {
 
 	String courseName, instructor, studentId;
 	int semesterNo, courseId;
-	Grade grade;
+	StudentGrade grade;
 	
 	public String getCourseName() {
 		return courseName;
@@ -48,10 +48,10 @@ public class RegisteredCourse {
 		this.courseId = courseId;
 	}
 	
-	public Grade getGrade() {
+	public StudentGrade getGrade() {
 		return grade;
 	}
-	public void setGrade(Grade grade) {
+	public void setGrade(StudentGrade grade) {
 		this.grade = grade;
 	}
 }
