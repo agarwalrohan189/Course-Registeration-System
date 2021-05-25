@@ -16,16 +16,14 @@ public interface AdminInterface {
     /**
      * Method to add course in catalogue.
      * @param course -> Course to be added
-     * @param courseList -> Current course Catalogue
      */
-    public void addCourse(Course course, List<Course> courseList) throws CourseFoundException;
+    public void addCourse(Course course) throws CourseFoundException;
 
     /**
      * Method to remove course from course catalogue.
      * @param courseID -> ID of course which is to be removed
-     * @param courseList -> Current course catalogue
      */
-    public void removeCourse(int courseID, List<Course> courseList) throws CourseNotFoundException, CourseNotDeletedException;
+    public void removeCourse(int courseID) throws CourseNotFoundException, CourseNotDeletedException;
 
     /**
      * To validate course registration of a student.
@@ -42,9 +40,24 @@ public interface AdminInterface {
 
     /**
      * removes a professor object from the database
-     * @param professor : professor object containing the details of the prof
+     * @param profID : professor ID of professor to be removed
+     * @throws ProfFoundException
      */
-    public void removeProf(Professor professor) throws ProfNotFoundException;
+    public void removeProf(String profID) throws ProfNotFoundException;
+
+    /**
+     * Adds student to the database
+     * @param student -> student to be added
+     * @throws UserAlreadyExistsException
+     */
+    public void addStudent(Student student) throws UserAlreadyExistsException;
+
+    /**
+     * Remove student from database
+     * @param studentID -> student which is to be removed
+     * @throws UserNotFoundException
+     */
+    public void removeStudent(String studentID) throws UserNotFoundException;
 
     /**
      * Add professor as instructor in the given course.
