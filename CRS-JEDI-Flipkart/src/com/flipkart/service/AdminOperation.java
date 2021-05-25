@@ -3,30 +3,28 @@ package com.flipkart.service;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
-import com.flipkart.exception.ProfNotFoundException;
-import com.flipkart.exception.UserAlreadyExistsException;
-import com.flipkart.exception.UserNotFoundException;
+import com.flipkart.exception.*;
 
 import java.util.List;
 
 public class AdminOperation implements AdminInterface{
     @Override
-    public void addCourse(Course course) {
+    public void addCourse(Course course) throws CourseFoundException {
 
     }
 
     @Override
-    public void removeCourse(int courseID) {
+    public void removeCourse(int courseID) throws CourseNotFoundException, CourseNotDeletedException {
 
     }
 
     @Override
-    public void validateRegistration(String studentID, List<Student> registeredStudents) {
+    public void validateRegistration(String studentID, List<Student> registeredStudents) throws StudentNotRegisteredException{
 
     }
 
     @Override
-    public void addProf(Professor professor) {
+    public void addProf(Professor professor) throws ProfNotAddedException, ProfFoundException{
 
     }
 
@@ -36,7 +34,7 @@ public class AdminOperation implements AdminInterface{
     }
 
     @Override
-    public void addStudent(Student student) throws UserAlreadyExistsException {
+    public void addStudent(Student student) throws UserAlreadyExistsException, UserNotAddedException {
 
     }
 
@@ -46,7 +44,7 @@ public class AdminOperation implements AdminInterface{
     }
 
     @Override
-    public void assignProf(String profID, int courseID) {
+    public void assignProf(String profID, int courseID) throws CourseNotFoundException, ProfNotFoundException{
 
     }
 

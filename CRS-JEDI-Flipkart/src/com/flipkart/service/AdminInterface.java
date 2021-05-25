@@ -30,7 +30,7 @@ public interface AdminInterface {
      * @param studentID -> ID of student to be added
      * @param registeredStudents -> List of registered students in the course
      */
-    public void validateRegistration(String studentID, List<Student> registeredStudents);
+    public void validateRegistration(String studentID, List<Student> registeredStudents) throws StudentNotRegisteredException;
 
     /**
      * Adds a professor object to the database
@@ -50,7 +50,7 @@ public interface AdminInterface {
      * @param student -> student to be added
      * @throws UserAlreadyExistsException
      */
-    public void addStudent(Student student) throws UserAlreadyExistsException;
+    public void addStudent(Student student) throws UserAlreadyExistsException, UserNotAddedException;
 
     /**
      * Remove student from database
