@@ -17,6 +17,7 @@ import com.flipkart.exception.CourseLimitExceededException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.CourseSeatsFullException;
 import com.flipkart.exception.StudentNotFoundException;
+import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.dao.RegistrationDaoInterface;
 import com.flipkart.dao.RegistrationDaoOperation;
 
@@ -27,7 +28,7 @@ import com.flipkart.dao.RegistrationDaoOperation;
 public class RegistrationOperation implements RegistrationInterface {
 
 	RegistrationDaoInterface registrationDaoInterface = new RegistrationDaoOperation();
-	UserInterface userInterface = new UserOperation();
+	UserInterface userInterface = UserOperation.getInstance();
 
 	@Override
 	public void registerCourses(String studentId) throws StudentNotFoundException{
@@ -41,23 +42,27 @@ public class RegistrationOperation implements RegistrationInterface {
 		if(course.getFilledSeats()>=Course.MAX_SEATS){
 			throw new CourseSeatsFullException(course.getCourseId());
 		}
-		Student student = userInterface.getUser(studentId);
-		if(student.getCoursesEnrolled().length>=MAX_COURSES){
-			throw new CourseLimitExceededException(MAX_COURSES);
+		if(viewRegisteredCourses(studentId).size() >= Student.MAX_COURSES){
+			throw new CourseLimitExceededException(Student.MAX_COURSES);
 		}
 		return registrationDaoInterface.addCourse(studentId, courseCode);
 	}
 
 	@Override
 	public boolean dropCourse(String studentId, int courseCode) throws CourseNotFoundException, StudentNotFoundException{
-		registrationDaoInterface.getCourse();
-		userInterface.getUser(studentId);
-		return registrationDaoInterface.dropCourse(studentId, courseCode);
+		registrationDaoInterface.getCourse(courseCode);
+		try{
+			userInterface.getDetails(studentId);
+			return registrationDaoInterface.dropCourse(studentId, courseCode);
+		}
+		catch(Exception e){
+			throw new StudentNotFoundException(studentId);
+		}
 	}
 
 	@Override
 	public List<Course> viewRegisteredCourses(String studentId) throws StudentNotFoundException{
-		return ((Student)userInterface.getUser(studentId)).getCoursesEnrolled();
+		return get;
 	}
 
 	@Override

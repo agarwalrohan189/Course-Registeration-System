@@ -20,6 +20,7 @@ import com.flipkart.constant.Role;
 public class Student extends User {
 	String branch;
 	int batchYear;
+	public static final int MAX_COURSES = 4;
 	boolean paymentDone;
 
 	/**
