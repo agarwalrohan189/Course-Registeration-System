@@ -6,6 +6,10 @@ public class NotificationOperation implements NotificationInterface{
 
     @Override
     public int sendNotification(String notificationMessage, String studentID, Payment method, double amount) {
-        return 0;
+        System.out.println("______________________");
+    	System.out.println("Result of Payment:");
+        System.out.println(notificationMessage);
+        System.out.println("______________________");
+    	return 0;
     }
 }
