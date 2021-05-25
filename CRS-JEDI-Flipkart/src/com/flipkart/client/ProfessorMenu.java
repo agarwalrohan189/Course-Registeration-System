@@ -78,7 +78,7 @@ public class ProfessorMenu {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter CourseID : ");
 		int courseID = sc.nextInt();
-		List<Student> students = professorInterface.viewStudent(professorID, courseID);
+		List<Student> students = professorInterface.viewStudent(courseID, professorID);
 		System.out.println("StudentID\tStudent Name\tBranch");
 		for (Student student : students) {
 			System.out.println(student.getId() + "\t" + student.getName() + "\t" + student.getBranch());

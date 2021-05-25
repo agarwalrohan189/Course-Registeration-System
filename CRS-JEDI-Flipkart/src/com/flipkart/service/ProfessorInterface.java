@@ -2,6 +2,7 @@ package com.flipkart.service;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.exception.GradeNotAssignedException;
 
 import java.util.List;
 
@@ -11,23 +12,17 @@ import java.util.List;
 public interface ProfessorInterface {
 
     /**
-     * Method to view course catalogue.
-     * @return -> List of current courses in catalogue.
+     * Method to view course which professor is teaching
+     * @return -> List of courses professor is teaching
      */
-    public List<Course> viewCourses();
-
-    /**
-     * Register for a course in a given semester.
-     * @param courseID -> Course which professor is requesting.
-     */
-    public void registerCourse(int courseID);
+    public List<Course> viewCourses(String profID);
 
     /**
      * Return enrolled student list for given course.
      * @param courseID -> ID of course whose students are requested.
      * @return -> List of students enrolled in course.
      */
-    public List<Student> viewStudent(int courseID);
+    public List<Student> viewStudent(int courseID, String profID);
 
     /**
      * Method to assign grade to student.
@@ -35,6 +30,6 @@ public interface ProfessorInterface {
      * @param courseID -> ID of course in which grade is given.
      * @param grade -> Grade given to student.
      */
-    public void assignGrade(String studentID, int courseID, String grade);
+    public void assignGrade(String profID, String studentID, int courseID, String grade) throws GradeNotAssignedException;
 
 }
