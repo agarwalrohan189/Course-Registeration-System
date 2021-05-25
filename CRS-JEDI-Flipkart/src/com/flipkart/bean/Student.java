@@ -5,6 +5,9 @@ package com.flipkart.bean;
 
 import java.util.Date;
 
+import com.flipkart.constant.Gender;
+import com.flipkart.constant.Role;
+
 /**
  * @author Shubham
  *
@@ -15,10 +18,9 @@ import java.util.Date;
  */
 public class Student extends User {
 	String branch;
-	Course coursesEnrolled[];
 	int batchYear;
-	
-	
+	boolean paymentDone;
+
 	/**
 	 * @param id
 	 * @param name
@@ -32,12 +34,12 @@ public class Student extends User {
 	 * @param coursesEnrolled
 	 * @param batchYear
 	 */
-	public Student(String id, String name, String role, String password, String gender, String address, String username,
-			Date doB, String branch, Course[] coursesEnrolled, int batchYear) {
+	public Student(String id, String name, Role role, String password, Gender gender, String address, String username,
+			Date doB, String branch, int batchYear, boolean paymentDone) {
 		super(id, name, role, password, gender, address, username, doB);
 		this.branch = branch;
-		this.coursesEnrolled = coursesEnrolled;
 		this.batchYear = batchYear;
+		this.paymentDone = paymentDone;
 	}
 
 
@@ -49,17 +51,18 @@ public class Student extends User {
 		this.branch = branch;
 	}
 	
-	public Course[] getCoursesEnrolled() {
-		return coursesEnrolled;
-	}
-	public void setCoursesEnrolled(Course[] coursesEnrolled) {
-		this.coursesEnrolled = coursesEnrolled;
-	}
-	
 	public int getBatchYear() {
 		return batchYear;
 	}
 	public void setBatchYear(int batchYear) {
 		this.batchYear = batchYear;
+	}
+	
+	public boolean isPaymentDone() {
+		return paymentDone;
+	}
+
+	public void setPaymentDone(boolean paymentDone) {
+		this.paymentDone = paymentDone;
 	}
 }

@@ -6,6 +6,9 @@ package com.flipkart.bean;
 
 import java.util.Date;
 
+import com.flipkart.constant.Gender;
+import com.flipkart.constant.Role;
+
 /**
  * @author rohanagarwal
  *
@@ -14,15 +17,15 @@ public abstract class User {
 	
 	private String Id;
 	private String name;
-	private String role;
+	private Role role;
 	private String password;
-	private String gender;
+	private Gender gender;
 	private String address;
 	private String username;
 	private Date DoB;
 	
 	
-	public User(String id, String name, String role, String password, String gender, String address, String username,
+	public User(String id, String name, Role role, String password, Gender gender, String address, String username,
 			Date doB) {
 		super();
 		Id = id;
@@ -48,10 +51,10 @@ public abstract class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 	public String getPassword() {
@@ -60,10 +63,10 @@ public abstract class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 	public String getAddress() {

@@ -1,6 +1,9 @@
 package com.flipkart.bean;
 import java.util.Date;
 
+import com.flipkart.constant.Role;
+import com.flipkart.constant.Gender;
+
 public class Admin extends User {
 	
 	private Date dateOfJoining;
@@ -16,7 +19,7 @@ public class Admin extends User {
 	 * @param doB
 	 * @param dateOfJoining
 	 */
-	public Admin(String id, String name, String role, String password, String gender, String address, String username,
+	public Admin(String id, String name, Role role, String password, Gender gender, String address, String username,
 			Date doB, Date dateOfJoining) {
 		super(id, name, role, password, gender, address, username, doB);
 		this.dateOfJoining = dateOfJoining;

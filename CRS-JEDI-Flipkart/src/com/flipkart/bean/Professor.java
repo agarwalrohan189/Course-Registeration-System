@@ -4,6 +4,9 @@
 package com.flipkart.bean;
 import java.util.Date;
 
+import com.flipkart.constant.Gender;
+import com.flipkart.constant.Role;
+
 /**
  * @author Shubham
  *
@@ -11,7 +14,6 @@ import java.util.Date;
 public class Professor extends User {
 
 	String department;
-	Course courseList[];
 	String qualification;
 	Date dateOfJoining;
 	
@@ -30,12 +32,11 @@ public class Professor extends User {
 	 * @param qualification
 	 * @param dateOfJoining
 	 */
-	public Professor(String id, String name, String role, String password, String gender, String address,
-			String username, Date doB, String department, Course[] courseList, String qualification,
+	public Professor(String id, String name, Role role, String password, Gender gender, String address,
+			String username, Date doB, String department, String qualification,
 			Date dateOfJoining) {
 		super(id, name, role, password, gender, address, username, doB);
 		this.department = department;
-		this.courseList = courseList;
 		this.qualification = qualification;
 		this.dateOfJoining = dateOfJoining;
 	}
@@ -54,22 +55,6 @@ public class Professor extends User {
 	 */
 	public void setDepartment(String department) {
 		this.department = department;
-	}
-
-
-	/**
-	 * @return the courseList
-	 */
-	public Course[] getCourseList() {
-		return courseList;
-	}
-
-
-	/**
-	 * @param courseList the courseList to set
-	 */
-	public void setCourseList(Course[] courseList) {
-		this.courseList = courseList;
 	}
 
 
