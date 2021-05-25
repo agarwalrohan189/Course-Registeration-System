@@ -3,66 +3,69 @@
  */
 package com.flipkart.bean;
 
+import com.flipkart.constant.ModeOfPayment;
+
 /**
  * @author rohanagarwal
  *
  */
 public class PaymentNotification {
+//	private static int staticNotificationId;
+//	private int notificationId;
+//	private int paymentId;
+//	private float amount;
+//	private ModeOfPayment paymentMethod;
 	
-	private int notificationId;
-	private int paymentId;
-	private float amount;
-	private String paymentMethod;
-	private String notificationMessage;
+	private String message;
 	
-	public PaymentNotification(int notificationId, int paymentId, float amount, String paymentMethod,
-			String notificationMessage) {
-		this.notificationId = notificationId;
-		this.paymentId = paymentId;
-		this.amount = amount;
-		this.paymentMethod = paymentMethod;
-		this.notificationMessage = notificationMessage;
+	public PaymentNotification(Payment payObj, float amtToBePaid) {
+		if(!payObj.isStatus()) {
+			message = "Payment Failed! Please Try again.";
+		}else {
+			message = "Amount(" + payObj.amount + ") has been fully paid via " + ModeOfPayment.getStringModeOfPayment(payObj.paymentMethod) + ". Thank You";
+		}
+		/*else if(payObj.amount > amtToBePaid) {
+			message = "Amount(" + payObj.amount + ") paid via " + ModeOfPayment.getStringModeOfPayment(payObj.paymentMethod) + " is more than required(" + amtToBePaid + "). Please contact cash counter to get refund.";
+		}else if(payObj.amount < amtToBePaid) {
+			message = "Amount(" + payObj.amount + ") paid via " + ModeOfPayment.getStringModeOfPayment(payObj.paymentMethod) + " is less than required(" + amtToBePaid + "). Please deposit remaining fee before due date.";
+		}*/
 	}
-
-	public int getNotificationId() {
-		return notificationId;
-	}
-
-	public void setNotificationId(int notificationId) {
-		this.notificationId = notificationId;
-	}
-
-	public int getPaymentId() {
-		return paymentId;
-	}
-
-	public void setPaymentId(int paymentId) {
-		this.paymentId = paymentId;
-	}
-
-	public float getAmount() {
-		return amount;
-	}
-
-	public void setAmount(float amount) {
-		this.amount = amount;
-	}
-
-	public String getPaymentMethod() {
-		return paymentMethod;
-	}
-
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
-	}
-
+	
 	public String getNotificationMessage() {
-		return notificationMessage;
+		return message;
 	}
 
-	public void setNotificationMessage(String notificationMessage) {
-		this.notificationMessage = notificationMessage;
-	}
+//	public int getNotificationId() {
+//		return notificationId;
+//	}
+//
+//	public void setNotificationId(int notificationId) {
+//		this.notificationId = notificationId;
+//	}
+//
+//	public int getPaymentId() {
+//		return paymentId;
+//	}
+//
+//	public void setPaymentId(int paymentId) {
+//		this.paymentId = paymentId;
+//	}
+//
+//	public float getAmount() {
+//		return amount;
+//	}
+//
+//	public void setAmount(float amount) {
+//		this.amount = amount;
+//	}
+//
+//	public ModeOfPayment getPaymentMethod() {
+//		return paymentMethod;
+//	}
+//
+//	public void setPaymentMethod(ModeOfPayment paymentMethod) {
+//		this.paymentMethod = paymentMethod;
+//	}
 	
 	
 	

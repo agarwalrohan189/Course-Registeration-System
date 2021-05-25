@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
+import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.exception.*;
 
 /**
@@ -60,8 +61,8 @@ public interface RegistrationInterface {
 	 * @param studentId
 	 * @return
 	 */
-	public double calculateFee(String studentId) throws StudentNotFoundException;
+	public float calculateFee(String studentId) throws StudentNotFoundException;
+// public List<Course> viewCourses(String studentId);
 
-
-// public List<Course> viewCourses(String studentId);
+	void payFee(String studentId, ModeOfPayment mode, float amount);
 }

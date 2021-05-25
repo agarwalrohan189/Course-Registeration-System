@@ -6,7 +6,10 @@ package com.flipkart.service;
 import java.util.List;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Payment;
+import com.flipkart.bean.PaymentNotification;
 import com.flipkart.bean.StudentGrade;
+import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.exception.CourseLimitExceededException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.CourseSeatsFullException;
@@ -50,9 +53,23 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 
 	@Override
-	public double calculateFee(String studentId) throws StudentNotFoundException{
+	public float calculateFee(String studentId){
 		// TODO Auto-generated method stub
-		return 0;
+		return 100;
 	}
+	
+	@Override
+	public void payFee(String studentId, ModeOfPayment mode, float amount) {
+		
+		float feeToBePaid = calculateFee(studentId);
+		Payment payObj = new Payment(studentId, mode, amount);
+		PaymentNotification notifObj = new PaymentNotification(payObj, feeToBePaid);
+		if(payObj.isStatus()) {
+			//decrement fee
+		}
+		NotificationOperation NotifOp = new NotificationOperation();
+		NotifOp.sendNotification(notifObj);
+	}
+
 
 }
