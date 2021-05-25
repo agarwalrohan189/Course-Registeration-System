@@ -137,7 +137,6 @@ public class UserDAOOperation implements UserDAOInterface{
 				}
 				else
 				{
-					return new Admin(userId, username, role, password, gender, address, username, dob, doj)
 					try
 					{
 						PreparedStatement stmt = conn.prepareStatement(SQLQueries.GET_ADMIN_DETAILS_QUERY);
