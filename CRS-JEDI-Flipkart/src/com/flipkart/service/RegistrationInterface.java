@@ -64,5 +64,7 @@ public interface RegistrationInterface {
 	 */
 	public double calculateFee(String studentId);
 
+	boolean isRegistered(String studentId);
+
 // public List<Course> viewCourses(String studentId);
 }
