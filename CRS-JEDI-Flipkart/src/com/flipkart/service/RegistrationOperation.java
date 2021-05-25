@@ -54,10 +54,4 @@ public class RegistrationOperation implements RegistrationInterface {
 		return 0;
 	}
 
-	@Override
-	public boolean isRegistered(String studentId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }
