@@ -4,6 +4,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.GradeNotAssignedException;
 import com.flipkart.exception.ProfNotFoundException;
+import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.exception.UserNotFoundException;
 
 import java.util.List;
@@ -32,6 +33,6 @@ public interface ProfessorInterface {
      * @param courseID -> ID of course in which grade is given.
      * @param grade -> Grade given to student.
      */
-    public void assignGrade(String profID, String studentID, int courseID, String grade) throws GradeNotAssignedException, ProfNotFoundException, UserNotFoundException;
+    public void assignGrade(String profID, String studentID, int courseID, String grade) throws GradeNotAssignedException, ProfNotFoundException, StudentNotFoundException;
 
 }

@@ -30,7 +30,7 @@ public interface AdminInterface {
      * @param studentID -> ID of student to be added
      * @param registeredStudents -> List of registered students in the course
      */
-    public void validateRegistration(String studentID, List<Student> registeredStudents) throws StudentNotRegisteredException;
+    public void validateRegistration(String studentID, List<Student> registeredStudents) throws StudentNotRegisteredException, StudentNotFoundException;
 
     /**
      * Adds a professor object to the database
@@ -50,14 +50,14 @@ public interface AdminInterface {
      * @param student -> student to be added
      * @throws UserAlreadyExistsException
      */
-    public void addStudent(Student student) throws UserAlreadyExistsException, UserNotAddedException;
+    public void addStudent(Student student) throws StudentAlreadyExistsException, StudentNotAddedException;
 
     /**
      * Remove student from database
      * @param studentID -> student which is to be removed
      * @throws UserNotFoundException
      */
-    public void removeStudent(String studentID) throws UserNotFoundException;
+    public void removeStudent(String studentID) throws StudentNotFoundException;
 
     /**
      * Add professor as instructor in the given course.

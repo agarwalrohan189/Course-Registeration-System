@@ -34,12 +34,12 @@ public class AdminOperation implements AdminInterface{
     }
 
     @Override
-    public void addStudent(Student student) throws UserAlreadyExistsException, UserNotAddedException {
+    public void addStudent(Student student) throws StudentAlreadyExistsException, StudentNotAddedException {
 
     }
 
     @Override
-    public void removeStudent(String studentID) throws UserNotFoundException {
+    public void removeStudent(String studentID) throws StudentNotFoundException {
 
     }
 
