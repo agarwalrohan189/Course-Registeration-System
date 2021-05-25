@@ -60,4 +60,5 @@ public class SQLQueries {
 		public static final String NUMBER_OF_REGISTERED_COURSES=" select studentId from registeredcourse where studentId = ? ";
 		public static final String IS_REGISTERED=" select courseCode from registeredcourse where courseCode=? and studentId=? ";
 		public static final String GET_STUDENT_DETAILS_QUERY = "select * from Students where id = ?";
+		public static final String GET_STUDENT_GRADES = "select grade, courseID from registeredCourse where studentID=?";
 }

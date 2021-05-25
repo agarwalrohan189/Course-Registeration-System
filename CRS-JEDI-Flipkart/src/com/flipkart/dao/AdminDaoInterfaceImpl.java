@@ -14,7 +14,9 @@ import com.flipkart.utils.DBUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -337,7 +339,23 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
      * @param studentID -> ID of student whose report card is being generated
      */
     @Override
-    public void generateReportCard(String studentID) {
+    public void generateReportCard(String studentID) throws StudentNotFoundException{
+        statement = null;
+        try {
+            String sql = SQLQueries.GET_STUDENT_GRADES;
+            statement = conn.prepareStatement(sql);
+            statement.setString(1,studentID);
 
+            ResultSet resultSet = statement.executeQuery();
+
+            HashMap<Integer,String> reportCard = new HashMap<Integer, String>();
+
+            while (resultSet.next()){
+                reportCard.put(resultSet.getInt("cid"),resultSet.getString("grade"));
+            }
+
+        }catch (Exception e){
+            throw new StudentNotFoundException(studentID);
+        }
     }
 }
