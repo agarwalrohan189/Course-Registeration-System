@@ -6,6 +6,7 @@ package com.flipkart.service;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
+import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.exception.UserNotFoundException;
 
@@ -18,6 +19,6 @@ public interface StudentInterface {
 
     public List<Course> viewCourseCatalogue();
 
-    public List<StudentGrade> viewGrades(String StudentId) throws UserNotFoundException;
+    public List<StudentGrade> viewGrades(String StudentId) throws StudentNotFoundException;
 
 } 
