@@ -140,13 +140,13 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             statement.setString(2, professor.getDepartment()); //TODO: update here after updating SQL queries constant
             int row = statement.executeUpdate();
 
-            logger.info(row + " professor added.");
+            System.out.println(row + " professor added.");
             if(row == 0) {
                 System.out.println("Professor with professorId: " + professor.getId() + " not added.");
                 throw new ProfNotAddedException(professor.getId());
             }
 
-            logger.info("Professor with professorId: " + professor.getId() + " added.");
+            System.out.println("Professor with professorId: " + professor.getId() + " added.");
 
         }catch(SQLException se) {
 
@@ -177,13 +177,13 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             statement.setString(6, user.getAddress()); //TODO: update here after updating SQL queries constant
             int row = statement.executeUpdate();
 
-            logger.info(row + " user added.");
+            System.out.println(row + " user added.");
             if(row == 0) {
                 System.out.println("User with userId: " + user.getId() + " not added.");
                 throw new UserNotAddedException(user.getId());
             }
 
-            logger.info("User with userId: " + user.getUsername() + " added.");
+            System.out.println("User with userId: " + user.getUsername() + " added.");
 
         }catch(SQLException se) {
 
@@ -210,13 +210,13 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             statement.setString(1, profID); //TODO: update here after updating SQL queries constant
             int row = statement.executeUpdate();
 
-            logger.info(row + " entries deleted.");
+            System.out.println(row + " entries deleted.");
             if(row == 0) {
                 System.out.println("Prof with userId: " + profID + " not deleted.");
                 throw new ProfNotFoundException(profID);
             }
 
-            logger.info("Prof with userId: " + profID + " deleted.");
+            System.out.println("Prof with userId: " + profID + " deleted.");
 
         }catch(SQLException se) {
 
@@ -248,13 +248,13 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             statement.setString(6, student.getAddress()); //TODO: update here after updating SQL queries constant
             int row = statement.executeUpdate();
 
-            logger.info(row + " student added.");
+            System.out.println(row + " student added.");
             if(row == 0) {
                 System.out.println("Student with userId: " + student.getId() + " not added.");
                 throw new StudentAlreadyExistsException(student.getId());
             }
 
-            logger.info("User with userId: " + student.getUsername() + " added.");
+            System.out.println("User with userId: " + student.getUsername() + " added.");
 
         }catch(SQLException se) {
 
@@ -281,13 +281,13 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             statement.setString(1, studentID); //TODO: update here after updating SQL queries constant
             int row = statement.executeUpdate();
 
-            logger.info(row + " entries deleted.");
+            System.out.println(row + " entries deleted.");
             if(row == 0) {
                 System.out.println("Student with userId: " + studentID + " not deleted.");
                 throw new StudentNotFoundException(studentID);
             }
 
-            logger.info("User with userId: " + studentID + " deleted.");
+            System.out.println("User with userId: " + studentID + " deleted.");
 
         }catch(SQLException se) {
 
@@ -315,13 +315,13 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             statement.setInt(2, courseID);//TODO: update here after updating SQL queries constant
             int row = statement.executeUpdate();
 
-            logger.info(row + " entries updated.");
+            System.out.println(row + " entries updated.");
             if(row == 0) {
                 System.out.println("Prof with userId: " + profID + " cannot be assigned to course : " + courseID);
                 throw new CourseNotFoundException(courseID);
             }
 
-            logger.info("Prof with userId: " + profID + " assigned to course : " + courseID);
+            System.out.println("Prof with userId: " + profID + " assigned to course : " + courseID);
 
         }catch(SQLException se) {
 
