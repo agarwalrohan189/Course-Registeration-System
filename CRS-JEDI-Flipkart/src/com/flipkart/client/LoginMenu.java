@@ -65,6 +65,7 @@ public class LoginMenu {
 		// TODO Auto-generated method stub
 		try {
 			UserOperation.getInstance().login(uName, password);
+			System.out.println("Login " + uName);
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
@@ -72,7 +73,6 @@ public class LoginMenu {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
-		System.out.println("Login " + uName);
 	}
 
 	private static void registration() {
