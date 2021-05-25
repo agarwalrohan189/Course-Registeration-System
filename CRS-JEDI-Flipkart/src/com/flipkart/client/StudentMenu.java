@@ -3,8 +3,12 @@
  */
 package com.flipkart.client;
 
+import java.util.List;
 import java.util.Scanner;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.StudentGrade;
+import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentOperation;
 
@@ -15,6 +19,7 @@ import com.flipkart.service.StudentOperation;
 public class StudentMenu {
 	String studentID;
 	StudentInterface studentInterface = new StudentOperation();
+	RegistrationInterface registrationInterface = new RegistrationOperation();
 
 	public StudentMenu(String studentID) {
 		this.studentID = studentID;
@@ -78,33 +83,44 @@ public class StudentMenu {
 	}
 
 	private void viewCourseCatalogue() {
-		
+		List<Course> courses = studentInterface.viewCourseCatalogue(studentID);
+		System.out.println("Course ID\tCourse Name\tSeats");
+		for (Course course : courses) {
+			System.out.printf(course.getCourseId() + "\t" + course.getCourseName() + "\t" + course.getSeats());
+		}
 	}
 
 	private void viewGrades() {
-
+		List<StudentGrade> grades = studentInterface.viewGrades(studentID);
+		System.out.println("Course ID\tCourse Name\tGrade");
+		for(StudentGrade grade:grades) {
+			System.out.println(grade.getCourseCode() + "\t" + grade.getCourseName() + "\t" + grade.getGrade());
+		}
 	}
 
 	private void register() {
-
+//		if(notregistered)
+		registrationInterface.register();
 	}
 
 	private void addCourse() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter CourseID");
-		int cid = sc.nextInt();
+		int courseID = sc.nextInt();
+		registrationInterface.addCourse(studentID, courseID);
 		sc.close();
 	}
 
 	private void dropCourse() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter CourseID");
-		int cid = sc.nextInt();
+		int courseID = sc.nextInt();
+		registrationInterface.dropCourse(studentID, courseID);
 		sc.close();
 	}
 
 	private void viewRegisteredCourses() {
-
+		
 	}
 
 	private void payFee() {
@@ -112,6 +128,5 @@ public class StudentMenu {
 		System.out.println("Enter Amount");
 		int amount = sc.nextInt();
 		sc.close();
-
 	}
 }
