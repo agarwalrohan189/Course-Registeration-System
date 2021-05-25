@@ -22,6 +22,20 @@ public abstract class User {
 	private Date DoB;
 	
 	
+	public User(String id, String name, String role, String password, String gender, String address, String username,
+			Date doB) {
+		super();
+		Id = id;
+		this.name = name;
+		this.role = role;
+		this.password = password;
+		this.gender = gender;
+		this.address = address;
+		this.username = username;
+		DoB = doB;
+	}
+	
+	
 	public String getId() {
 		return Id;
 	}

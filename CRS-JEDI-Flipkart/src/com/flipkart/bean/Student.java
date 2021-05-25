@@ -3,8 +3,14 @@
  */
 package com.flipkart.bean;
 
+import java.util.Date;
+
 /**
  * @author Shubham
+ *
+ */
+/**
+ * @author rohanagarwal
  *
  */
 public class Student extends User {
@@ -12,6 +18,30 @@ public class Student extends User {
 	Course coursesEnrolled[];
 	int batchYear;
 	
+	
+	/**
+	 * @param id
+	 * @param name
+	 * @param role
+	 * @param password
+	 * @param gender
+	 * @param address
+	 * @param username
+	 * @param doB
+	 * @param branch
+	 * @param coursesEnrolled
+	 * @param batchYear
+	 */
+	public Student(String id, String name, String role, String password, String gender, String address, String username,
+			Date doB, String branch, Course[] coursesEnrolled, int batchYear) {
+		super(id, name, role, password, gender, address, username, doB);
+		this.branch = branch;
+		this.coursesEnrolled = coursesEnrolled;
+		this.batchYear = batchYear;
+	}
+
+
+
 	public String getBranch() {
 		return branch;
 	}
