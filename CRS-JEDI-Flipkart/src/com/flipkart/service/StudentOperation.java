@@ -22,19 +22,17 @@ public class StudentOperation implements StudentInterface {
 	public void register(String id, String name, String role, String password, String gender, String address, String username,
 			Date doB, String branch, Course[] coursesEnrolled, int batchYear) throws StudentNotRegisteredException {
 		// TODO Auto-generated method stub
-		try {
-			Student newStudent = new Student(id, name, role, password, gender, address, username,
-			doB, branch, coursesEnrolled, batchYear);
-			//register the student using database;
-		}
-		catch(StudentNotRegisteredException e) {
-			throw e;
-		}
+		
+		Student newStudent = new Student(id, name, role, password, gender, address, username,
+		doB, branch, coursesEnrolled, batchYear);
+		
+		//register the student using database throw exception
 	}
 
 	@Override
 	public List<Course> viewCourseCatalogue(String userID) {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
