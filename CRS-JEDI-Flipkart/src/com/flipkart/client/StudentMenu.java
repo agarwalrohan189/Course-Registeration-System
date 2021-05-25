@@ -9,6 +9,7 @@ import java.util.Scanner;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.service.RegistrationInterface;
+import com.flipkart.service.RegistrationOperation;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentOperation;
 
@@ -100,7 +101,7 @@ public class StudentMenu {
 
 	private void register() {
 //		if(notregistered)
-		registrationInterface.register();
+		registrationInterface.registerCourses(studentID);
 	}
 
 	private void addCourse() {

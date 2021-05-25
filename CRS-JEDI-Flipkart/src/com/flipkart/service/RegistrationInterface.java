@@ -8,21 +8,23 @@ import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
+import com.flipkart.exception.*;
 
 public interface RegistrationInterface {
-    public boolean addCourse(int courseCode, int studentId, List<Course> courseList);
 
-    public boolean dropCourse(int courseCode, int studentId, List<Course> registeredCourseList);
+    public void registerCourses(String studentId);
 
-    public List<Course> viewCourses(int studentId);
+    public boolean addCourse(String studentId, int courseCode) throws CourseNotFoundException, CourseLimitExceededException, CourseSeatsFullException;
 
-    public List<Course> viewRegisteredCourses(int studentId);
+    public boolean dropCourse(String studentId, int courseCode) throws CourseNotFoundException;
 
-    public List<StudentGrade> viewGradeCard(int studentId);
+    // public List<Course> viewCourses(String studentId);
 
-    public double calculateFee(int studentId);
+    public List<Course> viewRegisteredCourses(String studentId);
 
-    public boolean getRegistrationStatus(int studentId);
+    public List<StudentGrade> viewGradeCard(String studentId);
 
-    public void setRegistrationStatus(int studentId);
+    public double calculateFee(String studentId);
+
+    public boolean isRegistered(String studentId);
 }

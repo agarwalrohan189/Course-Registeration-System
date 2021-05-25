@@ -1,6 +1,6 @@
 package com.flipkart.exception;
 
-class CourseLimitExceededException extends Exception{
+public class CourseLimitExceededException extends Exception{
 
     private int num;
 
