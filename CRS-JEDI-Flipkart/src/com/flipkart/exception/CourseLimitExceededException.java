@@ -1,11 +1,19 @@
 package com.flipkart.exception;
 
-public class CourseLimitExceededException extends Exception{
+/**
+ * Exception for when registered courses for a student becomes > 4
+ * @author shubh
+ *
+ */
+public class CourseLimitExceededException extends Exception {
 
-    private int num;
-
-    public CourseLimitExceededException(int num )
-	{	
+	private int num;
+	
+	/**
+	 * Constructor
+	 * @param num Number of courses
+ 	 */
+	public CourseLimitExceededException(int num) {
 		this.num = num;
 	}
 
@@ -13,8 +21,7 @@ public class CourseLimitExceededException extends Exception{
 	 * Message returned when exception is thrown
 	 */
 	@Override
-	public String getMessage() 
-	{
+	public String getMessage() {
 		return "Cannot register for more courses, already registered for " + num + " courses";
 	}
 }

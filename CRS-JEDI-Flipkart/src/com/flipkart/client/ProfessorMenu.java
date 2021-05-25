@@ -21,6 +21,10 @@ public class ProfessorMenu {
 	String professorID;
 	ProfessorInterface professorInterface = new ProfessorOperation();
 
+	/**
+	 * Constructor
+	 * @param profID
+	 */
 	public ProfessorMenu(String profID) {
 		this.professorID = profID;
 	}
@@ -28,7 +32,7 @@ public class ProfessorMenu {
 	/**
 	 * Display the menu for professor
 	 */
-	public void displayUI() {
+	public void displayMenu() {
 		// Display the options available for the Professor
 		Scanner sc = new Scanner(System.in);
 
@@ -66,6 +70,9 @@ public class ProfessorMenu {
 		}
 	}
 
+	/**
+	 * View all courses alloted to professor
+	 */
 	private void viewCourses() {
 		List<Course> courses = professorInterface.viewCourses(professorID);
 		System.out.println("Course ID\tCourse Name\tSeats");
@@ -74,6 +81,9 @@ public class ProfessorMenu {
 		}
 	}
 
+	/**
+	 * View all students registered in a given course
+	 */
 	private void viewStudents() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter CourseID : ");
@@ -86,6 +96,9 @@ public class ProfessorMenu {
 		sc.close();
 	}
 
+	/**
+	 * Assign Grades to a student
+	 */
 	private void assignGrades() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter Course ID");

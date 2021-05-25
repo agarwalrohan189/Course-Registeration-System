@@ -18,15 +18,22 @@ import com.flipkart.service.StudentOperation;
  *
  */
 public class StudentMenu {
+	
 	String studentID;
 	StudentInterface studentInterface = new StudentOperation();
 	RegistrationInterface registrationInterface = new RegistrationOperation();
 
+	/**
+	 * @param studentID
+	 */
 	public StudentMenu(String studentID) {
 		this.studentID = studentID;
 	}
 
-	public void displayUI() {
+	/**
+	 * Display menu for student
+	 */
+	public void displayMenu() {
 		// Display the options available for the Student
 		Scanner sc = new Scanner(System.in);
 		while (true) {
@@ -52,7 +59,7 @@ public class StudentMenu {
 				break;
 
 			case 3:
-				register();
+				registerCourses();
 				break;
 
 			case 4:
@@ -83,6 +90,9 @@ public class StudentMenu {
 		}
 	}
 
+	/**
+	 * View all available courses
+	 */
 	private void viewCourseCatalogue() {
 		List<Course> courses = studentInterface.viewCourseCatalogue(studentID);
 		System.out.println("Course ID\tCourse Name\tSeats");
@@ -91,6 +101,9 @@ public class StudentMenu {
 		}
 	}
 
+	/**
+	 * View grades for the semester
+	 */
 	private void viewGrades() {
 		List<StudentGrade> grades = studentInterface.viewGrades(studentID);
 		System.out.println("Course ID\tCourse Name\tGrade");
@@ -99,11 +112,17 @@ public class StudentMenu {
 		}
 	}
 
-	private void register() {
+	/**
+	 * Register courses for the semester
+	 */
+	private void registerCourses() {
 //		if(notregistered)
 		registrationInterface.registerCourses(studentID);
 	}
 
+	/**
+	 * Add a course
+	 */
 	private void addCourse() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter CourseID");
@@ -117,6 +136,9 @@ public class StudentMenu {
 		sc.close();
 	}
 
+	/**
+	 * Drop a course
+	 */
 	private void dropCourse() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter CourseID");
@@ -130,10 +152,16 @@ public class StudentMenu {
 		sc.close();
 	}
 
+	/**
+	 * View registered courses
+	 */
 	private void viewRegisteredCourses() {
 		
 	}
 
+	/**
+	 * Pay semester Fees
+	 */
 	private void payFee() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter Amount");

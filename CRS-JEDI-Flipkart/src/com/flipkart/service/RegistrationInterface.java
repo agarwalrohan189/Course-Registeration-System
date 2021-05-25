@@ -3,28 +3,66 @@
  */
 package com.flipkart.service;
 
-
 import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
-import com.flipkart.exception.*;
+import com.flipkart.exception.CourseLimitExceededException;
+import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.CourseSeatsFullException;
 
+/**
+ * @author shubh
+ *
+ */
 public interface RegistrationInterface {
 
-    public void registerCourses(String studentId);
+	/**
+	 * Register selected courses
+	 * @param studentId
+	 */
+	public void registerCourses(String studentId);
 
-    public boolean addCourse(String studentId, int courseCode) throws CourseNotFoundException, CourseLimitExceededException, CourseSeatsFullException;
+	/**
+	 * Add a course
+	 * @param studentId
+	 * @param courseCode
+	 * @return
+	 * @throws CourseNotFoundException
+	 * @throws CourseLimitExceededException
+	 * @throws CourseSeatsFullException
+	 */
+	public boolean addCourse(String studentId, int courseCode)
+			throws CourseNotFoundException, CourseLimitExceededException, CourseSeatsFullException;
 
-    public boolean dropCourse(String studentId, int courseCode) throws CourseNotFoundException;
+	/**
+	 * Drop a course
+	 * @param studentId
+	 * @param courseCode
+	 * @return
+	 * @throws CourseNotFoundException
+	 */
+	public boolean dropCourse(String studentId, int courseCode) throws CourseNotFoundException;
 
-    // public List<Course> viewCourses(String studentId);
+	/**
+	 * View registered courses
+	 * @param studentId
+	 * @return
+	 */
+	public List<Course> viewRegisteredCourses(String studentId);
 
-    public List<Course> viewRegisteredCourses(String studentId);
+	/**
+	 * View grade card for the semester
+	 * @param studentId
+	 * @return
+	 */
+	public List<StudentGrade> viewGradeCard(String studentId);
 
-    public List<StudentGrade> viewGradeCard(String studentId);
+	/**
+	 * @param studentId
+	 * @return
+	 */
+	public double calculateFee(String studentId);
 
-    public double calculateFee(String studentId);
-
-    public boolean isRegistered(String studentId);
+// public List<Course> viewCourses(String studentId);
 }
