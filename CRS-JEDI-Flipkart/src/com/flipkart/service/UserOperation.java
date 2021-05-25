@@ -3,6 +3,9 @@
  */
 package com.flipkart.service;
 
+import com.flipkart.exception.PasswordIsWeakException;
+import com.flipkart.exception.PasswordMatchedOldException;
+import com.flipkart.exception.PasswordMismatchException;
 import com.flipkart.exception.UserNotFoundException;
 
 /**
@@ -11,13 +14,13 @@ import com.flipkart.exception.UserNotFoundException;
  */
 public class UserOperation implements UserInterface {
 
-	public boolean login(String userID, String password) throws UserNotFoundException {
+	public boolean login(String userID, String password) throws UserNotFoundException, PasswordMismatchException {
 		// TODO Auto-generated method stub
 		
 		return false;
 	}
 
-	public boolean setPassword(String userID, String newPassword) {
+	public boolean setPassword(String userID, String newPassword) throws PasswordMatchedOldException, PasswordIsWeakException{
 		// TODO Auto-generated method stub
 		return false;
 	}
