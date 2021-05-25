@@ -10,9 +10,9 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
 
 public interface RegistrationInterface {
-    public boolean addCourse(String courseCode, int studentId, List<Course> courseList);
+    public boolean addCourse(int courseCode, int studentId, List<Course> courseList);
 
-    public boolean dropCourse(String courseCode, int studentId, List<Course> registeredCourseList);
+    public boolean dropCourse(int courseCode, int studentId, List<Course> registeredCourseList);
 
     public List<Course> viewCourses(int studentId);
 
