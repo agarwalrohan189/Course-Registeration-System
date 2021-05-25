@@ -17,9 +17,9 @@ import com.flipkart.exception.UserNotFoundException;
  */
 public interface UserDAOInterface {
 
-	public boolean login(String userID,String password) throws UserNotFoundException, PasswordMismatchException;
+	public boolean login(String userID,String password) throws PasswordMismatchException;
 
-    boolean setPassword(String userID, String newPassword) throws PasswordMatchedOldException, PasswordIsWeakException;
+    boolean setPassword(String userID, String newPassword) throws UserNotFoundException, PasswordMatchedOldException, PasswordIsWeakException;
 
     public User getDetails(String userId) throws UserNotFoundException, StudentNotFoundException, ProfNotFoundException;
 	

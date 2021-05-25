@@ -31,7 +31,7 @@ import com.flipkart.utils.DBUtil;
  */
 public class UserDAOOperation implements UserDAOInterface{
 
-	public boolean login(String userID, String password) throws UserNotFoundException, PasswordMismatchException {
+	public boolean login(String userID, String password) throws PasswordMismatchException {
 		Connection conn = DBUtil.getConnection();
 		try
 		{
@@ -50,6 +50,9 @@ public class UserDAOOperation implements UserDAOInterface{
 		} catch (ProfNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
 		}
 		finally
 		{
@@ -63,9 +66,43 @@ public class UserDAOOperation implements UserDAOInterface{
 		return false;
 	}
 
-	public boolean setPassword(String userID, String newPassword)
-			throws PasswordMatchedOldException, PasswordIsWeakException {
+	public boolean setPassword(String userId, String newPassword)
+			throws UserNotFoundException, PasswordMatchedOldException, PasswordIsWeakException {
 		// TODO Auto-generated method stub
+		Connection conn = DBUtil.getConnection();
+		try {
+			
+			User user = getDetails(userId);
+			if (user.getPassword() == newPassword)
+				throw new PasswordMatchedOldException (userId);
+			
+			if (newPassword.length() < 8)
+				throw new PasswordIsWeakException(newPassword);
+			
+			PreparedStatement updatePassword = conn.prepareStatement(SQLQueries.UPDATE_PASSWORD);
+			updatePassword.setString(1, newPassword);
+			updatePassword.setString(2, userId);
+			updatePassword.executeQuery();
+		}
+		catch(SQLException e)
+		{
+			System.out.println(e.getMessage());
+		} catch (StudentNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		} catch (ProfNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return false;
 	}
 
