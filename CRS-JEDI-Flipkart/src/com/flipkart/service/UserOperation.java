@@ -18,6 +18,27 @@ import com.flipkart.exception.UserNotFoundException;
  */
 public class UserOperation implements UserInterface {
 
+	private static volatile UserOperation instance=null;
+
+	private UserOperation()
+	{	
+	}
+	
+	/**
+	 * Method to make UserOperation Singleton
+	 * @return
+	 */
+	public static UserOperation getInstance()
+	{
+		if(instance==null)
+		{
+			synchronized(UserOperation.class){
+				instance=new UserOperation();
+			}
+		}
+		return instance;
+	}
+	
 	public boolean login(String userID, String password) throws UserNotFoundException, PasswordMismatchException {
 		// TODO Auto-generated method stub
 		UserDAOOperation.getInstance().login(userID, password);

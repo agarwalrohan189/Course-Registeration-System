@@ -12,6 +12,7 @@ import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.exception.UserNotFoundException;
 
 public interface UserInterface {
+	
     public boolean login(String userID,String password) throws UserNotFoundException, PasswordMismatchException;
 
     boolean setPassword(String userID, String newPassword) throws UserNotFoundException, PasswordMatchedOldException, PasswordIsWeakException;

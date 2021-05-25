@@ -10,13 +10,13 @@ package com.flipkart.constant;
 public class SQLQueries {
 	
 	//UserDao queries
-		public static final String GET_USER_DETAILS_QUERY = "select * from users where id = ?";
+		public static final String GET_USER_DETAILS_QUERY = "select * from Users where id = ?";
 		
 	//ProfessorDao queries
-		public static final String GET_PROFESSOR_DETAILS_QUERY = "select * from professors where id = ?";
+		public static final String GET_PROFESSOR_DETAILS_QUERY = "select * from Professors where id = ?";
 	
 	//AdminDao Queries
-		public static final String GET_ADMIN_DETAILS_QUERY = "select * from admins where id = ?";
+		public static final String GET_ADMIN_DETAILS_QUERY = "select * from Admins where id = ?";
 		
 		//AdminDao Queries
 		public static final String DELETE_COURSE_QUERY = "delete from Course where courseCode = ?";
@@ -59,5 +59,5 @@ public class SQLQueries {
 		public static final String GET_ENROLLED_STUDENTS="select course.courseCode,course.courseName,registeredcourse.studentId from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where course.professorId = ? order by course.courseCode";
 		public static final String NUMBER_OF_REGISTERED_COURSES=" select studentId from registeredcourse where studentId = ? ";
 		public static final String IS_REGISTERED=" select courseCode from registeredcourse where courseCode=? and studentId=? ";
-		public static final String GET_STUDENT_DETAILS_QUERY = "select * from students where id = ?";
+		public static final String GET_STUDENT_DETAILS_QUERY = "select * from Students where id = ?";
 }
