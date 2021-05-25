@@ -9,7 +9,7 @@ import com.flipkart.bean.Course;
 import java.util.List;
 
 public interface StudentInterface {
-    public int register(String name,String userID,String password,Gender gender,int batch,String branch,String address,String country) throws StudentNotRegisteredException;
+    public int register(String name,String userID,String password,Gender gender,int batch,String branch,String address,String country);
 
     public List<Course> viewCourseCatalogue(String userID);
 

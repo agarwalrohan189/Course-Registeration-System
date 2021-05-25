@@ -9,7 +9,7 @@ import com.flipkart.bean.Course;
 import java.util.List;
 
 public interface UserInterface {
-    public boolean login(String userID,String password) throws UserNotFoundException;
+    public boolean login(String userID,String password);
 
     boolean setPassword(String userID, String newPassword);
 
