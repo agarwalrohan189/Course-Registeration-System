@@ -33,6 +33,7 @@ public class RegistrationOperation implements RegistrationInterface {
 
 	@Override
 	public void registerCourses(String studentId) throws StudentNotFoundException{
+		Check_if_possible();//>3
 		registrationDaoInterface.registerCourses(studentId);
 	}
 
@@ -76,7 +77,6 @@ public class RegistrationOperation implements RegistrationInterface {
 
 	@Override
 	public void payFee(String studentId, ModeOfPayment mode, float amount) throws StudentNotFoundException{
-		
 		float feeToBePaid = calculateFee(studentId);
 		Payment payObj = new Payment(studentId, mode, amount);
 		PaymentNotification notifObj = new PaymentNotification(payObj, feeToBePaid);

@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.exception.ProfFoundException;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
 
@@ -74,11 +75,18 @@ public class ProfessorMenu {
 	 * View all courses alloted to professor
 	 */
 	private void viewCourses() {
-		List<Course> courses = professorInterface.viewCourses(professorID);
-		System.out.println("Course ID\tCourse Name\tSeats");
-		for (Course course : courses) {
-			System.out.printf(course.getCourseId() + "\t" + course.getCourseName() + "\t" + course.getSeats());
+		try{
+			List<Course> courses = professorInterface.viewCourses(professorID);
+			System.out.println("Course ID\tCourse Name\tFilled Seats");
+			for (Course course : courses) {
+				System.out.printf(course.getCourseId() + "\t" + course.getCourseName() + "\t" + course.getFilledSeats());
+			}
 		}
+		catch(Exception e){
+			System.err.println(e.getMessage());
+			e.printStackTrace();	
+		}
+		
 	}
 
 	/**
@@ -110,8 +118,9 @@ public class ProfessorMenu {
 		try {
 			professorInterface.assignGrade(studentID, courseID, grade);
 		}
-		catch(Exception E){
-			
+		catch(Exception e){
+			System.err.println(e.getMessage());
+			e.printStackTrace();	
 		}
 		sc.close();
 	}

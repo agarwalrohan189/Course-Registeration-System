@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.StudentGrade;
+import com.flipkart.bean.RegisteredCourse;
+import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.RegistrationOperation;
@@ -97,9 +98,9 @@ public class StudentMenu {
 	private void viewCourseCatalogue() {
 		try {
 			List<Course> courses = studentInterface.viewCourseCatalogue();
-			System.out.println("Course ID\tCourse Name\tSeats");
+			System.out.println("Course ID\tCourse Name\tRemaining Seats");
 			for (Course course : courses) {
-				System.out.printf(course.getCourseId() + "\t" + course.getCourseName() + "\t" + course.getSeats());
+				System.out.printf(course.getCourseId() + "\t" + course.getCourseName() + "\t" + (Course.MAX_SEATS - course.getFilledSeats()) );
 			}
 		}
 		catch (Exception e) {
@@ -113,10 +114,10 @@ public class StudentMenu {
 	 */
 	private void viewGrades() {
 		try {
-			List<StudentGrade> grades = studentInterface.viewGrades(studentID);
+			List<RegisteredCourse> courses = studentInterface.viewGrades(studentID);
 			System.out.println("Course ID\tCourse Name\tGrade");
-			for(StudentGrade grade:grades) {
-				System.out.println(grade.getCourseCode() + "\t" + grade.getCourseName() + "\t" + grade.getGrade());
+			for(RegisteredCourse course:courses) {
+				System.out.println(course.getCourseId() + "\t" + course.getCourseName() + "\t" + course.getGrade());
 			}
 		}
 		catch (StudentNotFoundException e) {
@@ -181,7 +182,17 @@ public class StudentMenu {
 	 * View registered courses
 	 */
 	private void viewRegisteredCourses() {
-		
+		try {
+			List<RegisteredCourse> courses = registrationInterface.viewRegisteredCourses(studentID);
+			System.out.println("Course ID\tCourse Name");
+			for(RegisteredCourse course:courses) {
+				System.out.println(course.getCourseId() + "\t" + course.getCourseName() + "\t" + course.getGrade());
+			}
+		}
+		catch (StudentNotFoundException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -190,16 +201,35 @@ public class StudentMenu {
 	private void payFee() {
 		Scanner sc = new Scanner(System.in);
 		try{
-			double fee = registrationInterface.calculateFee(studentID);
+			float fee = registrationInterface.calculateFee(studentID);
 			System.out.println("Pending amount is : "+fee+", Do you want to pay in full? (Y/N) : ");
 			if(sc.next().equals("Y")){
-				double amount = sc.nextDouble();
-				registrationInterface.payFee(amount);
-
+				float amount = fee;
+				System.out.println("==================== Payment Gateway ====================");
+				System.out.println("1. Credit Card");
+				System.out.println("2. Net Banking");
+				System.out.println("3. Debit Card");
+				
+				System.out.println("Select Mode of Payment : ");
+				switch(sc.nextInt())
+				{
+						case 1:
+							registrationInterface.payFee(studentID, ModeOfPayment.CREDIT_CARD, amount);
+							break;
+						case 2:
+							registrationInterface.payFee(studentID, ModeOfPayment.NET_BANKING, amount);
+							break;
+						case 3:
+							registrationInterface.payFee(studentID, ModeOfPayment.DEBIT_CARD, amount);
+							break;
+						default:
+							System.err.println("No such mode exists, valid choices 1, 2, 3");						
+				}
 			}
 		}
 		catch(Exception e){
-
+			System.err.println(e.getMessage());
+			e.printStackTrace();	
 		}
 		finally{
 			sc.close();
