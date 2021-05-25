@@ -84,6 +84,6 @@ public interface AdminDaoInterface {
      * Method to generate Report card of student using SQL command.
      * @param studentID -> ID of student whose report card is being generated
      */
-    public void generateReportCard(String studentID);
+    public void generateReportCard(String studentID) throws StudentNotFoundException;
 
 }
