@@ -108,7 +108,12 @@ public class StudentMenu {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter CourseID");
 		int courseID = sc.nextInt();
-		registrationInterface.addCourse(studentID, courseID);
+		try {
+			registrationInterface.addCourse(studentID, courseID);
+		}
+		catch(Exception E) {
+			
+		}
 		sc.close();
 	}
 
@@ -116,7 +121,12 @@ public class StudentMenu {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter CourseID");
 		int courseID = sc.nextInt();
-		registrationInterface.dropCourse(studentID, courseID);
+		try {
+			registrationInterface.dropCourse(studentID, courseID);
+		}
+		catch(Exception E) {
+			
+		}
 		sc.close();
 	}
 
