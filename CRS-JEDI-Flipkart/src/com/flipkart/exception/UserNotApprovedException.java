@@ -9,17 +9,17 @@ package com.flipkart.exception;
  */
 public class UserNotApprovedException extends Exception {
 
-	private int userId;
+	private String userId;
 	
-	public UserNotApprovedException (int id) {
+	public UserNotApprovedException (String id) {
 		setUserId(id);
 	}
 
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
