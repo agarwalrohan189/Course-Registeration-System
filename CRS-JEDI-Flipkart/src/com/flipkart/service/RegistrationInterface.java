@@ -7,9 +7,7 @@ import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
-import com.flipkart.exception.CourseLimitExceededException;
-import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.CourseSeatsFullException;
+import com.flipkart.exception.*;
 
 /**
  * @author shubh
@@ -21,7 +19,7 @@ public interface RegistrationInterface {
 	 * Register selected courses
 	 * @param studentId
 	 */
-	public void registerCourses(String studentId);
+	public void registerCourses(String studentId)throws StudentNotFoundException;
 
 	/**
 	 * Add a course
@@ -33,7 +31,7 @@ public interface RegistrationInterface {
 	 * @throws CourseSeatsFullException
 	 */
 	public boolean addCourse(String studentId, int courseCode)
-			throws CourseNotFoundException, CourseLimitExceededException, CourseSeatsFullException;
+			throws CourseNotFoundException, CourseLimitExceededException, CourseSeatsFullException, StudentNotFoundException;
 
 	/**
 	 * Drop a course
@@ -42,27 +40,27 @@ public interface RegistrationInterface {
 	 * @return
 	 * @throws CourseNotFoundException
 	 */
-	public boolean dropCourse(String studentId, int courseCode) throws CourseNotFoundException;
+	public boolean dropCourse(String studentId, int courseCode) throws CourseNotFoundException, StudentNotFoundException;
 
 	/**
 	 * View registered courses
 	 * @param studentId
 	 * @return
 	 */
-	public List<Course> viewRegisteredCourses(String studentId);
+	public List<Course> viewRegisteredCourses(String studentId) throws StudentNotFoundException;
 
 	/**
 	 * View grade card for the semester
 	 * @param studentId
 	 * @return
 	 */
-	public List<StudentGrade> viewGradeCard(String studentId);
+	public List<StudentGrade> viewGradeCard(String studentId) throws StudentNotFoundException;
 
 	/**
 	 * @param studentId
 	 * @return
 	 */
-	public double calculateFee(String studentId);
+	public double calculateFee(String studentId) throws StudentNotFoundException;
 
 
 // public List<Course> viewCourses(String studentId);

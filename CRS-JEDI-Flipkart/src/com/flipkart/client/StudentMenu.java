@@ -127,7 +127,12 @@ public class StudentMenu {
 	 */
 	private void registerCourses() {
 //		if(notregistered)
-		registrationInterface.registerCourses(studentID);
+		try {
+			registrationInterface.registerCourses(studentID);
+		}
+		catch (Exception e) {
+			
+		}
 	}
 
 	/**
