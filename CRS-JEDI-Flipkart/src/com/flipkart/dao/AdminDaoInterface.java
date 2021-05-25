@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.flipkat.dao;
+package com.flipkart.dao;
 
 /**
  * @author rohanagarwal
