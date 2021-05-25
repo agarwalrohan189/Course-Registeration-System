@@ -13,6 +13,7 @@ import com.flipkart.exception.*;
 import com.flipkart.utils.DBUtil;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -50,7 +51,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             statement = conn.prepareStatement(sql);
             statement.setInt(1, course.getCourseId());
             statement.setString(2, course.getCourseName());
-            statement.setString(3, null);//TODO: update here after updating SQL queries constant
+            statement.setString(3, null);
 
             int row = statement.executeUpdate();
 
@@ -93,7 +94,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new CourseNotFoundException(courseID); //TODO: figure out if this is correct
+            throw new CourseNotFoundException(courseID);
         }
     }
 
@@ -137,7 +138,9 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             statement = conn.prepareStatement(sql);
 
             statement.setString(1, professor.getId());
-            statement.setString(2, professor.getDepartment()); //TODO: update here after updating SQL queries constant
+            statement.setString(2, professor.getDepartment());
+            statement.setString(3, professor.getQualification());
+            statement.setDate(2, (Date) professor.getDateOfJoining());
             int row = statement.executeUpdate();
 
             System.out.println(row + " professor added.");
@@ -170,11 +173,13 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             statement = conn.prepareStatement(sql);
 
             statement.setString(1, user.getId());
-            statement.setString(2, user.getName());
-            statement.setString(3, user.getPassword());
-            statement.setString(4, user.getRole().toString());
-            statement.setString(5, user.getGender().toString());
-            statement.setString(6, user.getAddress()); //TODO: update here after updating SQL queries constant
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getName());
+            statement.setString(4, user.getGender().toString());
+            statement.setString(5, user.getRole().toString());
+            statement.setString(6, user.getAddress());
+            statement.setString(6, user.getUsername());
+            statement.setDate(6, (Date) user.getDoB());
             int row = statement.executeUpdate();
 
             System.out.println(row + " user added.");
@@ -204,10 +209,10 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         statement = null;
         try {
 
-            String sql = SQLQueries.DELETE_PROF_QUERY; //TODO: add this query
+            String sql = SQLQueries.DELETE_PROFESSOR_QUERY;
             statement = conn.prepareStatement(sql);
 
-            statement.setString(1, profID); //TODO: update here after updating SQL queries constant
+            statement.setString(1, profID);
             int row = statement.executeUpdate();
 
             System.out.println(row + " entries deleted.");
@@ -241,11 +246,9 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             statement = conn.prepareStatement(sql);
 
             statement.setString(1, student.getId());
-            statement.setString(2, student.getName());
-            statement.setString(3, student.getPassword());
-            statement.setString(4, student.getRole().toString());
-            statement.setString(5, student.getGender().toString());
-            statement.setString(6, student.getAddress()); //TODO: update here after updating SQL queries constant
+            statement.setString(2, student.getBranch());
+            statement.setInt(3, student.getBatchYear());
+            statement.setBoolean(4, student.isPaymentDone());
             int row = statement.executeUpdate();
 
             System.out.println(row + " student added.");
@@ -275,10 +278,10 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         statement = null;
         try {
 
-            String sql = SQLQueries.DELETE_STUDENT_QUERY; //TODO: add this query
+            String sql = SQLQueries.DELETE_STUDENT_QUERY;
             statement = conn.prepareStatement(sql);
 
-            statement.setString(1, studentID); //TODO: update here after updating SQL queries constant
+            statement.setString(1, studentID);
             int row = statement.executeUpdate();
 
             System.out.println(row + " entries deleted.");
@@ -308,11 +311,11 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         statement = null;
         try {
 
-            String sql = SQLQueries.ASSIGN_COURSE_QUERY; //TODO: update this query
+            String sql = SQLQueries.ASSIGN_COURSE_QUERY;
             statement = conn.prepareStatement(sql);
 
             statement.setString(1, profID);
-            statement.setInt(2, courseID);//TODO: update here after updating SQL queries constant
+            statement.setInt(2, courseID);
             int row = statement.executeUpdate();
 
             System.out.println(row + " entries updated.");
