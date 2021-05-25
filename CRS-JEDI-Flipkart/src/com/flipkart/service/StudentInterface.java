@@ -14,9 +14,8 @@ import java.util.Date;
 import java.util.List;
 
 public interface StudentInterface {
-    public void register(String studentId, String name, String role, String password, String gender, String address, String username,
-			Date doB, String branch, Course[] coursesEnrolled, int batchYear) throws StudentNotRegisteredException;
-
+	
+	
     public List<Course> viewCourseCatalogue();
 
     public List<StudentGrade> viewGrades(String StudentId) throws StudentNotFoundException;

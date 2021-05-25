@@ -21,17 +21,6 @@ import com.flipkart.exception.UserNotFoundException;
 public class StudentOperation implements StudentInterface {
 
 	@Override
-	public void register(String studentId, String name, String role, String password, String gender, String address, String username,
-			Date doB, String branch, Course[] coursesEnrolled, int batchYear) throws StudentNotRegisteredException {
-		// TODO Auto-generated method stub
-		
-		Student newStudent = new Student(studentId, name, role, password, gender, address, username,
-		doB, branch, coursesEnrolled, batchYear);
-		
-		//Dao method
-	}
-
-	@Override
 	public List<Course> viewCourseCatalogue() {
 		// TODO Auto-generated method stub
 		
