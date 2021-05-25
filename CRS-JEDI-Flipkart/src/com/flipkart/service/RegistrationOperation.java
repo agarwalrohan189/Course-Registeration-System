@@ -6,11 +6,14 @@ package com.flipkart.service;
 import java.util.List;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Student;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.exception.CourseLimitExceededException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.CourseSeatsFullException;
 import com.flipkart.exception.StudentNotFoundException;
+import com.flipkart.dao.RegistrationDaoInterface;
+import com.flipkart.dao.RegistrationDaoOperation;
 
 /**
  * @author shubh
@@ -18,16 +21,26 @@ import com.flipkart.exception.StudentNotFoundException;
  */
 public class RegistrationOperation implements RegistrationInterface {
 
+	RegistrationDaoInterface registrationDaoInterface = new RegistrationDaoOperation();
+	UserInterface userInterface = new UserOperation();
+
 	@Override
 	public void registerCourses(String studentId) throws StudentNotFoundException{
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public boolean addCourse(String studentId, int courseCode)
 			throws CourseNotFoundException, CourseLimitExceededException, CourseSeatsFullException, StudentNotFoundException{
-		// TODO Auto-generated method stub
+		Course course = registrationDaoInterface.getCourse();
+		if(course.getFilledSeats()>=Course.MAX_SEATS){
+			throw new CourseSeatsFullException(course.getCourseId());
+		}
+		Student student = userInterface.getUser(studentId);
+		if(student.getCoursesEnrolled().length>=MAX_COURSES){
+			throw new CourseLimitExceededException(MAX_COURSES);
+		}
+		registrationDaoInterface.addCourse(studentId, courseCode);
 		return false;
 	}
 

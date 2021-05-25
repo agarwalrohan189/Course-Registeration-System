@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
+import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.RegistrationOperation;
 import com.flipkart.service.StudentInterface;
@@ -102,7 +103,8 @@ public class StudentMenu {
 			}
 		}
 		catch (Exception e) {
-			
+			System.err.println(e.getMessage());
+			e.printStackTrace();			
 		}
 	}
 
@@ -117,8 +119,9 @@ public class StudentMenu {
 				System.out.println(grade.getCourseCode() + "\t" + grade.getCourseName() + "\t" + grade.getGrade());
 			}
 		}
-		catch (Exception e) {
-			
+		catch (StudentNotFoundException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -131,7 +134,8 @@ public class StudentMenu {
 			registrationInterface.registerCourses(studentID);
 		}
 		catch (Exception e) {
-			
+			System.err.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -145,10 +149,13 @@ public class StudentMenu {
 		try {
 			registrationInterface.addCourse(studentID, courseID);
 		}
-		catch(Exception E) {
-			
+		catch(Exception e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
 		}
-		sc.close();
+		finally{
+			sc.close();
+		}
 	}
 
 	/**
@@ -161,10 +168,13 @@ public class StudentMenu {
 		try {
 			registrationInterface.dropCourse(studentID, courseID);
 		}
-		catch(Exception E) {
-			
+		catch(Exception e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();	
 		}
-		sc.close();
+		finally{
+			sc.close();
+		}
 	}
 
 	/**
@@ -179,8 +189,20 @@ public class StudentMenu {
 	 */
 	private void payFee() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter Amount");
-		int amount = sc.nextInt();
-		sc.close();
+		try{
+			double fee = registrationInterface.calculateFee(studentID);
+			System.out.println("Pending amount is : "+fee+", Do you want to pay in full? (Y/N) : ");
+			if(sc.next().equals("Y")){
+				double amount = sc.nextDouble();
+				registrationInterface.payFee(amount);
+
+			}
+		}
+		catch(Exception e){
+
+		}
+		finally{
+			sc.close();
+		}
 	}
 }
