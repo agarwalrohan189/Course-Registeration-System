@@ -26,13 +26,13 @@ public class RegistrationOperation implements RegistrationInterface {
 
 	@Override
 	public void registerCourses(String studentId) throws StudentNotFoundException{
-
+		registrationDaoInterface.registerCourses(studentId);
 	}
 
 	@Override
 	public boolean addCourse(String studentId, int courseCode)
 			throws CourseNotFoundException, CourseLimitExceededException, CourseSeatsFullException, StudentNotFoundException{
-		Course course = registrationDaoInterface.getCourse();
+		Course course = registrationDaoInterface.getCourse(courseCode);
 		if(course.getFilledSeats()>=Course.MAX_SEATS){
 			throw new CourseSeatsFullException(course.getCourseId());
 		}
@@ -40,26 +40,19 @@ public class RegistrationOperation implements RegistrationInterface {
 		if(student.getCoursesEnrolled().length>=MAX_COURSES){
 			throw new CourseLimitExceededException(MAX_COURSES);
 		}
-		registrationDaoInterface.addCourse(studentId, courseCode);
-		return false;
+		return registrationDaoInterface.addCourse(studentId, courseCode);
 	}
 
 	@Override
 	public boolean dropCourse(String studentId, int courseCode) throws CourseNotFoundException, StudentNotFoundException{
-		// TODO Auto-generated method stub
-		return false;
+		registrationDaoInterface.getCourse();
+		userInterface.getUser(studentId);
+		return registrationDaoInterface.dropCourse(studentId, courseCode);
 	}
 
 	@Override
 	public List<Course> viewRegisteredCourses(String studentId) throws StudentNotFoundException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<StudentGrade> viewGradeCard(String studentId) throws StudentNotFoundException{
-		// TODO Auto-generated method stub
-		return null;
+		return ((Student)userInterface.getUser(studentId)).getCoursesEnrolled();
 	}
 
 	@Override

@@ -4,6 +4,7 @@
 package com.flipkart.bean;
 
 import java.util.Date;
+import java.util.List;
 
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;

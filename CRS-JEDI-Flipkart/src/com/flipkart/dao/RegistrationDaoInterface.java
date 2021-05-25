@@ -17,7 +17,9 @@ public interface RegistrationDaoInterface {
 	 * Register selected courses
 	 * @param studentId
 	 */
-	public void registerCourses(String studentId) throws SQLException;
+	public void registerCourses(String studentId) throws StudentNotFoundException;
+
+	public Course getCourse(int courseId) throws CourseNotFoundException;
 
 	/**
 	 * Add a course
@@ -28,7 +30,7 @@ public interface RegistrationDaoInterface {
 	 * @throws CourseLimitExceededException
 	 * @throws CourseSeatsFullException
 	 */
-	public boolean addCourse(String studentId, int courseCode) throws CourseNotException;
+	public boolean addCourse(String studentId, int courseCode) throws CourseNotFoundException;
 	/**
 	 * Drop a course
 	 * @param studentId
