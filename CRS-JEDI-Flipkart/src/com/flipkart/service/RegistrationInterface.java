@@ -19,7 +19,9 @@ public interface RegistrationInterface {
 	 * Register selected courses
 	 * @param studentId
 	 */
-	public void registerCourses(String studentId)throws StudentNotFoundException;
+	public boolean registerCourses(String studentId)throws StudentNotFoundException;
+	
+	public boolean isRegistrationDone(String studentId) throws StudentNotFoundException;
 
 	/**
 	 * Add a course

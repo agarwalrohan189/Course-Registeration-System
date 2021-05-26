@@ -21,6 +21,7 @@ public class Student extends User {
 	int batchYear;
 	public static final int MAX_COURSES = 4;
 	boolean paymentDone;
+	boolean isRegistered;
 
 	/**
 	 * @param id
@@ -36,14 +37,13 @@ public class Student extends User {
 	 * @param batchYear
 	 */
 	public Student(String id, String name, Role role, String password, Gender gender, String address, String username,
-			Date doB, String branch, int batchYear, boolean paymentDone) {
+			Date doB, String branch, int batchYear, boolean paymentDone, boolean isRegistered) {
 		super(id, name, role, password, gender, address, username, doB);
 		this.branch = branch;
 		this.batchYear = batchYear;
 		this.paymentDone = paymentDone;
+		this.isRegistered = isRegistered;
 	}
-
-
 
 	public String getBranch() {
 		return branch;
@@ -65,5 +65,13 @@ public class Student extends User {
 
 	public void setPaymentDone(boolean paymentDone) {
 		this.paymentDone = paymentDone;
+	}
+
+	public boolean getIsRegistered() {
+		return isRegistered;
+	}
+
+	public void setIsRegistered(boolean isRegistered) {
+		this.isRegistered = isRegistered;
 	}
 }
