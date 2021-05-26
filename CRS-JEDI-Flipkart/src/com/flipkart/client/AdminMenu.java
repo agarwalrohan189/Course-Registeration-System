@@ -150,48 +150,7 @@ public class AdminMenu {
 	}
 
 	private void addStudent() {
-		try {
-			AdminDaoInterfaceImpl adminDaoInterface = new AdminDaoInterfaceImpl();
 
-			System.out.println("Enter Student ID");
-			String sid = scanner.nextLine();
-			System.out.println("Enter Student name");
-			String name = scanner.nextLine();
-			Role role = Role.Student;
-			System.out.println("Enter Student Password");
-			String pass = scanner.nextLine();
-			System.out.println("Enter Student Gender, 1=male, 2=female, 3=other");
-			int gende = scanner.nextInt();scanner.nextLine();
-			Gender gender = Gender.OTHER;
-			switch (gende){
-				case 1:
-					gender = Gender.MALE;break;
-				case 2:
-					gender = Gender.FEMALE;break;
-				case 3:
-					gender = Gender.OTHER;break;
-			}
-			System.out.println("Enter Address of student");
-			String address = scanner.nextLine();
-			System.out.println("Enter Username of student");
-			String username = scanner.nextLine();
-			System.out.println("Enter Student DOB in dd/mm/yyyy format");
-			String dob = scanner.nextLine();
-			Date doB = new SimpleDateFormat("dd/MM/yyyy").parse(dob);
-			System.out.println("Enter Branch of the student");
-			String branch = scanner.nextLine();
-			System.out.println("Enter Student's Batch year");
-			int batchYear = scanner.nextInt();scanner.nextLine();
-
-			Student student = new Student(sid,name,role,pass,gender,address,username,doB,branch,batchYear,false);
-
-			adminDaoInterface.addStudent(student);
-
-			System.out.println("++++++++Student Added+++++++++");
-
-		}catch (Exception e){
-			System.out.println(e.getMessage());
-		}
 	}
 
 	private void removeProf() {

@@ -39,13 +39,6 @@ public interface AdminInterface {
     public void removeProf(String profID) throws ProfNotFoundException;
 
     /**
-     * Adds student to the database
-     * @param student -> student to be added
-     * @throws UserAlreadyExistsException
-     */
-    public void addStudent(Student student) throws StudentAlreadyExistsException, StudentNotAddedException;
-
-    /**
      * Remove student from database
      * @param studentID -> student which is to be removed
      * @throws UserNotFoundException
@@ -75,4 +68,11 @@ public interface AdminInterface {
      * Method to ensure no course has less than three registered students
      */
     public void validateRegistration() throws CourseNotDeletedException;
+
+    /**
+     * Method to approve Student
+     * @param studentId -> ID of student to be approved
+     * @throws StudentNotFoundException
+     */
+    public void approveStudent(String studentId) throws StudentNotFoundException;
 }

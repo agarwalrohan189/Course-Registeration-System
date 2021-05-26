@@ -35,4 +35,23 @@ public class StudentOperation implements StudentInterface {
 		return registrationInterface.viewRegisteredCourses(studentId);
 	}
 
+	@Override
+	public void signUp(Student student) throws StudentAlreadyExistsException, StudentNotAddedException {
+		try {
+			StudentDaoInterface studentDaoInterface = new StudentDaoOperation();
+			studentDaoInterface.signUp(student);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public boolean isApproved(String studentID) throws StudentNotFoundException {
+		try {
+			StudentDaoInterface studentDaoInterface = new StudentDaoOperation();
+			return studentDaoInterface.isApproved(studentID);
+		}catch (Exception e){
+			throw new StudentNotFoundException(studentID);
+		}
+	}
 }

@@ -3,9 +3,16 @@
  */
 package com.flipkart.client;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
+import com.flipkart.bean.Student;
+import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
+import com.flipkart.dao.AdminDaoInterfaceImpl;
+import com.flipkart.dao.StudentDaoInterface;
+import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.exception.PasswordMismatchException;
 import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.exception.UserNotFoundException;
@@ -34,7 +41,8 @@ public class LoginMenu {
 			System.out.println("________________________");
 			System.out.println("Welcome");
 			System.out.println("1. Login");
-			System.out.println("2. Exit");
+			System.out.println("2. Sign Up (for students only)");
+			System.out.println("3. Exit");
 			System.out.println("________________________");
 			int optionChosen = scanner.nextInt();
 			scanner.nextLine();
@@ -42,8 +50,12 @@ public class LoginMenu {
 			case 1:
 				login();
 				break;
-				
+
 			case 2:
+				signup();
+				break;
+
+			case 3:
 				exit();
 				return;
 			}
@@ -128,8 +140,17 @@ public class LoginMenu {
 				System.out.println("Logged in successfully with userid: " + userId);
 			if (role == Role.Student)
 			{
-				StudentMenu sm = new StudentMenu(userId);
-				sm.displayMenu();
+				StudentInterface studentInterface = new StudentOperation();
+				try {
+					if (studentInterface.isApproved(userId)) {
+						StudentMenu sm = new StudentMenu(userId);
+						sm.displayMenu();
+					} else {
+						System.out.println("++++++++ Waiting for approval +++++++++");
+					}
+				} catch (StudentNotFoundException e) {
+					System.out.println(e.getMessage());
+				}
 			}
 			else if (role == Role.Professor)
 			{

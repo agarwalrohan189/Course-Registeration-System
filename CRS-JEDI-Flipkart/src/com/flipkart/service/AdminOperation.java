@@ -61,15 +61,6 @@ public class AdminOperation implements AdminInterface{
     }
 
     @Override
-    public void addStudent(Student student) throws StudentAlreadyExistsException, StudentNotAddedException {
-        try{
-            adminDaoInterfaceImpl.addStudent(student);
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-
-    @Override
     public void removeStudent(String studentID) throws StudentNotFoundException {
         try{
             adminDaoInterfaceImpl.removeStudent(studentID);

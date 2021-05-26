@@ -90,4 +90,11 @@ public interface AdminDaoInterface {
      */
     public void validateRegistration() throws CourseNotDeletedException;
 
+    /**
+     * Method to approve Student
+     * @param studentId -> ID of student to be approved
+     * @throws StudentNotFoundException
+     */
+    public void approveStudent(String studentId) throws StudentNotFoundException;
+
 }
