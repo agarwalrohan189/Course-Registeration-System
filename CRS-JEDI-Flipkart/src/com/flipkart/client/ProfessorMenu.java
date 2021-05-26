@@ -10,7 +10,6 @@ import java.util.Scanner;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Grade;
-import com.flipkart.exception.ProfFoundException;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
 
@@ -95,14 +94,22 @@ public class ProfessorMenu {
 	 */
 	private void viewStudents() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter CourseID : ");
-		int courseID = sc.nextInt();
-		List<Student> students = professorInterface.viewStudent(courseID, professorID);
-		System.out.println("StudentID\tStudent Name\tBranch");
-		for (Student student : students) {
-			System.out.println(student.getId() + "\t" + student.getName() + "\t" + student.getBranch());
+		try{
+			System.out.println("Enter CourseID : ");
+			int courseID = sc.nextInt();
+			List<Student> students = professorInterface.viewStudent(courseID, professorID);
+			System.out.println("StudentID\tStudent Name\tBranch");
+			for (Student student : students) {
+				System.out.println(student.getId() + "\t" + student.getName() + "\t" + student.getBranch());
+			}
 		}
-		sc.close();
+		catch(Exception e){
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+		finally{
+			sc.close();
+		}
 	}
 
 	/**
@@ -123,6 +130,8 @@ public class ProfessorMenu {
 			System.err.println(e.getMessage());
 			e.printStackTrace();	
 		}
-		sc.close();
+		finally{
+			sc.close();
+		}
 	}
 }

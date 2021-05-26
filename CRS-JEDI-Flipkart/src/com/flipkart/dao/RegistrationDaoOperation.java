@@ -6,15 +6,12 @@ package com.flipkart.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.crypto.Data;
-
 import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.exception.*;
 import com.flipkart.utils.DBUtil;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import com.flipkart.constant.*;
@@ -178,7 +175,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
                 RegisteredCourse course = new RegisteredCourse(rs.getString("cname"), profName.getString("name"), studentId, rs.getInt("semesterNum"), rs.getInt("cid"), Grade.fromInt(rs.getInt("grade")));
 				registeredCourseList.add(course);
 			}
-		} 
+		}
         catch (SQLException e) 
         {
             System.err.println(e.getMessage());
