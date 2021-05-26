@@ -72,7 +72,7 @@ public class LoginMenu {
 		finally
 		{
 			if (role != null)
-				System.out.println("Login " + userId);
+				System.out.println("Logged in successfully with userid: " + userId);
 			if (role == Role.Student)
 			{
 				StudentMenu sm = new StudentMenu(userId);
