@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.constant.Grade;
 import com.flipkart.exception.ProfFoundException;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
@@ -116,7 +117,7 @@ public class ProfessorMenu {
 		System.out.println("Enter Grade");
 		String grade = sc.next();
 		try {
-			professorInterface.assignGrade(studentID, courseID, grade);
+			professorInterface.assignGrade(studentID, courseID, Grade.fromString(grade));
 		}
 		catch(Exception e){
 			System.err.println(e.getMessage());
