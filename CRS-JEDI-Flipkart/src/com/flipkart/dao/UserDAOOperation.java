@@ -48,7 +48,6 @@ public class UserDAOOperation implements UserDAOInterface{
 	}
 	
 	public Role login(String userID, String password) throws PasswordMismatchException {
-		Connection conn = DBUtil.getConnection();
 		try
 		{
 			User user = getDetails(userID);
@@ -69,14 +68,6 @@ public class UserDAOOperation implements UserDAOInterface{
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
-		}
-		finally
-		{
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		// TODO Auto-generated method stub
 		return null;
