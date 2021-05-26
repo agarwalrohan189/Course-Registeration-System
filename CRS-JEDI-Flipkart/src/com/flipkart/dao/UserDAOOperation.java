@@ -89,7 +89,7 @@ public class UserDAOOperation implements UserDAOInterface{
 		try {
 			
 			User user = getDetails(userId);
-			if (user.getPassword() == newPassword)
+			if (user.getPassword().equals (newPassword))
 				throw new PasswordMatchedOldException (userId);
 			
 			if (newPassword.length() < 8)

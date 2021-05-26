@@ -99,4 +99,9 @@ public class AdminOperation implements AdminInterface{
             throw e;
         }
     }
+
+    @Override
+    public void validateRegistration() {
+
+    }
 }

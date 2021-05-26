@@ -65,4 +65,8 @@ public interface AdminInterface {
      */
     public void generateReportCard(String studentID) throws StudentNotFoundException;
 
+    /**
+     * Method to ensure no course has less than three registered students
+     */
+    public void validateRegistration();
 }
