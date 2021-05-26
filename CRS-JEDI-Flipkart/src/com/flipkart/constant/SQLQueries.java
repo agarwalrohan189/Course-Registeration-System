@@ -16,7 +16,7 @@ public class SQLQueries {
 		
 		// public static final String VERIFY_CREDENTIALS="select password from user where userId = ?";
 		// public static final String GET_ROLE="select role from user where userId = ? ";
-		// public static final String UPDATE_PASSWORD="update user set password= ? where userId = ? ";
+		 public static final String UPDATE_PASSWORD="update Users set password= ? where id = ? ";
 		// public static final String GET_PROF_NAME = "select name from user where userId = ?";
 		
 		//ProfessorDao queries
@@ -78,6 +78,15 @@ public class SQLQueries {
 		
 		public static final String SET_REGISTRATION_STATUS="update Students set isRegistered = true  where sid = ?";
 
+		public static final String GET_REGISTRATION_STATUS="select isRegistered from Students where id = ?";
+		public static final String GET_PAYMENT_STATUS = "select paymentIsDone from Students where id = ?";
+		public static final String SET_PAYMENT_STATUS = "update Students set paymentIsDone = true  where sid = ?";
+		
+		public static final float feesPerCourse = 1000;
+		public static final int semesterYear = 2021;
+		public static final int semesterNum = 1;
+		public static final String GET_NUM_REGISTERED_COURSES = "select count(*) from Students where sid = ? and semesterYear = ? and semesterNum = ?";
+		
 		
 	
 		

@@ -28,21 +28,16 @@ public class LoginMenu {
 	public static void showMainMenu() {
 		System.out.println("________________________");
 		System.out.println("Welcome");
-		System.out.println("1. Registration");
-		System.out.println("2. Login");
-		System.out.println("3. Exit");
+		System.out.println("1. Login");
+		System.out.println("2. Exit");
 		System.out.println("________________________");
 		int optionChosen = scanner.nextInt();
-		switch(optionChosen) {
+		switch(optionChosen) {		
 		case 1:
-			registration();
-			break;
-			
-		case 2:
 			login();
 			break;
 			
-		case 3:
+		case 2:
 			exit();
 			break;
 		}
@@ -67,7 +62,6 @@ public class LoginMenu {
 		Role role = null;
 		try {
 			role = UserOperation.getInstance().login(userId, password);
-			System.out.println("Login " + userId);
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
@@ -77,6 +71,8 @@ public class LoginMenu {
 		}
 		finally
 		{
+			if (role != null)
+				System.out.println("Logged in successfully with userid: " + userId);
 			if (role == Role.Student)
 			{
 				StudentMenu sm = new StudentMenu(userId);
@@ -95,25 +91,25 @@ public class LoginMenu {
 		}
 	}
 
-	private static void registration() {
-		// TODO Auto-generated method stub
-		System.out.println("Enter name: ");
-		String name = scanner.next();
-		System.out.println("Enter gender: ");
-		String gender = scanner.next();
-		System.out.println("Enter dob: ");
-		String dob = scanner.next();
-		System.out.println("Enter role: ");
-		String role = scanner.next();
-		System.out.println("Enter password: ");
-		String password = scanner.next();
-		registrationMain(name, gender, dob, role, password);
-	}
-
-	private static void registrationMain(String name, String gender, String dob, String role, String password) {
-		// TODO Auto-generated method stub
-		System.out.println("Register " + name);
-	}
+//	private static void registration() {
+//		// TODO Auto-generated method stub
+//		System.out.println("Enter name: ");
+//		String name = scanner.next();
+//		System.out.println("Enter gender: ");
+//		String gender = scanner.next();
+//		System.out.println("Enter dob: ");
+//		String dob = scanner.next();
+//		System.out.println("Enter role: ");
+//		String role = scanner.next();
+//		System.out.println("Enter password: ");
+//		String password = scanner.next();
+//		registrationMain(name, gender, dob, role, password);
+//	}
+//
+//	private static void registrationMain(String name, String gender, String dob, String role, String password) {
+//		// TODO Auto-generated method stub
+//		System.out.println("Register " + name);
+//	}
 	
 	
 }
