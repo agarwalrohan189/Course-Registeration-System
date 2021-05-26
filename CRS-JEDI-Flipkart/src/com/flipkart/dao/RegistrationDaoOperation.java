@@ -10,7 +10,6 @@ import javax.xml.crypto.Data;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourse;
-import com.flipkart.bean.StudentGrade;
 import com.flipkart.exception.*;
 import com.flipkart.utils.DBUtil;
 
@@ -176,14 +175,14 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
             ResultSet profName=statement.executeQuery();
 			
 			while (rs.next()) {
-                RegisteredCourse course = new RegisteredCourse(rs.getString("cname"), profName.getString("name"), studentId, rs.getInt("semesterNum"), rs.getInt("cid"), new Grade(rs.getInt("grade")));
+                RegisteredCourse course = new RegisteredCourse(rs.getString("cname"), profName.getString("name"), studentId, rs.getInt("semesterNum"), rs.getInt("cid"), Grade.fromInt(rs.getInt("grade")));
 				registeredCourseList.add(course);
 			}
 		} 
         catch (SQLException e) 
         {
             System.err.println(e.getMessage());
-            throw new DatabaseException();
+            throw new StudentNotFoundException(studentId);
         }
         finally
         {
