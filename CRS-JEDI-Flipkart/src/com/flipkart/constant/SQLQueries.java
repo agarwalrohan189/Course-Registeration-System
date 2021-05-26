@@ -19,7 +19,7 @@ public class SQLQueries {
 			//ProfessorDao queries
 			public static final String GET_PROFESSOR_DETAILS_QUERY = "select * from Professors where id = ?";
 			public static final String GET_PROFESSOR_NAME = "select name from Users where id = ?";
-			public static final String ADD_GRADE = "update registeredcourse set grade=? where cid=?, sid=?";
+			public static final String ADD_GRADE = "update RegisteredCourse set grade=? where cid=? and sid=?";
 			public static final String GET_ENROLLED_STUDENTS = "select * from RegisteredCourse where cid=?";
 //			public static final String GET_ENROLLED_STUDENTS = "select users.id, users.name from ((registeredcourse inner join users on users.id=registeredcourse.sid) inner join coursecatalogue on registeredcourse.cid=coursecatalogue.cid) where pid=?, cid=?"; 
 			public static final String GET_COURSES = "select * from CourseCatalogue where pid=?";

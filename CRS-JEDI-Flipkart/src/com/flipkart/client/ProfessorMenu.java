@@ -80,7 +80,7 @@ public class ProfessorMenu {
 			List<Course> courses = professorInterface.viewCourses(professorID);
 			System.out.println("Course ID\tCourse Name\tFilled Seats");
 			for (Course course : courses) {
-				System.out.printf(course.getCourseId() + "\t" + course.getCourseName() + "\t" + course.getFilledSeats());
+				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getFilledSeats());
 			}
 		}
 		catch(Exception e){
@@ -101,7 +101,7 @@ public class ProfessorMenu {
 			List<Student> students = professorInterface.viewStudent(courseID, professorID);
 			System.out.println("StudentID\tStudent Name\tBranch");
 			for (Student student : students) {
-				System.out.println(student.getId() + "\t" + student.getName() + "\t" + student.getBranch());
+				System.out.println(student.getId() + "\t\t" + student.getName() + "\t\t" + student.getBranch());
 			}
 		}
 		catch(Exception e){
