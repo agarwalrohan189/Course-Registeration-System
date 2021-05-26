@@ -18,5 +18,5 @@ public interface StudentDaoInterface {
 	/**
 	 * @return Course Catalogue displaying all courses offered
 	 */
-	public List<Course> getCourseCatalogue() throws DatabaseException, SQLException;
+	public List<Course> getCourseCatalogue() throws DatabaseException;
 }

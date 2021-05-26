@@ -8,6 +8,9 @@ import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourse;
+import com.flipkart.dao.StudentDaoInterface;
+import com.flipkart.dao.StudentDaoOperation;
+import com.flipkart.exception.DatabaseException;
 import com.flipkart.exception.StudentNotFoundException;
 
 /**
@@ -17,11 +20,10 @@ import com.flipkart.exception.StudentNotFoundException;
 public class StudentOperation implements StudentInterface {
 
 	@Override
-	public List<Course> viewCourseCatalogue() {
+	public List<Course> viewCourseCatalogue() throws DatabaseException{
 		// TODO Auto-generated method stub
-		
-		//Dao method
-		return null;
+		StudentDaoInterface studentDaoInterface= new StudentDaoOperation();
+		return studentDaoInterface.getCourseCatalogue();
 	}
 
 	@Override
