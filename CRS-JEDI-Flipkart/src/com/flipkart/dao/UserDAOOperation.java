@@ -47,7 +47,7 @@ public class UserDAOOperation implements UserDAOInterface{
 		return instance;
 	}
 	
-	public boolean login(String userID, String password) throws PasswordMismatchException {
+	public Role login(String userID, String password) throws PasswordMismatchException {
 		Connection conn = DBUtil.getConnection();
 		try
 		{
@@ -55,7 +55,7 @@ public class UserDAOOperation implements UserDAOInterface{
 			if (password != user.getPassword())
 				throw new PasswordMismatchException(userID);
 			else
-				return true;
+				return user.getRole();
 		}
 		catch(PasswordMismatchException e)
 		{
@@ -79,7 +79,7 @@ public class UserDAOOperation implements UserDAOInterface{
 			}
 		}
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	public boolean setPassword(String userId, String newPassword)

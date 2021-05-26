@@ -5,6 +5,7 @@ package com.flipkart.client;
 
 import java.util.Scanner;
 
+import com.flipkart.constant.Role;
 import com.flipkart.exception.PasswordMismatchException;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.service.UserOperation;
@@ -61,17 +62,36 @@ public class LoginMenu {
 		loginMain(uName, password);
 	}
 
-	private static void loginMain(String uName, String password) {
+	private static void loginMain(String userId, String password) {
 		// TODO Auto-generated method stub
+		Role role = null;
 		try {
-			UserOperation.getInstance().login(uName, password);
-			System.out.println("Login " + uName);
+			role = UserOperation.getInstance().login(userId, password);
+			System.out.println("Login " + userId);
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		} catch (PasswordMismatchException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
+		}
+		finally
+		{
+			if (role == Role.Student)
+			{
+				StudentMenu sm = new StudentMenu(userId);
+				sm.displayMenu();
+			}
+			else if (role == Role.Professor)
+			{
+				ProfessorMenu pm = new ProfessorMenu(userId);
+				pm.displayMenu();
+			}
+			else if (role == Role.Admin)
+			{
+				AdminMenu am = new AdminMenu();
+				am.printAdminMenu();
+			}
 		}
 	}
 

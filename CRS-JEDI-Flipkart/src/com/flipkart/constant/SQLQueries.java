@@ -55,14 +55,13 @@ public class SQLQueries {
 		
 		public static final String VIEW_PROFESSOR_QUERY = "select userId, name, gender, department, designation, address, country from Professor natural join User";
 		
-		
 		// public static final String VERIFY_CREDENTIALS="select password from user where userId = ?";
 		// public static final String GET_ROLE="select role from user where userId = ? ";
 		// public static final String IS_APPROVED="select isApproved from student where studentId = ? ";
 		// public static final String GET_STUDENT_ID="select studentId from student where userId = ? ";
 		// public static final String UPDATE_PASSWORD="update user set password=? where userId = ? ";
 		// public static final String GET_PROF_NAME = "select name from user where userId = ?";
-		
+	
 		// Student Queries
 		// public static final String VIEW_AVAILABLE_COURSES=" select * from course where courseCode not in  (select courseCode  from registeredcourse where studentId = ?) and course.isOffered = ? and seats > 0";
 		// public static final String CHECK_COURSE_AVAILABILITY=" select courseCode from registeredcourse where studentId = ? ";

@@ -35,7 +35,61 @@ public enum Grade {
         return this.value;
     }
     
-    
+    /**
+     * Method to convert integer to Grade enum
+     * @return Grade in String
+     */
+    public static Grade fromInt(int val) {
+    	switch (val) {
+            case 10:
+                return Grade.A1;
+            case 9:
+                return Grade.A2;
+            case 8:
+                return Grade.B1;
+            case 7:
+                return Grade.B2;
+            case 6:
+                return Grade.C1;
+            case 5:
+                return Grade.C2;
+            case 4:
+                return Grade.D1;
+            case 3:
+                return Grade.E1;
+            default:
+                System.err.println("No such grade Exists");
+                return null;
+        }
+    }
+
+    /**
+     * Method to convert integer to Grade enum
+     * @return Grade in String
+     */
+    public static Grade fromString(String val) {
+    	switch (val) {
+            case "A1":
+                return Grade.A1;
+            case "A2":
+                return Grade.A2;
+            case "B1":
+                return Grade.B1;
+            case "B2":
+                return Grade.B2;
+            case "C1":
+                return Grade.C1;
+            case "C2":
+                return Grade.C2;
+            case "D1":
+                return Grade.D1;
+            case "E1":
+                return Grade.E1;
+            default:
+                System.err.println("No such grade Exists");
+                return null;
+        }
+    }
 
     /**
      * Method to convert Grade enum to String
