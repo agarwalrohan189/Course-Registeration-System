@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class AdminOperation implements AdminInterface{
@@ -100,6 +101,7 @@ public class AdminOperation implements AdminInterface{
     		HashMap<String,List<Integer>> alterCourses = adminDaoInterfaceImpl.getAlternateCourses();
         	HashMap<String,List<Integer>> prefCourses = adminDaoInterfaceImpl.getPreferredCourses();
         	HashMap<String,Integer> coursesNeeded = new HashMap<>();
+        	HashSet<String> studentIDs = new HashSet<>();
         	
         	for (HashMap.Entry mapElement :prefCourses.entrySet()) {
                 String studentID = (String)mapElement.getKey();
@@ -113,6 +115,7 @@ public class AdminOperation implements AdminInterface{
             			else {
             				coursesNeeded.put(studentID, 3);
             			}
+            			studentIDs.add(studentID);
             			RegistrationDaoOperation.getInstance().addCourse(studentID, courseCode);
             		}
                 }
@@ -134,13 +137,15 @@ public class AdminOperation implements AdminInterface{
                 			else {
                 				coursesNeeded.put(studentID, 3);
                 			}
+                			studentIDs.add(studentID);
                 			RegistrationDaoOperation.getInstance().addCourse(studentID, courseCode);
             			}
             		}
                 }
         	}
-        	
         	adminDaoInterfaceImpl.validateRegistration();
+        	adminDaoInterfaceImpl.deleteChosenCourses();
+        	studentIDs.forEach((k) -> NotificationOperation.getInstance().sendNotification(k, "registration", "Your courses have been validated, check registered courses.") );      	
     	}
     	catch(Exception e) {
     		throw new DatabaseException();

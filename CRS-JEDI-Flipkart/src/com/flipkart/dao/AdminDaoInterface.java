@@ -7,6 +7,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.exception.*;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -89,6 +90,7 @@ public interface AdminDaoInterface {
      */
     public List<Course> viewCourses();
 
+    public void deleteChosenCourses() throws SQLException;
     /**
      * Method to ensure no course has less than three registered students
      */

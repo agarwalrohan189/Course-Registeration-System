@@ -49,9 +49,11 @@ public class RegistrationOperation implements RegistrationInterface {
 	@Override
 	public boolean registerCourses(String studentId, HashMap<Integer,Boolean> courseIDs) throws StudentNotFoundException{ //status=alternate, primary or registered
 		if(registrationDaoInterface.isRegistrationDone(studentId)) {
+			System.out.println("Already Registered");
 			return false;
 		}
 		registrationDaoInterface.registerCourses(studentId, courseIDs);
+		System.out.println("Courses sent for validation");
 		return true;
 	}
 	

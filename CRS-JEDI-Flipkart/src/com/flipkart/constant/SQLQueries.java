@@ -54,10 +54,11 @@ public class SQLQueries {
 			public static final String GET_COURSE_CATALOGUE="select * from CourseCatalogue where valid = true";
 			public static final String GET_COURSE_NAME="select cname from CourseCatalogue where cid = ?";
 			
+			public static final String SET_FILLED_SEATS="update CourseCatalogue set filledSeats=? where cid=?";
 			//RegisteredCourse Queries
 			public static final String GET_REGISTERED_COURSE_DETAILS="select * from RegistedCourse where sid = ?";
 
-
+			public static final String CLEAR_CHOSEN_COURSES = "delete from ChosenCourse";
 
 			public static final String CHOOSE_COURSE = "insert into ChosenCourse (sid,cid,isPrimary) values (?,?,?)";
 			public static final String VIEW_PREFERRED_COURSES = "select * from ChosenCourse where isPrimary=true";

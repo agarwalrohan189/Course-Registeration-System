@@ -32,10 +32,12 @@ public class NotificationOperation implements NotificationInterface{
 	
 	  @Override
 	  public void sendNotification(String sid, String type, String message) {
-	      System.out.println("______________________");
-	  	  System.out.println("Result of "+type+": ");
-	      System.out.println(message);
-	      System.out.println("______________________");
+		  if(type.equals("payment")) {
+		      System.out.println("______________________");
+		  	  System.out.println("Result of "+type+": ");
+		      System.out.println(message);
+		      System.out.println("______________________");
+		  }
 	      NotificationDaoOperation.getInstance().saveNotification(sid, type, message);
 	  	return;
 	  }

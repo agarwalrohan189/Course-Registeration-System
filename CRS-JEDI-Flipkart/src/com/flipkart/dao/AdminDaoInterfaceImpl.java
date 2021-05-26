@@ -654,18 +654,15 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         for (Course course : courseList) {
             if (course.getFilledSeats() < 3) {
                 course.setFilledSeats(0);
-                //TODO: notify student that the course has been cancelled
                 Connection conn = DBUtil.getConnection();
                 try {
+                    setFilledSeats(0,course.getCourseId());
                     String sql = SQLQueries.DELETE_REGISTERED_COURSE_QUERY;
                     statement = conn.prepareStatement(sql);
                     statement.setInt(1, course.getCourseId());
-                    int row = statement.executeUpdate();
+                    statement.executeUpdate();
 
-                    System.out.println(row + " entries deleted");
-                    if (row == 0) {
-                        throw new CourseNotDeletedException(course.getCourseId());
-                    }
+                   
                 } catch (SQLException e) {
                     e.printStackTrace();
                     throw new CourseNotDeletedException(course.getCourseId());
@@ -679,14 +676,31 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         				try {
         					throw new DatabaseException();
         				} catch (DatabaseException e) {
-        					// TODO Auto-generated catch block
-        					e.printStackTrace();
+        					//Do nothing
         				}
         			}
         		}
             }
         }
         System.out.println("Validation complete!");
+    }
+    
+    private void setFilledSeats(int num, int courseID)throws SQLException {
+    	Connection conn = DBUtil.getConnection();
+        statement = null;
+        String sql = SQLQueries.SET_FILLED_SEATS;
+        statement = conn.prepareStatement(sql);
+        statement.setInt(1,num);
+        statement.setInt(2,courseID);
+        statement.executeUpdate();
+    }
+
+    public void deleteChosenCourses() throws SQLException{
+    	Connection conn = DBUtil.getConnection();
+        statement = null;
+        String sql = SQLQueries.CLEAR_CHOSEN_COURSES;
+        statement = conn.prepareStatement(sql);
+        statement.executeUpdate();
     }
 
     /**
