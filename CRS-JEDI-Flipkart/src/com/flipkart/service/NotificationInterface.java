@@ -1,6 +1,7 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.Payment;
+import com.flipkart.bean.PaymentNotification;
 
 /**
  * Below interface describes operation of sending notification.
@@ -15,5 +16,7 @@ public interface NotificationInterface {
      * @param amount -> Amount of payment
      * @return -> notification ID
      */
-    public int sendNotification(String notificationMessage, String studentID, Payment method, double amount);
+//    public int sendNotification(String notificationMessage, String studentID, Payment method, double amount);
+
+	public int sendNotification(PaymentNotification NotifObj);
 }

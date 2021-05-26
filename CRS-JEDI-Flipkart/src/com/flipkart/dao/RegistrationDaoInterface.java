@@ -4,9 +4,8 @@ package com.flipkart.dao;
 import java.util.List;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.StudentGrade;
+import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.exception.*;
-import java.sql.SQLException;
 
 /**
  * RegistrationDaoInterface
@@ -17,7 +16,9 @@ public interface RegistrationDaoInterface {
 	 * Register selected courses
 	 * @param studentId
 	 */
-	public void registerCourses(String studentId) throws SQLException;
+	public void registerCourses(String studentId) throws StudentNotFoundException;
+
+	public Course getCourse(int courseId) throws CourseNotFoundException;
 
 	/**
 	 * Add a course
@@ -28,7 +29,7 @@ public interface RegistrationDaoInterface {
 	 * @throws CourseLimitExceededException
 	 * @throws CourseSeatsFullException
 	 */
-	public boolean addCourse(String studentId, int courseCode) throws CourseNotException;
+	public boolean addCourse(String studentId, int courseCode) throws DatabaseException;
 	/**
 	 * Drop a course
 	 * @param studentId
@@ -36,25 +37,18 @@ public interface RegistrationDaoInterface {
 	 * @return
 	 * @throws CourseNotFoundException
 	 */
-	public boolean dropCourse(String studentId, int courseCode) throws SQLException;
+	public boolean dropCourse(String studentId, int courseCode)  throws DatabaseException;
 
 	/**
 	 * View registered courses
 	 * @param studentId
 	 * @return
 	 */
-	public List<Course> viewRegisteredCourses(String studentId) throws SQLException;
-
-	/**
-	 * View grade card for the semester
-	 * @param studentId
-	 * @return
-	 */
-	public List<StudentGrade> viewGradeCard(String studentId) throws SQLException;
+	public List<RegisteredCourse> viewRegisteredCourses(String studentId) throws StudentNotFoundException;
 
 	/**
 	 * @param studentId
 	 * @return
 	 */
-	public double calculateFee(String studentId) throws SQLException;
+	public float calculateFee(String studentId) throws StudentNotFoundException;
 }

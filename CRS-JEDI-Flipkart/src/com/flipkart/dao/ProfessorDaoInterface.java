@@ -1,4 +1,4 @@
-package com.flipkart.service;
+package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
@@ -10,15 +10,15 @@ import com.flipkart.exception.StudentNotFoundException;
 import java.util.List;
 
 /**
- * Below interface describes operations performed by Professor.
+ * Dao interface for professor operations
  */
-public interface ProfessorInterface {
+public interface ProfessorDaoInterface {
 
     /**
      * Method to view course which professor is teaching
      * @return -> List of courses professor is teaching
      */
-    public List<Course> viewCourses(String profID) throws ProfNotFoundException;
+    public List<Course> viewCourses(String profID) throws  ProfNotFoundException;
 
     /**
      * Return enrolled student list for given course.
@@ -33,6 +33,5 @@ public interface ProfessorInterface {
      * @param courseID -> ID of course in which grade is given.
      * @param grade -> Grade given to student.
      */
-    public void assignGrade(String studentID, int courseID, Grade grade) throws GradeNotAssignedException, StudentNotFoundException;
-
+    public void assignGrade(String studentID, int courseID, Grade grade) throws StudentNotFoundException, GradeNotAssignedException;
 }

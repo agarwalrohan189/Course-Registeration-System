@@ -1,28 +1,50 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.Student;
+import com.flipkart.constant.Grade;
+import com.flipkart.dao.ProfessorDaoOperation;
 import com.flipkart.exception.GradeNotAssignedException;
 import com.flipkart.exception.ProfNotFoundException;
 import com.flipkart.exception.StudentNotFoundException;
-import com.flipkart.exception.UserNotFoundException;
+import com.flipkart.bean.Student;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfessorOperation implements ProfessorInterface{
 
+    ProfessorDaoOperation professorDaoOperation = new ProfessorDaoOperation();
+
     @Override
     public List<Course> viewCourses(String profID) throws ProfNotFoundException {
-        return null;
+        List<Course> courses = new ArrayList<Course>();
+        try {
+            courses = professorDaoOperation.viewCourses(profID);
+        }catch (Exception e){
+            throw e;
+        }
+        return courses;
     }
 
     @Override
-    public List<Student> viewStudent(int courseID, String profID) throws ProfNotFoundException{
-        return null;
+    public List<Student> viewStudent(int courseID, String profID) throws ProfNotFoundException, StudentNotFoundException{
+        List<Student> enrolledStudents = new ArrayList<Student>();
+
+        try {
+            enrolledStudents = professorDaoOperation.viewStudent(courseID,profID);
+        }catch (Exception e){
+            throw e;
+        }
+
+        return enrolledStudents;
     }
 
     @Override
-    public void assignGrade(String profID, String studentID, int courseID, String grade) throws GradeNotAssignedException, ProfNotFoundException, StudentNotFoundException {
-
+    public void assignGrade( String studentID, int courseID, Grade grade) throws GradeNotAssignedException, StudentNotFoundException {
+        try{
+            professorDaoOperation.assignGrade(studentID,courseID,grade);
+        }catch (Exception e){
+            throw e;
+        }
     }
 }
