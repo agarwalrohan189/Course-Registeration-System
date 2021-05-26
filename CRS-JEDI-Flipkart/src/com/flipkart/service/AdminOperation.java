@@ -5,11 +5,6 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.AdminDaoInterfaceImpl;
 import com.flipkart.exception.*;
-import com.flipkart.utils.DBUtil;
-import com.mysql.jdbc.PreparedStatement;
-
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 public class AdminOperation implements AdminInterface{
