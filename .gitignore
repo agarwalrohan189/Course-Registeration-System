@@ -1,3 +1,5 @@
 /bin/
 /.metadata/
 .classpath
+CRS-JEDI-Flipkart/.classpath
+CRS-JEDI-Flipkart/src/config.properties
