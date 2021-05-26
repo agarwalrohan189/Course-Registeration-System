@@ -14,7 +14,9 @@ import com.flipkart.utils.DBUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import com.flipkart.constant.*;
+
 import java.sql.SQLException;
 
 /**
@@ -60,19 +62,29 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
             statement = conn.prepareStatement("Select * from CourseCatalogue where cid = ?");
             statement.setInt(1,courseId);
             ResultSet rs = statement.executeQuery();
-
-            statement = conn.prepareStatement(SQLQueries.GET_USER_NAME);
-            statement.setString(1,rs.getString("pid"));
-            ResultSet profName=statement.executeQuery();
-
-            Course course = new Course(rs.getInt("cid"), rs.getString("cname"), rs.getString("pid"), profName.getString("name"), rs.getInt("filledSeats"));
-            return course;
+            
+            if (!rs.next())
+            	throw new CourseNotFoundException(courseId); 
+            else
+            {
+            	Course course = new Course(rs.getInt("cid"), rs.getString("cname"), rs.getString("pid"), UserDAOOperation.getInstance().getDetails(rs.getString("pid")).getName(), rs.getInt("filledSeats"));
+            	return course;
+            }
         }
         catch (SQLException e) 
         {
             System.err.println(e.getMessage());
             throw new CourseNotFoundException(courseId);
-        }
+        } catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (StudentNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ProfNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         finally
         {
             try{
@@ -84,6 +96,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
                 System.err.println(e.getMessage());
             }
         }
+        return null;
 	}
 
 	@Override
@@ -94,6 +107,9 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
             statement = conn.prepareStatement(SQLQueries.ADD_COURSE);
             statement.setString(1, studentId);
             statement.setInt(2, courseCode);
+            statement.setInt(3, 2020);
+            statement.setInt(4, 1);
+            statement.setInt(5, 0);
 
             statement.executeUpdate();
             
@@ -166,13 +182,9 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			statement.setString(1, studentId);
 
 			ResultSet rs = statement.executeQuery();
-
-            statement = conn.prepareStatement(SQLQueries.GET_USER_NAME);
-            statement.setString(1,rs.getString("pid"));
-            ResultSet profName=statement.executeQuery();
 			
 			while (rs.next()) {
-                RegisteredCourse course = new RegisteredCourse(rs.getString("cname"), profName.getString("name"), studentId, rs.getInt("semesterNum"), rs.getInt("cid"), Grade.fromInt(rs.getInt("grade")));
+                RegisteredCourse course = new RegisteredCourse(rs.getString("cname"), UserDAOOperation.getInstance().getDetails(rs.getString("pid")).getName(), studentId, rs.getInt("semesterNum"), rs.getInt("cid"), Grade.fromInt(rs.getInt("grade")));
 				registeredCourseList.add(course);
 			}
 		}
@@ -180,7 +192,13 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
         {
             System.err.println(e.getMessage());
             throw new StudentNotFoundException(studentId);
-        }
+        } catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ProfNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         finally
         {
             try{
@@ -203,8 +221,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		{
 			statement = conn.prepareStatement(SQLQueries.GET_NUM_REGISTERED_COURSES);
 			statement.setString(1, studentId);
-			statement.setString(2, Integer.toString(SQLQueries.semesterYear));
-			statement.setString(3, Integer.toString(SQLQueries.semesterNum));
+			statement.setInt(2, SQLQueries.semesterYear);
+			statement.setInt(3, SQLQueries.semesterNum);
 			ResultSet rs = statement.executeQuery();
 			num_courses = rs.getInt("count");
 		} 
