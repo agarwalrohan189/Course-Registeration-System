@@ -98,7 +98,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new CourseNotFoundException(courseID);
+            throw new CourseNotDeletedException(courseID);
         }
     }
 
