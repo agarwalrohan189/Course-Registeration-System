@@ -1,7 +1,7 @@
 package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.EnrolledStudent;
+import com.flipkart.bean.Student;
 import com.flipkart.constant.Grade;
 import com.flipkart.constant.SQLQueries;
 import com.flipkart.exception.GradeNotAssignedException;
@@ -47,11 +47,11 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
     }
 
     @Override
-    public List<EnrolledStudent> viewStudent(int courseID, String profID) throws ProfNotFoundException{
+    public List<Student> viewStudent(int courseID, String profID) throws ProfNotFoundException, StudentNotFoundException{
 
         Connection connection = DBUtil.getConnection();
 
-        List<EnrolledStudent> studentList = new ArrayList<EnrolledStudent>();
+        List<Student> studentList = new ArrayList<Student>();
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQLQueries.GET_ENROLLED_STUDENTS);
@@ -61,8 +61,22 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            List<String> sid = new ArrayList<String>();
+
             while (resultSet.next()){
-                studentList.add(new EnrolledStudent(resultSet.getString("id"), resultSet.getString("name")));
+                sid.add(resultSet.getString("sid"));
+            }
+
+            String curid = "";
+            try {
+                UserDAOOperation userDAOOperation = UserDAOOperation.getInstance();
+                for(String id:sid){
+                    curid = id;
+                    Student student = (Student) userDAOOperation.getDetails(id);
+                    studentList.add(student);
+                }
+            }catch (Exception e){
+                throw new StudentNotFoundException(curid);
             }
 
         }catch (Exception e){

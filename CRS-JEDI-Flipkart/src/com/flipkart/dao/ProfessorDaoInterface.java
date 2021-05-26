@@ -1,7 +1,7 @@
 package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.EnrolledStudent;
+import com.flipkart.bean.Student;
 import com.flipkart.constant.Grade;
 import com.flipkart.exception.GradeNotAssignedException;
 import com.flipkart.exception.ProfNotFoundException;
@@ -25,7 +25,7 @@ public interface ProfessorDaoInterface {
      * @param courseID -> ID of course whose students are requested.
      * @return -> List of students enrolled in course.
      */
-    public List<EnrolledStudent> viewStudent(int courseID, String profID) throws ProfNotFoundException;
+    public List<Student> viewStudent(int courseID, String profID) throws ProfNotFoundException, StudentNotFoundException;
 
     /**
      * Method to assign grade to student.

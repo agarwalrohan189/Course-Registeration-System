@@ -1,12 +1,12 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.constant.Grade;
 import com.flipkart.dao.ProfessorDaoOperation;
 import com.flipkart.exception.GradeNotAssignedException;
 import com.flipkart.exception.ProfNotFoundException;
 import com.flipkart.exception.StudentNotFoundException;
+import com.flipkart.bean.Student;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +27,8 @@ public class ProfessorOperation implements ProfessorInterface{
     }
 
     @Override
-    public List<EnrolledStudent> viewStudent(int courseID, String profID) throws ProfNotFoundException{
-        List<EnrolledStudent> enrolledStudents = new ArrayList<EnrolledStudent>();
+    public List<Student> viewStudent(int courseID, String profID) throws ProfNotFoundException, StudentNotFoundException{
+        List<Student> enrolledStudents = new ArrayList<Student>();
 
         try {
             enrolledStudents = professorDaoOperation.viewStudent(courseID,profID);
