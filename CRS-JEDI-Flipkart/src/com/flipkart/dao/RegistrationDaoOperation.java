@@ -109,11 +109,9 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
             statement.setInt(2, courseCode);
             statement.setInt(3, 2020);
             statement.setInt(4, 1);
-            statement.setInt(5, 0);
-
             statement.executeUpdate();
             
-            statement = conn.prepareStatement(SQLQueries.DECREMENT_COURSE_SEATS);
+            statement = conn.prepareStatement(SQLQueries.INCREMENT_COURSE_SEATS);
             statement.setInt(1, courseCode);
             statement.executeUpdate();
             return true;
@@ -146,7 +144,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
             statement.setString(2, studentId);
             statement.execute();
             
-            statement = conn.prepareStatement(SQLQueries.INCREMENT_COURSE_SEATS);
+            statement = conn.prepareStatement(SQLQueries.DECREMENT_COURSE_SEATS);
             statement.setInt(1, courseCode);
             statement.execute();
             
@@ -215,35 +213,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 	@Override
 	public float calculateFee(String studentId) throws StudentNotFoundException{
-		Connection conn = DBUtil.getConnection();
-		int num_courses = 0;
-		try 
-		{
-			statement = conn.prepareStatement(SQLQueries.GET_NUM_REGISTERED_COURSES);
-			statement.setString(1, studentId);
-			statement.setInt(2, SQLQueries.semesterYear);
-			statement.setInt(3, SQLQueries.semesterNum);
-			ResultSet rs = statement.executeQuery();
-			num_courses = rs.getInt("count");
-		} 
-		catch (SQLException e) 
-        {
-            System.err.println(e.getMessage());
-            throw new StudentNotFoundException(studentId);
-        }
-        finally
-        {
-            try{
-                statement.close();
-                conn.close();
-            }
-            catch(Exception e){
-                System.err.println("Couldn't close connection to database");
-                System.err.println(e.getMessage());
-            }
-        }
+		int num_courses = viewRegisteredCourses(studentId).size();;
 		return num_courses * SQLQueries.feesPerCourse;
-		
 	}
 	
 	@Override

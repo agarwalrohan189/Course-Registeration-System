@@ -32,7 +32,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
 
             while (resultSet.next()){
                 courseList.add(new Course(resultSet.getInt("cid"),resultSet.getString("cname"),resultSet.getString("pid"),
-                        resultSet.getString("name"),resultSet.getInt("filledSeats")));
+                		UserDAOOperation.getInstance().getDetails(resultSet.getString("pid")).getName(),resultSet.getInt("filledSeats")));
             }
         }catch (Exception e){
             throw new ProfNotFoundException(profID);
@@ -56,8 +56,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQLQueries.GET_ENROLLED_STUDENTS);
 
-            preparedStatement.setString(1,profID);
-            preparedStatement.setInt(2,courseID);
+            preparedStatement.setInt(1,courseID);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 

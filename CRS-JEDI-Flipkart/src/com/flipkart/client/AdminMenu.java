@@ -313,7 +313,7 @@ public class AdminMenu {
 
 
 	private void logout() {
-		scanner.close();
+//		scanner.close();
 		System.out.println("---------------Logging out---------------");
 	}
 }

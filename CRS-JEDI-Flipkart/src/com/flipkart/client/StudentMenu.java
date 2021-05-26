@@ -50,6 +50,7 @@ public class StudentMenu {
 			System.out.println("8. Logout");
 
 			int input = sc.nextInt();
+			sc.nextLine();
 
 			switch (input) {
 			case 1:
@@ -82,7 +83,7 @@ public class StudentMenu {
 
 			case 8:
 				// Logout
-				sc.close();
+//				sc.close();
 				System.out.println("==================== Logging Out ====================");
 				return;
 
@@ -147,6 +148,7 @@ public class StudentMenu {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter CourseID");
 		int courseID = sc.nextInt();
+		sc.nextLine();
 		try {
 			registrationInterface.addCourse(studentID, courseID);
 		}
@@ -155,7 +157,7 @@ public class StudentMenu {
 			e.printStackTrace();
 		}
 		finally{
-			sc.close();
+//			sc.close();
 		}
 	}
 
@@ -166,6 +168,7 @@ public class StudentMenu {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter CourseID");
 		int courseID = sc.nextInt();
+		sc.nextLine();
 		try {
 			registrationInterface.dropCourse(studentID, courseID);
 		}
@@ -174,7 +177,7 @@ public class StudentMenu {
 			e.printStackTrace();	
 		}
 		finally{
-			sc.close();
+//			sc.close();
 		}
 	}
 
@@ -232,7 +235,7 @@ public class StudentMenu {
 			e.printStackTrace();	
 		}
 		finally{
-			sc.close();
+//			sc.close();
 		}
 	}
 }

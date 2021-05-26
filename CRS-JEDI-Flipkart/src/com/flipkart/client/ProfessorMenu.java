@@ -46,6 +46,7 @@ public class ProfessorMenu {
 			System.out.println("Enter Option : ");
 
 			int input = sc.nextInt();
+			sc.nextLine();
 			switch (input) {
 			case 1:
 				// View courses taught by the professor
@@ -62,7 +63,7 @@ public class ProfessorMenu {
 				break;
 			case 4:
 				// Logout
-				sc.close();
+//				sc.close();
 				System.out.println("==================== Logging Out ====================");
 				return;
 			default:
@@ -108,7 +109,7 @@ public class ProfessorMenu {
 			e.printStackTrace();
 		}
 		finally{
-			sc.close();
+//			sc.close();
 		}
 	}
 
@@ -131,7 +132,7 @@ public class ProfessorMenu {
 			e.printStackTrace();	
 		}
 		finally{
-			sc.close();
+//			sc.close();
 		}
 	}
 }
