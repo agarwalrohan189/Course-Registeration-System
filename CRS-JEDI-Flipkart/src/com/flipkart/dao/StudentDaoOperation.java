@@ -52,7 +52,7 @@ public class StudentDaoOperation implements StudentDaoInterface{
 			}
 			finally {
 				try {
-					stmt.close();
+					conn.close();
 				}
 				catch(SQLException ex){
 					System.out.println(ex.getMessage());
