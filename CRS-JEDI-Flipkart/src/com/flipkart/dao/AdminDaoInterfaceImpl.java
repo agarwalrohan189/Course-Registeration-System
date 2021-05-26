@@ -36,8 +36,6 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         }
         return instance;
     }
-
-    Connection conn = DBUtil.getConnection();
     /**
      * Method to add course in catalogue using SQL command.
      *
@@ -47,6 +45,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
     @Override
     public void addCourse(Course course) throws CourseFoundException {
         statement = null;
+        Connection conn = DBUtil.getConnection();
         try {
             String sql = SQLQueries.ADD_COURSE_QUERY;
             statement = conn.prepareStatement(sql);
@@ -68,6 +67,20 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             e.printStackTrace();
             throw new CourseFoundException(course.getCourseId());
         }
+        finally {
+			try {
+				conn.close();
+			}
+			catch(SQLException ex){
+				System.out.println(ex.getMessage());
+				try {
+					throw new DatabaseException();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
     }
 
     /**
@@ -80,6 +93,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
     @Override
     public void removeCourse(int courseID) throws CourseNotFoundException, CourseNotDeletedException {
         statement = null;
+        Connection conn = DBUtil.getConnection();
         try{
             String sql = SQLQueries.DELETE_COURSE_QUERY;
             statement = conn.prepareStatement(sql);
@@ -97,6 +111,20 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             e.printStackTrace();
             throw new CourseNotDeletedException(courseID);
         }
+        finally {
+			try {
+				conn.close();
+			}
+			catch(SQLException ex){
+				System.out.println(ex.getMessage());
+				try {
+					throw new DatabaseException();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
     }
 
     /**
@@ -133,6 +161,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
 
         statement = null;
+        Connection conn = DBUtil.getConnection();
         try {
 
             String sql = SQLQueries.ADD_PROFESSOR_QUERY;
@@ -158,6 +187,20 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             throw new ProfFoundException(professor.getId());
 
         }
+        finally {
+			try {
+				conn.close();
+			}
+			catch(SQLException ex){
+				System.out.println(ex.getMessage());
+				try {
+					throw new DatabaseException();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
     }
 
     /**
@@ -168,6 +211,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
     @Override
     public void addUser(User user) throws UserNotAddedException {
         statement = null;
+        Connection conn = DBUtil.getConnection();
         try {
 
             String sql = SQLQueries.ADD_USER_QUERY;
@@ -197,6 +241,20 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             throw new UserNotAddedException(user.getId());
 
         }
+        finally {
+			try {
+				conn.close();
+			}
+			catch(SQLException ex){
+				System.out.println(ex.getMessage());
+				try {
+					throw new DatabaseException();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
     }
 
     /**
@@ -208,6 +266,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
     @Override
     public void removeProf(String profID) throws ProfNotFoundException {
         statement = null;
+        Connection conn = DBUtil.getConnection();
         try {
 
             String sql = SQLQueries.DELETE_PROFESSOR_QUERY;
@@ -230,6 +289,20 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             throw new ProfNotFoundException(profID);
 
         }
+        finally {
+			try {
+				conn.close();
+			}
+			catch(SQLException ex){
+				System.out.println(ex.getMessage());
+				try {
+					throw new DatabaseException();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
     }
 
     /**
@@ -241,6 +314,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
     @Override
     public void addStudent(Student student) throws StudentAlreadyExistsException, StudentNotAddedException {
         statement = null;
+        Connection conn = DBUtil.getConnection();
         try {
 
             String sql = SQLQueries.ADD_STUDENT;
@@ -266,6 +340,20 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             throw new StudentNotAddedException(student.getId());
 
         }
+        finally {
+			try {
+				conn.close();
+			}
+			catch(SQLException ex){
+				System.out.println(ex.getMessage());
+				try {
+					throw new DatabaseException();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
     }
 
     /**
@@ -277,6 +365,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
     @Override
     public void removeStudent(String studentID) throws StudentNotFoundException {
         statement = null;
+        Connection conn = DBUtil.getConnection();
         try {
 
             String sql = SQLQueries.DELETE_STUDENT_QUERY;
@@ -299,6 +388,20 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             throw new StudentNotFoundException(studentID);
 
         }
+        finally {
+			try {
+				conn.close();
+			}
+			catch(SQLException ex){
+				System.out.println(ex.getMessage());
+				try {
+					throw new DatabaseException();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
     }
 
     /**
@@ -310,6 +413,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
     @Override
     public void assignProf(String profID, int courseID) throws CourseNotFoundException, ProfNotFoundException {
         statement = null;
+        Connection conn = DBUtil.getConnection();
         try {
 
             String sql = SQLQueries.ASSIGN_COURSE_QUERY;
@@ -333,6 +437,20 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             throw new ProfNotFoundException(profID);
 
         }
+        finally {
+			try {
+				conn.close();
+			}
+			catch(SQLException ex){
+				System.out.println(ex.getMessage());
+				try {
+					throw new DatabaseException();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
     }
 
     /**
@@ -343,6 +461,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
     @Override
     public void generateReportCard(String studentID) throws StudentNotFoundException{
         statement = null;
+        Connection conn = DBUtil.getConnection();
         try {
             String sql = SQLQueries.GET_STUDENT_GRADES;
             statement = conn.prepareStatement(sql);
@@ -376,6 +495,20 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         }catch (Exception e){
             throw new StudentNotFoundException(studentID);
         }
+        finally {
+			try {
+				conn.close();
+			}
+			catch(SQLException ex){
+				System.out.println(ex.getMessage());
+				try {
+					throw new DatabaseException();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
     }
 
     /**
@@ -387,6 +520,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
     public List<Course> viewCourses() {
         statement = null;
         List<Course> coursesList = new ArrayList<>();
+        Connection conn = DBUtil.getConnection();
         try{
             String sql = SQLQueries.GET_COURSE_CATALOGUE;
             statement = conn.prepareStatement(sql);
@@ -408,6 +542,20 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+			try {
+				conn.close();
+			}
+			catch(SQLException ex){
+				System.out.println(ex.getMessage());
+				try {
+					throw new DatabaseException();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
         return coursesList;
     }
 
@@ -422,6 +570,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             if (course.getFilledSeats() < 3) {
                 course.setFilledSeats(0);
                 //TODO: notify student that the course has been cancelled
+                Connection conn = DBUtil.getConnection();
                 try {
                     String sql = SQLQueries.DELETE_REGISTERED_COURSE_QUERY;
                     statement = conn.prepareStatement(sql);
@@ -436,6 +585,20 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
                     e.printStackTrace();
                     throw new CourseNotDeletedException(course.getCourseId());
                 }
+                finally {
+        			try {
+        				conn.close();
+        			}
+        			catch(SQLException ex){
+        				System.out.println(ex.getMessage());
+        				try {
+        					throw new DatabaseException();
+        				} catch (DatabaseException e) {
+        					// TODO Auto-generated catch block
+        					e.printStackTrace();
+        				}
+        			}
+        		}
             }
         }
         System.out.println("Validation complete!");
