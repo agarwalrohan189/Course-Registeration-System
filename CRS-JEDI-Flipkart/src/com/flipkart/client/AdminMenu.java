@@ -115,6 +115,8 @@ public class AdminMenu {
 			int cid = scanner.nextInt();scanner.nextLine();
 
 			adminDaoInterface.assignProf(profID,cid);
+
+			System.out.println("Course is assigned to professor");
 		}catch (Exception e){
 			System.out.println(e.getMessage());
 		}
@@ -125,6 +127,8 @@ public class AdminMenu {
 			AdminDaoInterfaceImpl adminDaoInterface = new AdminDaoInterfaceImpl();
 
 			adminDaoInterface.validateRegistration();
+
+			System.out.println(":) :) :) registrations Validated :) :) :)");
 		}catch (Exception e){
 			System.out.println(e.getMessage());
 		}
@@ -296,6 +300,12 @@ public class AdminMenu {
 			AdminDaoInterfaceImpl adminDaoInterface = new AdminDaoInterfaceImpl();
 
 			 List<Course> courseList = adminDaoInterface.viewCourses();
+
+			System.out.println("Course ID\tCourse Name\tInstructor ID\tInstructor Name\tFilled Seats");
+			for (Course course : courseList) {
+				System.out.printf(course.getCourseId() + "\t" + course.getCourseName() + "\t" + course.getInstructorId() +
+						"\t" + course.getInstructorName() + "\t" + course.getFilledSeats());
+			}
 
 		}catch (Exception e){
 			System.out.println(e.getMessage());
