@@ -12,7 +12,6 @@ import java.util.*;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.RegisteredCourse;
-import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.Grade;
 import com.flipkart.constant.SQLQueries;
 import com.flipkart.exception.CourseNotFoundException;
