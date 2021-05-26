@@ -36,6 +36,7 @@ public class SQLQueries {
 
 	public static final String ADD_STUDENT="insert into Students (id,branch,batchYear,paymentIsDone) values (?,?,?,?)";
 	public static final String DELETE_STUDENT_QUERY = "delete from Students where id = ?";
+	public static final String DELETE_USER_QUERY = "delete from Users where id = ?";
 	public static final String DELETE_REGISTERED_COURSE_QUERY = "delete from RegisteredCourse where cid = ?";
 	public static final String GET_STUDENT_GRADES = "select * from registeredcourse where sid = ?";
 	public static final String APPROVE_STUDENT_QUERY = "update Students set isApproved = 1 where id = ?";

@@ -11,6 +11,7 @@ import com.flipkart.constant.Role;
 import com.flipkart.dao.AdminDaoInterfaceImpl;
 import com.flipkart.dao.UserDAOInterface;
 import com.flipkart.dao.UserDAOOperation;
+import com.flipkart.service.AdminOperation;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,7 +34,7 @@ public class AdminMenu {
 			System.out.println(" 3. Remove Course");
 			System.out.println(" 4. Add Professor");
 			System.out.println(" 5. Remove Professor");
-			System.out.println(" 6. Add Student");
+			System.out.println(" 6. Approve Student");
 			System.out.println(" 7. Remove Student");
 			System.out.println(" 8. Validate Registrations");
 			System.out.println(" 9. Assign Professor to course");
@@ -65,7 +66,7 @@ public class AdminMenu {
 					break;
 
 				case 6:
-					addStudent();
+					 approveStudent();
 					break;
 
 				case 7:
@@ -93,12 +94,11 @@ public class AdminMenu {
 
 	private void generateReport() {
 		try {
-			AdminDaoInterfaceImpl adminDaoInterface = new AdminDaoInterfaceImpl();
 
 			System.out.println("Enter Student ID of student whose report is to be generated");
 			String studentID = scanner.nextLine();
 
-			adminDaoInterface.generateReportCard(studentID);
+			AdminOperation.getInstance().generateReportCard(studentID);
 
 		}catch (Exception e){
 			System.out.println(e.getMessage());
@@ -107,14 +107,13 @@ public class AdminMenu {
 
 	private void assignProf() {
 		try {
-			AdminDaoInterfaceImpl adminDaoInterface = new AdminDaoInterfaceImpl();
 
 			System.out.println("Enter the professor ID");
 			String profID = scanner.nextLine();
 			System.out.println("Enter Course ID of course to be assigned");
 			int cid = scanner.nextInt();scanner.nextLine();
 
-			adminDaoInterface.assignProf(profID,cid);
+			AdminOperation.getInstance().assignProf(profID, cid);
 
 			System.out.println("Course is assigned to professor");
 		}catch (Exception e){
@@ -124,9 +123,8 @@ public class AdminMenu {
 
 	private void validateRegistrations() {
 		try {
-			AdminDaoInterfaceImpl adminDaoInterface = new AdminDaoInterfaceImpl();
 
-			adminDaoInterface.validateRegistration();
+			AdminOperation.getInstance().validateRegistration();
 
 			System.out.println(":) :) :) registrations Validated :) :) :)");
 		}catch (Exception e){
@@ -136,12 +134,10 @@ public class AdminMenu {
 
 	private void removeStudent() {
 		try {
-			AdminDaoInterfaceImpl adminDaoInterface = new AdminDaoInterfaceImpl();
-
 			System.out.println("Enter Student ID");
 			String studentID = scanner.nextLine();
 
-			adminDaoInterface.removeStudent(studentID);
+			AdminOperation.getInstance().removeStudent(studentID);
 
 			System.out.println("----------Student Removed---------");
 		}catch (Exception e){
@@ -149,18 +145,26 @@ public class AdminMenu {
 		}
 	}
 
-	private void addStudent() {
-
+	private void approveStudent() {
+		try
+		{
+			System.out.println("Enter student id: ");
+			String studentId = scanner.nextLine();
+			AdminOperation.getInstance().approveStudent(studentId);
+		}
+		catch (Exception e)
+		{
+			System.err.println(e.getMessage());
+		}
 	}
 
 	private void removeProf() {
 		try {
-			AdminDaoInterfaceImpl adminDaoInterface = new AdminDaoInterfaceImpl();
 
 			System.out.println("Enter Professor ID");
 			String profID = scanner.nextLine();
-
-			adminDaoInterface.removeProf(profID);
+			
+			AdminOperation.getInstance().removeProf(profID);
 
 			System.out.println("----------Professor Removed---------");
 
@@ -171,8 +175,6 @@ public class AdminMenu {
 
 	private void addProf() {
 		try {
-			AdminDaoInterfaceImpl adminDaoInterface = new AdminDaoInterfaceImpl();
-
 			System.out.println("Enter Professor ID");
 			String pid = scanner.nextLine();
 			System.out.println("Enter Professor name");
@@ -208,7 +210,7 @@ public class AdminMenu {
 
 			Professor professor = new Professor(pid,name,role,pass,gender,address,username,doB,dept,qual,doJ);
 
-			adminDaoInterface.addProf(professor);
+			AdminOperation.getInstance().addProf(professor);
 
 			System.out.println("++++++++++Professor Added+++++++++++");
 		}catch (Exception e){
@@ -218,12 +220,10 @@ public class AdminMenu {
 
 	private void removeCourse() {
 		try {
-			AdminDaoInterfaceImpl adminDaoInterface = new AdminDaoInterfaceImpl();
-
 			System.out.println("Enter CourseID of course to be removed");
 			int cid = scanner.nextInt();scanner.nextLine();
 
-			adminDaoInterface.removeCourse(cid);
+			AdminOperation.getInstance().removeCourse(cid);
 
 			System.out.println("----------Course Removed---------");
 
@@ -234,18 +234,13 @@ public class AdminMenu {
 
 	private void addCourse() {
 		try {
-			AdminDaoInterfaceImpl adminDaoInterface = new AdminDaoInterfaceImpl();
-
 			System.out.println("Please Enter Following details of the course");
 			System.out.println("Course ID:");
 			int cid = scanner.nextInt();scanner.nextLine();
 			System.out.println("Course Name:");
 			String cname = scanner.nextLine();
-//			System.out.println("Professor ID");
-//			String pid = scanner.nextLine();
-//			System.out.println("Professor name");
-//			String pname = UserDAOOperation.getInstance().getDetails(pid).getName();
-			adminDaoInterface.addCourse(new Course(cid,cname,"","",0));
+			
+			AdminOperation.getInstance().addCourse(new Course(cid,cname,"p0","p0",0));
 
 			System.out.println("+++++++++Course Added+++++++++");
 		}catch (Exception e){
@@ -255,9 +250,7 @@ public class AdminMenu {
 
 	private void viewCourseCatalogue() {
 		try {
-			AdminDaoInterfaceImpl adminDaoInterface = new AdminDaoInterfaceImpl();
-
-			 List<Course> courseList = adminDaoInterface.viewCourses();
+			 List<Course> courseList = AdminOperation.getInstance().viewCourses();
 
 			System.out.println("Course ID\tCourse Name\tInstructor ID\tInstructor Name\tFilled Seats");
 			for (Course course : courseList) {

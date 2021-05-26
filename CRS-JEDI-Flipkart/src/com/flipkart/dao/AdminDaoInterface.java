@@ -57,7 +57,7 @@ public interface AdminDaoInterface {
      * @param profID : professor ID of professor to be removed
      * @throws ProfFoundException
      */
-    public void removeProf(String profID) throws ProfNotFoundException;
+    public void removeProf(String profID) throws ProfNotFoundException, ProfNotDeletedException;
 
     /**
      * Remove student from database using SQL command

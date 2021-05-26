@@ -52,7 +52,7 @@ public class AdminOperation implements AdminInterface{
     }
 
     @Override
-    public void removeProf(String profID) throws ProfNotFoundException {
+    public void removeProf(String profID) throws ProfNotFoundException, ProfNotDeletedException {
         try {
             adminDaoInterfaceImpl.removeProf(profID);
         } catch (Exception e) {

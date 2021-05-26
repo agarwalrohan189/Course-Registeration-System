@@ -53,7 +53,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             statement = conn.prepareStatement(sql);
             statement.setInt(1, course.getCourseId());
             statement.setString(2, course.getCourseName());
-            statement.setString(3, null);
+            statement.setString(3, course.getInstructorId());
             statement.setBoolean(4, true);
             statement.setInt(5, 0);
             int row = statement.executeUpdate();
@@ -267,7 +267,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
      * @throws ProfFoundException
      */
     @Override
-    public void removeProf(String profID) throws ProfNotFoundException {
+    public void removeProf(String profID) throws ProfNotFoundException, ProfNotDeletedException {
         statement = null;
         Connection conn = DBUtil.getConnection();
         try {
@@ -283,13 +283,30 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
                 System.out.println("Prof with userId: " + profID + " not deleted.");
                 throw new ProfNotFoundException(profID);
             }
+            
+            String sq2 = SQLQueries.DELETE_USER_QUERY;
+            statement = conn.prepareStatement(sq2);
+
+            statement.setString(1, profID);
+            row = statement.executeUpdate();
+
+            System.out.println(row + " entries deleted.");
+            if(row == 0) {
+                System.out.println("User with userId: " + profID + " not deleted.");
+                throw new ProfNotFoundException(profID);
+            }
 
             System.out.println("Prof with userId: " + profID + " deleted.");
 
         }catch(SQLException se) {
 
-            System.out.println(se.getMessage());
-            throw new ProfNotFoundException(profID);
+        	if (se.getMessage().contains("Cannot delete or update a parent row: a foreign key constraint fails"))
+        		throw new ProfNotDeletedException(profID);
+        	else
+        	{
+        		System.out.println(se.getMessage());
+            	throw new ProfNotFoundException(profID);
+        	}
 
         }
         finally {
@@ -332,6 +349,18 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
                 System.out.println("Student with userId: " + studentID + " not deleted.");
                 throw new StudentNotFoundException(studentID);
             }
+            
+            String sq2 = SQLQueries.DELETE_USER_QUERY;
+            statement = conn.prepareStatement(sq2);
+
+            statement.setString(1, studentID);
+            row = statement.executeUpdate();
+
+            System.out.println(row + " entries deleted.");
+            if(row == 0) {
+                System.out.println("User with userId: " + studentID + " not deleted.");
+                throw new UserNotFoundException(studentID);
+            }
 
             System.out.println("User with userId: " + studentID + " deleted.");
 
@@ -340,7 +369,10 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             System.out.println(se.getMessage());
             throw new StudentNotFoundException(studentID);
 
-        }
+        } catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         finally {
 			try {
 				conn.close();
@@ -485,10 +517,17 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 //                statement = conn.prepareStatement(sql);
 //                statement.setString(1, pid);
 //                ResultSet resultSet1 = statement.executeQuery();
-                String profName = UserDAOOperation.getInstance().getDetails(pid).getName();
+                String profName;
+                if (pid.equals("p0"))
+                {
+                	profName = "NA";
+                	pid = "NA";
+                }
+                else
+                	profName = UserDAOOperation.getInstance().getDetails(pid).getName();
 
                 Course course = new Course(resultSet.getInt(1), resultSet.getString(2),
-                        resultSet.getString(3), profName, resultSet.getInt(5));
+                		pid, profName, resultSet.getInt(5));
                 coursesList.add(course);
             }
 
