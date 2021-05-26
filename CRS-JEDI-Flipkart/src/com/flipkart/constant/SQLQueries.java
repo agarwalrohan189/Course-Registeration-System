@@ -44,7 +44,7 @@ public class SQLQueries {
 		public static final String GET_REGISTERED_COURSE_DETAILS="select * from RegistedCourse where sid = ?";
 				
 		public static final String CHECK_COURSE_AVAILABILITY=" select courseCode from RegisteredCourse where studentId = ? ";
-		public static final String DROP_COURSE_QUERY = "delete from RegisteredCourse where courseCode = ? AND studentId = ?;";
+
 		public static final String VIEW_GRADE = "select course.courseCode,course.courseName,RegisteredCourse.grade from course inner join RegisteredCourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?;";	
 		public static final String ADD_GRADE="update RegisteredCourse set Grade=? where courseCode=? and studentId=?";
 		
@@ -52,9 +52,6 @@ public class SQLQueries {
 		
 		public static final String VIEW_PENDING_ADMISSION_QUERY = "select userId, name, password, role, gender, address, country, studentId from student natural join user where isApproved = 0";
 		public static final String APPROVE_STUDENT_QUERY = "update Student set isApproved = 1 where studentId = ?";
-		
-		
-		
 		
 		public static final String VIEW_PROFESSOR_QUERY = "select userId, name, gender, department, designation, address, country from Professor natural join User";
 		
@@ -65,10 +62,6 @@ public class SQLQueries {
 		// public static final String GET_STUDENT_ID="select studentId from student where userId = ? ";
 		// public static final String UPDATE_PASSWORD="update user set password=? where userId = ? ";
 		// public static final String GET_PROF_NAME = "select name from user where userId = ?";
-
-			
-		
-		public static final String DROP_COURSE_QUERY = "delete from registeredcourse where courseCode = ? AND studentId = ?;";
 		
 		// Student Queries
 		// public static final String VIEW_AVAILABLE_COURSES=" select * from course where courseCode not in  (select courseCode  from registeredcourse where studentId = ?) and course.isOffered = ? and seats > 0";

@@ -65,7 +65,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
             statement.setInt(1,courseId);
             ResultSet rs = statement.executeQuery();
 
-            statement = conn.prepareStatement(SQLQueries.GET_PROF_NAME);
+            statement = conn.prepareStatement(SQLQueries.GET_USER_NAME);
             statement.setString(1,rs.getString("pid"));
             ResultSet profName=statement.executeQuery();
 
@@ -171,7 +171,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 			ResultSet rs = statement.executeQuery();
 
-            statement = conn.prepareStatement(SQLQueries.GET_PROF_NAME);
+            statement = conn.prepareStatement(SQLQueries.GET_USER_NAME);
             statement.setString(1,rs.getString("pid"));
             ResultSet profName=statement.executeQuery();
 			
