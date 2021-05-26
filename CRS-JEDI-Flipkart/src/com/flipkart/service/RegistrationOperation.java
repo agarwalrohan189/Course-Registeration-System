@@ -98,10 +98,12 @@ public class RegistrationOperation implements RegistrationInterface {
 		String message;
 //		PaymentNotification notifObj = new PaymentNotification();
 		if(!registrationDaoInterface.isRegistrationDone(studentId)) {
+			// should not happen in current code
 			message = "Registration not yet complete";
 //			throw new RegistrationNotCompleteException(studentId);
 		}
 		else if(registrationDaoInterface.isPaymentDone(studentId)) {
+			// should not happen in current code
 			message = "Payment already done";
 //			throw new PaymentAlreadyDoneException(studentId);
 		}else if(amount != feeToBePaid) {
@@ -111,7 +113,7 @@ public class RegistrationOperation implements RegistrationInterface {
 			Payment payObj = new Payment(studentId, mode, amount);
 			if(payObj.isStatus()) {
 				registrationDaoInterface.feePaid(studentId);
-				message = "Payment Successful! Thank You";
+				message = "Payment Successful! Transaction Id: " + payObj.getPaymentId() + " Thank You";
 			}else {
 				message = "Payment Failed! Try again later";
 			}

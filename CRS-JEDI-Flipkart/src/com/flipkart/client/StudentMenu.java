@@ -9,6 +9,8 @@ import java.util.Scanner;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.dao.RegistrationDaoInterface;
+import com.flipkart.dao.RegistrationDaoOperation;
 import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.service.NotificationOperation;
 import com.flipkart.service.RegistrationInterface;
@@ -210,32 +212,53 @@ public class StudentMenu {
 	 */
 	private void payFee() {
 		Scanner sc = new Scanner(System.in);
+		RegistrationDaoInterface registrationDaoInterface = new RegistrationDaoOperation();
 		try{
-			float fee = registrationInterface.calculateFee(studentID);
-			System.out.println("Pending amount is : "+fee+", Do you want to pay in full? (Y/N) : ");
-			if(sc.next().equals("Y")){
-				float amount = fee;
-				System.out.println("==================== Payment Gateway ====================");
-				System.out.println("1. Credit Card");
-				System.out.println("2. Net Banking");
-				System.out.println("3. Debit Card");
-				
-				System.out.println("Select Mode of Payment : ");
-				int modeChoice = sc.nextInt();
-				switch(modeChoice)
-				{
-						case 1:
-							registrationInterface.payFee(studentID, ModeOfPayment.CREDIT_CARD, amount);
-							break;
-						case 2:
-							registrationInterface.payFee(studentID, ModeOfPayment.NET_BANKING, amount);
-							break;
-						case 3:
-							registrationInterface.payFee(studentID, ModeOfPayment.DEBIT_CARD, amount);
-							break;
-						default:
-							System.err.println("No such mode exists, valid choices 1, 2, 3");						
+			if(!registrationDaoInterface.isRegistrationDone(studentID)) {
+				System.out.println("Registration not yet complete");
+			}else if(registrationDaoInterface.isPaymentDone(studentID)) {
+				System.out.println("Payment already done");
+			}else {
+				float fee = registrationInterface.calculateFee(studentID);
+				System.out.println("Pending amount is : "+fee+", Do you want to pay in full? (Y/N) : ");
+				if(sc.next().equals("Y")){
+					float amount = fee;
+					System.out.println("==================== Payment Gateway ====================");
+					System.out.println("1. Credit Card");
+					System.out.println("2. Net Banking");
+					System.out.println("3. Debit Card");
+					System.out.println("4. Scholarship");
+					System.out.println("5. Demand Draft");
+					
+					System.out.println("Select Mode of Payment : ");
+					int modeChoice = sc.nextInt();
+					switch(modeChoice)
+					{
+					case 1:
+						payViaCreditCard(studentID, amount);
+//						registrationInterface.payFee(studentID, ModeOfPayment.CREDIT_CARD, amount);
+						break;
+					case 2:
+						payViaNetBanking(studentID, amount);
+//						registrationInterface.payFee(studentID, ModeOfPayment.NET_BANKING, amount);
+						break;
+					case 3:
+						payViaDebitCard(studentID, amount);
+//						registrationInterface.payFee(studentID, ModeOfPayment.DEBIT_CARD, amount);
+						break;
+					case 4:
+						payViaScholarship(studentID, amount);
+//						registrationInterface.payFee(studentID, ModeOfPayment.DEBIT_CARD, amount);
+						break;
+					case 5:
+						payViaDemandDraft(studentID, amount);
+//						registrationInterface.payFee(studentID, ModeOfPayment.DEBIT_CARD, amount);
+						break;
+					default:
+						System.err.println("No such mode exists, valid choices 1, 2, 3");						
+					}
 				}
+				
 			}
 		}
 		catch(Exception e){
@@ -246,4 +269,70 @@ public class StudentMenu {
 //			sc.close();
 		}
 	}
+
+	private void payViaDemandDraft(String studentID2, float amount) {
+		System.out.println("Check with registrar's office for offline payment");			
+	}
+
+	private void payViaScholarship(String studentID2, float amount) {
+		System.out.println("Check with registrar's office for confirmation of scholarship");		
+	}
+
+	private void payViaDebitCard(String studentID, float amount) {
+		try {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("==================== Debit Card Details ====================");
+			System.out.println("Card Number:");
+			sc.next();
+			System.out.println("Name:");
+			sc.next();
+			System.out.println("Expiry Date:");
+			sc.next();
+			System.out.println("CVV:");
+			sc.next();
+			registrationInterface.payFee(studentID, ModeOfPayment.DEBIT_CARD, amount);
+		}catch(Exception e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}finally {
+			
+		}
+		
+	}
+
+	private void payViaNetBanking(String studentID2, float amount) {
+		try {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("==================== Net Banking Details ====================");
+			System.out.println("User:");
+			sc.next();
+			System.out.println("Password:");
+			sc.next();
+//			sc.close()
+			registrationInterface.payFee(studentID, ModeOfPayment.NET_BANKING, amount);
+		}catch(Exception e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	private void payViaCreditCard(String studentID2, float amount) {
+		try {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("==================== Credit Card Details ====================");
+			System.out.println("Card Number:");
+			sc.next();
+			System.out.println("Name:");
+			sc.next();
+			System.out.println("Expiry Date:");
+			sc.next();
+			System.out.println("CVV:");
+			sc.next();
+			registrationInterface.payFee(studentID, ModeOfPayment.CREDIT_CARD, amount);
+		}catch(Exception e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
 }

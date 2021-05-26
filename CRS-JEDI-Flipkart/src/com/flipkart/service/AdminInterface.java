@@ -75,4 +75,14 @@ public interface AdminInterface {
      * @throws StudentNotFoundException
      */
     public void approveStudent(String studentId) throws StudentNotFoundException;
+    
+    /**
+     * Method to accept scholarship from students
+     */
+    public void paymentDoneViaScholarship(String studentID);
+    
+    /**
+     * Method to accept Demand Draft from students
+     */
+    public void paymentDoneViaDemandDraft(String studentID);
 }
