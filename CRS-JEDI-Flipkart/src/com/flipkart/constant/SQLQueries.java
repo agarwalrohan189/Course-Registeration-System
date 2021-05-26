@@ -81,6 +81,8 @@ public class SQLQueries {
 			public static final int semesterNum = 1;
 			public static final String GET_NUM_REGISTERED_COURSES = "select count(*) from Students where sid = ? and semesterYear = ? and semesterNum = ?";
 			
+			
+			public static final String GET_NOTIFICATION_MESSAGE = "select message from Notification where nid = ?";
 
 
 

@@ -57,4 +57,6 @@ public interface RegistrationDaoInterface {
 	public boolean isRegistrationDone(String studentId) throws StudentNotFoundException;
 
 	public boolean isPaymentDone(String studentId) throws StudentNotFoundException;
+
+	public String getNotification(int notifId) throws NotifIdNotExistsException;
 }

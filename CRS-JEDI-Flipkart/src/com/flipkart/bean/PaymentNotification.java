@@ -18,21 +18,25 @@ public class PaymentNotification {
 	
 	private String message;
 	
-	public PaymentNotification(Payment payObj, float amtToBePaid) {
+	/*public PaymentNotification(Payment payObj, float amtToBePaid) {
 		if(!payObj.isStatus()) {
 			message = "Payment Failed! Please Try again.";
 		}else {
 			message = "Amount(" + payObj.amount + ") has been fully paid via " + ModeOfPayment.getStringModeOfPayment(payObj.paymentMethod) + ". Thank You";
 		}
-		/*else if(payObj.amount > amtToBePaid) {
+		else if(payObj.amount > amtToBePaid) {
 			message = "Amount(" + payObj.amount + ") paid via " + ModeOfPayment.getStringModeOfPayment(payObj.paymentMethod) + " is more than required(" + amtToBePaid + "). Please contact cash counter to get refund.";
 		}else if(payObj.amount < amtToBePaid) {
 			message = "Amount(" + payObj.amount + ") paid via " + ModeOfPayment.getStringModeOfPayment(payObj.paymentMethod) + " is less than required(" + amtToBePaid + "). Please deposit remaining fee before due date.";
-		}*/
-	}
+		}
+	}*/
 	
 	public String getNotificationMessage() {
 		return message;
+	}
+	
+	public void setNotificationMessage(String message) {
+		this.message = message;
 	}
 
 //	public int getNotificationId() {

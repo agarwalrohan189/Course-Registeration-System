@@ -16,6 +16,7 @@ import com.flipkart.exception.CourseLimitExceededException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.CourseSeatsFullException;
 import com.flipkart.exception.DatabaseException;
+import com.flipkart.exception.NotifIdNotExistsException;
 import com.flipkart.exception.PaymentAlreadyDoneException;
 import com.flipkart.exception.RegistrationNotCompleteException;
 import com.flipkart.exception.StudentNotFoundException;
@@ -76,18 +77,28 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 
 	@Override
-	public void payFee(String studentId, ModeOfPayment mode, float amount) throws StudentNotFoundException, RegistrationNotCompleteException, PaymentAlreadyDoneException{
+	public void payFee(String studentId, ModeOfPayment mode, float amount) throws StudentNotFoundException, NotifIdNotExistsException{
 		float feeToBePaid = calculateFee(studentId);
+		PaymentNotification notifObj = new PaymentNotification();
 		if(!registrationDaoInterface.isRegistrationDone(studentId)) {
-			throw new RegistrationNotCompleteException(studentId);
+			notifObj.setNotificationMessage(registrationDaoInterface.getNotification(3));
+//			throw new RegistrationNotCompleteException(studentId);
 		}
-		if(registrationDaoInterface.isPaymentDone(studentId)) {
-			throw new PaymentAlreadyDoneException(studentId);
-		}
-		Payment payObj = new Payment(studentId, mode, amount);
-		PaymentNotification notifObj = new PaymentNotification(payObj, feeToBePaid);
-		if(payObj.isStatus()) {
-			registrationDaoInterface.feePaid(studentId);
+		else if(registrationDaoInterface.isPaymentDone(studentId)) {
+			notifObj.setNotificationMessage(registrationDaoInterface.getNotification(4));
+//			throw new PaymentAlreadyDoneException(studentId);
+		}else if(amount != feeToBePaid) {
+			// should not happen in current code
+			notifObj.setNotificationMessage(registrationDaoInterface.getNotification(5));
+		}else {
+			Payment payObj = new Payment(studentId, mode, amount);
+			if(payObj.isStatus()) {
+				registrationDaoInterface.feePaid(studentId);
+				notifObj.setNotificationMessage(registrationDaoInterface.getNotification(2));
+			}else {
+				notifObj.setNotificationMessage(registrationDaoInterface.getNotification(1));
+			}
+			
 		}
 		NotificationOperation NotifOp = new NotificationOperation();
 		NotifOp.sendNotification(notifObj);
