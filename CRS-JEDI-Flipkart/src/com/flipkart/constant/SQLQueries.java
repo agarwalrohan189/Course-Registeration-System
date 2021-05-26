@@ -85,6 +85,7 @@ public class SQLQueries {
 			
 			public static final String GET_NOTIFICATION_MESSAGE = "select message from Notification where nid = ?";
 
-
-
+			public static final String INSERT_NOTIFICATION = "insert into Notification values (?, ?, ?, ?)";
+			public static final String SELECT_NOTIFICATION = "select * from Notification where sid = ?";
+			public static final String SELECT_ALL_NOTIFICATIONS = "select * from Notification";
 }
