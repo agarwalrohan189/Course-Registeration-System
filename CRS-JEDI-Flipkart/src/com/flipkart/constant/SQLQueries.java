@@ -39,6 +39,7 @@ public class SQLQueries {
 		public static final String GET_COURSE_NAME="select cname from CourseCatalogue where cid = ?";
 		public static final String ASSIGN_COURSE_QUERY = "update CourseCatalogue set pid = ? where cid = ?";
 		public static final String DELETE_COURSE_QUERY = "delete from CourseCatalogue where cid = ?";
+		public static final String DELETE_REGISTERED_COURSE_QUERY = "delete from RegisteredCourse where cid = ?";
 		public static final String ADD_COURSE_QUERY = "insert into CourseCatalogue(cid, cname, pid, valid) values (?, ?, ?, ?)";
 		
 		//RegisteredCourse Queries

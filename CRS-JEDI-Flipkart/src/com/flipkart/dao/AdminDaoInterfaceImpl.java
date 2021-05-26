@@ -17,10 +17,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class AdminDaoInterfaceImpl implements AdminDaoInterface {
@@ -381,8 +378,66 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         }
     }
 
+    /**
+     * Method to get list of courses in catalog
+     *
+     * @return List of courses in CourseCatalogue
+     */
     @Override
-    public void validateRegistration() {
+    public List<Course> viewCourses() {
+        statement = null;
+        List<Course> coursesList = new ArrayList<>();
+        try{
+            String sql = SQLQueries.GET_COURSE_CATALOGUE;
+            statement = conn.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
 
+            while(resultSet.next()) {
+                String pid = resultSet.getString(3);
+                sql = SQLQueries.GET_PROFESSOR_NAME;
+                statement = conn.prepareStatement(sql);
+                statement.setString(1, pid);
+                ResultSet resultSet1 = statement.executeQuery();
+                String profName = resultSet1.getString(1);
+
+                Course course = new Course(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), profName, resultSet.getInt(5));
+                coursesList.add(course);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return coursesList;
+    }
+
+    /**
+     * Method to ensure no course has less than three registered students
+     */
+    @Override
+    public void validateRegistration() throws CourseNotDeletedException{
+        statement = null;
+        List<Course> courseList = viewCourses();
+        for (Course course : courseList) {
+            if (course.getFilledSeats() < 3) {
+                course.setFilledSeats(0);
+                //TODO: notify student that the course has been cancelled
+                try {
+                    String sql = SQLQueries.DELETE_REGISTERED_COURSE_QUERY;
+                    statement = conn.prepareStatement(sql);
+                    statement.setInt(1, course.getCourseId());
+                    int row = statement.executeUpdate();
+
+                    System.out.println(row + " entries deleted");
+                    if (row == 0) {
+                        throw new CourseNotDeletedException(course.getCourseId());
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    throw new CourseNotDeletedException(course.getCourseId());
+                }
+            }
+        }
+        System.out.println("Validation complete!");
     }
 }

@@ -87,8 +87,14 @@ public interface AdminDaoInterface {
     public void generateReportCard(String studentID) throws StudentNotFoundException;
 
     /**
+     * Method to get list of courses in catalog
+     * @return List of courses in CourseCatalogue
+     */
+    public List<Course> viewCourses();
+
+    /**
      * Method to ensure no course has less than three registered students
      */
-    public void validateRegistration();
+    public void validateRegistration() throws CourseNotDeletedException;
 
 }

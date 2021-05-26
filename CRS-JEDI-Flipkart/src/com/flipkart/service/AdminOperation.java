@@ -9,6 +9,7 @@ import com.flipkart.utils.DBUtil;
 import com.mysql.jdbc.PreparedStatement;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class AdminOperation implements AdminInterface{
@@ -100,8 +101,30 @@ public class AdminOperation implements AdminInterface{
         }
     }
 
+    /**
+     * Method to get list of courses in catalog
+     * @return List of courses in CourseCatalogue
+     */
     @Override
-    public void validateRegistration() {
+    public List<Course> viewCourses() {
+        List<Course> courseList = null;
+        try {
+            courseList = adminDaoInterfaceImpl.viewCourses();
+        } catch (Exception e) {
+            throw e;
+        }
+        return courseList;
+    }
 
+    /**
+     * Method to ensure no course has less than three registered students
+     */
+    @Override
+    public void validateRegistration() throws CourseNotDeletedException{
+        try {
+            adminDaoInterfaceImpl.validateRegistration();
+        } catch (CourseNotDeletedException e) {
+            throw e;
+        }
     }
 }
