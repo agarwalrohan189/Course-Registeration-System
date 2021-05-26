@@ -7,6 +7,8 @@ import com.flipkart.dao.NotificationDaoOperation;
 public class NotificationOperation implements NotificationInterface{
 	
 	private static volatile NotificationOperation instance = null;
+
+	private NotificationOperation(){}
 	
 	public static NotificationOperation getInstance()
 	{

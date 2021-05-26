@@ -28,7 +28,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
     private static Logger logger = Logger.getLogger(String.valueOf(AdminDaoInterfaceImpl.class));
     private PreparedStatement statement = null;
 
-    public AdminDaoInterfaceImpl(){}
+    private AdminDaoInterfaceImpl(){}
 
     public static AdminDaoInterfaceImpl getInstance() {
         if (instance == null) {

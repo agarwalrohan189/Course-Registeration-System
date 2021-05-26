@@ -13,7 +13,19 @@ import java.util.List;
 
 public class ProfessorOperation implements ProfessorInterface{
 
-    ProfessorDaoOperation professorDaoOperation = new ProfessorDaoOperation();
+    private static volatile ProfessorOperation instance = null;
+    ProfessorDaoOperation professorDaoOperation = ProfessorDaoOperation.getInstance();
+
+    private ProfessorOperation(){}
+
+    public static ProfessorOperation getInstance() {
+        if (instance == null) {
+            synchronized (ProfessorOperation.class) {
+                instance = new ProfessorOperation();
+            }
+        }
+        return instance;
+    }
 
     @Override
     public List<Course> viewCourses(String profID) throws ProfNotFoundException {

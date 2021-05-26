@@ -14,8 +14,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ProfessorDaoOperation implements ProfessorDaoInterface{
+
+    private static volatile ProfessorDaoOperation instance = null;
+
+    private ProfessorDaoOperation(){}
+
+    public static ProfessorDaoOperation getInstance() {
+        if (instance == null) {
+            synchronized (ProfessorDaoOperation.class) {
+                instance = new ProfessorDaoOperation();
+            }
+        }
+        return instance;
+    }
 
     @Override
     public List<Course> viewCourses(String profID) throws ProfNotFoundException {

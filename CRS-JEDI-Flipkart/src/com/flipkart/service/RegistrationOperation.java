@@ -12,6 +12,7 @@ import com.flipkart.bean.PaymentNotification;
 import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.dao.ProfessorDaoOperation;
 import com.flipkart.exception.CourseLimitExceededException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.CourseSeatsFullException;
@@ -29,8 +30,20 @@ import com.flipkart.dao.RegistrationDaoOperation;
  */
 public class RegistrationOperation implements RegistrationInterface {
 
-	RegistrationDaoInterface registrationDaoInterface = new RegistrationDaoOperation();
+	private static volatile RegistrationOperation instance = null;
+	RegistrationDaoInterface registrationDaoInterface = RegistrationDaoOperation.getInstance();
 	UserInterface userInterface = UserOperation.getInstance();
+
+	private RegistrationOperation(){}
+
+	public static RegistrationOperation getInstance() {
+		if (instance == null) {
+			synchronized (RegistrationOperation.class) {
+				instance = new RegistrationOperation();
+			}
+		}
+		return instance;
+	}
 
 	@Override
 	public boolean registerCourses(String studentId) throws StudentNotFoundException{ //status=alternate, primary or registered

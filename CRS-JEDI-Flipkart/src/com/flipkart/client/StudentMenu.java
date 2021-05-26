@@ -25,8 +25,8 @@ import com.flipkart.service.StudentOperation;
 public class StudentMenu {
 	
 	String studentID;
-	StudentInterface studentInterface = new StudentOperation();
-	RegistrationInterface registrationInterface = new RegistrationOperation();
+	StudentInterface studentInterface = StudentOperation.getInstance();
+	RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
 
 	/**
 	 * @param studentID
@@ -212,7 +212,7 @@ public class StudentMenu {
 	 */
 	private void payFee() {
 		Scanner sc = new Scanner(System.in);
-		RegistrationDaoInterface registrationDaoInterface = new RegistrationDaoOperation();
+		RegistrationDaoInterface registrationDaoInterface = RegistrationDaoOperation.getInstance();
 		try{
 			if(!registrationDaoInterface.isRegistrationDone(studentID)) {
 				System.out.println("Registration not yet complete");

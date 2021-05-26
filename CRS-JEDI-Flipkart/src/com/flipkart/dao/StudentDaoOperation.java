@@ -20,8 +20,20 @@ import com.flipkart.utils.DBUtil;
  *
  */
 public class StudentDaoOperation implements StudentDaoInterface{
-	
+
+	private static volatile StudentDaoOperation instance = null;
 	private PreparedStatement statement = null;
+
+	private StudentDaoOperation(){}
+
+	public static StudentDaoOperation getInstance() {
+		if (instance == null) {
+			synchronized (StudentDaoOperation.class) {
+				instance = new StudentDaoOperation();
+			}
+		}
+		return instance;
+	}
 
 	/**
 	 * Adds student to the database using SQL command

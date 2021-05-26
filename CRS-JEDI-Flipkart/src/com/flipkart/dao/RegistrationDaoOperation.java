@@ -24,8 +24,20 @@ import java.sql.SQLException;
  *
  */
 public class RegistrationDaoOperation implements RegistrationDaoInterface {
-	
+
+    private static volatile RegistrationDaoOperation instance = null;
     private PreparedStatement statement = null;
+
+    private RegistrationDaoOperation(){}
+
+    public static RegistrationDaoOperation getInstance() {
+        if (instance == null) {
+            synchronized (RegistrationDaoOperation.class) {
+                instance = new RegistrationDaoOperation();
+            }
+        }
+        return instance;
+    }
 
 	@Override
 	public void registerCourses(String studentId) throws StudentNotFoundException{

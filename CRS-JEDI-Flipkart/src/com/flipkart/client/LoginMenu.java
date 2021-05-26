@@ -78,7 +78,7 @@ public class LoginMenu {
 
 	private static void signup() {
 		try {
-			StudentDaoInterface studentDaoInterface = new StudentDaoOperation();
+			StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
 
 			System.out.println("Enter Student ID");
 			String sid = scanner.nextLine();
@@ -140,7 +140,7 @@ public class LoginMenu {
 				System.out.println("Logged in successfully with userid: " + userId);
 			if (role == Role.Student)
 			{
-				StudentInterface studentInterface = new StudentOperation();
+				StudentInterface studentInterface = StudentOperation.getInstance();
 				try {
 					if (studentInterface.isApproved(userId)) {
 						StudentMenu sm = new StudentMenu(userId);

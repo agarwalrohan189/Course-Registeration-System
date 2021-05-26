@@ -20,7 +20,7 @@ import com.flipkart.service.ProfessorOperation;
 public class ProfessorMenu {
 
 	String professorID;
-	ProfessorInterface professorInterface = new ProfessorOperation();
+	ProfessorInterface professorInterface = ProfessorOperation.getInstance();
 
 	/**
 	 * Constructor

@@ -22,23 +22,35 @@ import com.flipkart.exception.StudentNotFoundException;
  */
 public class StudentOperation implements StudentInterface {
 
+	private static volatile StudentOperation instance = null;
+
+	private StudentOperation (){}
+	public static StudentOperation getInstance() {
+		if (instance == null) {
+			synchronized (StudentOperation.class) {
+				instance = new StudentOperation();
+			}
+		}
+		return instance;
+	}
+
 	@Override
 	public List<Course> viewCourseCatalogue() throws DatabaseException{
 		// TODO Auto-generated method stub
-		StudentDaoInterface studentDaoInterface= new StudentDaoOperation();
+		StudentDaoInterface studentDaoInterface= StudentDaoOperation.getInstance();
 		return studentDaoInterface.getCourseCatalogue();
 	}
 
 	@Override
 	public List<RegisteredCourse> viewGrades(String studentId) throws StudentNotFoundException {
-		RegistrationInterface registrationInterface = new RegistrationOperation();
+		RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
 		return registrationInterface.viewRegisteredCourses(studentId);
 	}
 
 	@Override
 	public void signUp(Student student) throws StudentAlreadyExistsException, StudentNotAddedException {
 		try {
-			StudentDaoInterface studentDaoInterface = new StudentDaoOperation();
+			StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
 			studentDaoInterface.signUp(student);
 		} catch (Exception e) {
 			throw e;
@@ -48,7 +60,7 @@ public class StudentOperation implements StudentInterface {
 	@Override
 	public boolean isApproved(String studentID) throws StudentNotFoundException {
 		try {
-			StudentDaoInterface studentDaoInterface = new StudentDaoOperation();
+			StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
 			return studentDaoInterface.isApproved(studentID);
 		}catch (Exception e){
 			throw new StudentNotFoundException(studentID);
