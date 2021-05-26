@@ -4,6 +4,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.AdminDaoInterfaceImpl;
+import com.flipkart.dao.NotificationDaoOperation;
 import com.flipkart.exception.*;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class AdminOperation implements AdminInterface{
     }
 
     AdminDaoInterfaceImpl adminDaoInterfaceImpl = AdminDaoInterfaceImpl.getInstance();
-
+    NotificationDaoOperation notificationDao = NotificationDaoOperation.getInstance();
     @Override
     public void addCourse(Course course) throws CourseFoundException {
         try{
@@ -128,4 +129,20 @@ public class AdminOperation implements AdminInterface{
         }
     }
 
+    
+    /**
+     * Method to accept scholarship from students
+     */
+    public void paymentDoneViaScholarship(String studentID) {
+    	NotificationOperation.getInstance().sendNotification(studentID, "payment", "Payment done for student with id " + studentID + " via Scholarship");
+    	
+    }
+    
+    /**
+     * Method to accept Demand Draft from students
+     */
+    public void paymentDoneViaDemandDraft(String studentID) {
+    	NotificationOperation.getInstance().sendNotification(studentID, "payment", "Payment done for student with id " + studentID + " via Demand Draft");
+
+    }
 }

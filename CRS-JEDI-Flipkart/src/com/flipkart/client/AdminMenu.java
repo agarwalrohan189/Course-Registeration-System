@@ -11,6 +11,7 @@ import com.flipkart.constant.Role;
 import com.flipkart.dao.AdminDaoInterfaceImpl;
 import com.flipkart.dao.UserDAOInterface;
 import com.flipkart.dao.UserDAOOperation;
+import com.flipkart.service.AdminOperation;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,9 +37,10 @@ public class AdminMenu {
 			System.out.println(" 6. Add Student");
 			System.out.println(" 7. Remove Student");
 			System.out.println(" 8. Validate Registrations");
-			System.out.println(" 9. Assign Professor to course");
-			System.out.println("10. Generate report card of the student");
-			System.out.println("11. Logout");
+			System.out.println(" 9. Confirm Fee Payment");
+			System.out.println(" 10. Assign Professor to course");
+			System.out.println(" 11. Generate report card of the student");
+			System.out.println(" 12. Logout");
 			System.out.println("Enter Option : ");
 			System.out.println("_________________________________________");
 			int optionChosen = scanner.nextInt();scanner.nextLine();
@@ -77,18 +79,44 @@ public class AdminMenu {
 					break;
 
 				case 9:
+					confirmFeePayment();
+					break;
+					
+				case 10:
 					assignProf();
 					break;
 
-				case 10:
+				case 11:
 					generateReport();
 					break;
 
-				case 11:
+				case 12:
 					logout();looping=false;
 					break;
 			}
 		}
+	}
+
+	private void confirmFeePayment() {
+		System.out.println("Enter Student Id:");
+		String studentId = scanner.next();
+		System.out.println("Select Mode Of Payment:");
+		System.out.println("1. Scholarship");
+		System.out.println("2. Demand Draft");
+		System.out.println("3. Cancel");
+		int choice = scanner.nextInt();
+		switch(choice) {
+			case 1:
+				AdminOperation.getInstance().paymentDoneViaScholarship(studentId);
+				break;
+			case 2:
+				AdminOperation.getInstance().paymentDoneViaDemandDraft(studentId);
+				break;
+			default:
+				System.out.println("Confirmation Of Payment Cancelled");
+				break;
+		}
+		
 	}
 
 	private void generateReport() {
@@ -151,6 +179,15 @@ public class AdminMenu {
 
 	private void addStudent() {
 
+			Student student = new Student(sid,name,role,pass,gender,address,username,doB,branch,batchYear,false,false);
+
+			adminDaoInterface.addStudent(student);
+
+			System.out.println("++++++++Student Added+++++++++");
+
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private void removeProf() {
