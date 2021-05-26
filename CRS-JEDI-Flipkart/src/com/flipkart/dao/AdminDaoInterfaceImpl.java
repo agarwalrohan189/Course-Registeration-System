@@ -380,4 +380,9 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             throw new StudentNotFoundException(studentID);
         }
     }
+
+    @Override
+    public void validateRegistration() {
+
+    }
 }
