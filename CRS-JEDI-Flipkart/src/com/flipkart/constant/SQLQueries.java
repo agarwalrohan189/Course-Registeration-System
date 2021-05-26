@@ -74,7 +74,7 @@ public class SQLQueries {
 
 			public static final String GET_REGISTRATION_STATUS="select isRegistered from Students where id = ?";
 			public static final String GET_PAYMENT_STATUS = "select paymentIsDone from Students where id = ?";
-			public static final String SET_PAYMENT_STATUS = "update Students set paymentIsDone = true  where sid = ?";
+			public static final String SET_PAYMENT_STATUS = "update Students set paymentIsDone = true  where id = ?";
 			
 
 			public static final float feesPerCourse = 1000;

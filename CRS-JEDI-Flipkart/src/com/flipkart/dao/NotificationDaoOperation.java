@@ -45,7 +45,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 			insertNotification.setInt(2, nid);
 			insertNotification.setString(3, type);
 			insertNotification.setString(4, message);
-			insertNotification.executeQuery();
+			insertNotification.executeUpdate();
 		}
 		catch(SQLException e)
 		{

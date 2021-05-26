@@ -48,7 +48,7 @@ public class StudentMenu {
 			System.out.println("5. Drop Course");
 			System.out.println("6. View registered courses");
 			System.out.println("7. Make Payment");
-			System.out.println("8. Notification");
+			System.out.println("8. Show Notifications");
 			System.out.println("9. Logout");
 
 			int input = sc.nextInt();

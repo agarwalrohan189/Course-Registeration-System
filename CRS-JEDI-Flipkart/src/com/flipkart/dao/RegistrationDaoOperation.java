@@ -251,9 +251,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		System.out.println(studentId);
 		try 
 		{
-			statement = conn.prepareStatement(SQLQueries.GET_REGISTRATION_STATUS);
+			statement = conn.prepareStatement(SQLQueries.GET_STUDENT_DETAILS_QUERY);
 			statement.setString(1, studentId);
 			ResultSet rs = statement.executeQuery();
+			rs.next();
 			regDone = rs.getBoolean("isRegistered");
 		} 
 		catch (SQLException e) 
@@ -281,9 +282,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		boolean paid;
 		try 
 		{
-			statement = conn.prepareStatement(SQLQueries.GET_PAYMENT_STATUS);
+			statement = conn.prepareStatement(SQLQueries.GET_STUDENT_DETAILS_QUERY);
 			statement.setString(1, studentId);
 			ResultSet rs = statement.executeQuery();
+			rs.next();
 			paid = rs.getBoolean("paymentIsDone");
 		} 
 		catch (SQLException e) 
@@ -314,6 +316,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			statement = conn.prepareStatement(SQLQueries.GET_NOTIFICATION_MESSAGE);
 			statement.setString(1, Integer.toString(notifId));
 			ResultSet rs = statement.executeQuery();
+			rs.next();
 			notifMessage = rs.getString("message");
 		} 
 		catch (SQLException e) 

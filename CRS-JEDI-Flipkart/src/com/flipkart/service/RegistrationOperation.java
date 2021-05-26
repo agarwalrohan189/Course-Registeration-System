@@ -95,28 +95,30 @@ public class RegistrationOperation implements RegistrationInterface {
 	@Override
 	public void payFee(String studentId, ModeOfPayment mode, float amount) throws StudentNotFoundException, NotifIdNotExistsException{
 		float feeToBePaid = calculateFee(studentId);
-		PaymentNotification notifObj = new PaymentNotification();
+		String message;
+//		PaymentNotification notifObj = new PaymentNotification();
 		if(!registrationDaoInterface.isRegistrationDone(studentId)) {
-			notifObj.setNotificationMessage(registrationDaoInterface.getNotification(3));
+			message = "Registration not yet complete";
 //			throw new RegistrationNotCompleteException(studentId);
 		}
 		else if(registrationDaoInterface.isPaymentDone(studentId)) {
-			notifObj.setNotificationMessage(registrationDaoInterface.getNotification(4));
+			message = "Payment already done";
 //			throw new PaymentAlreadyDoneException(studentId);
 		}else if(amount != feeToBePaid) {
 			// should not happen in current code
-			notifObj.setNotificationMessage(registrationDaoInterface.getNotification(5));
+			message =  "Amount chosen to pay and fee to be paid are different";
 		}else {
 			Payment payObj = new Payment(studentId, mode, amount);
 			if(payObj.isStatus()) {
 				registrationDaoInterface.feePaid(studentId);
-				notifObj.setNotificationMessage(registrationDaoInterface.getNotification(2));
+				message = "Payment Successful! Thank You";
 			}else {
-				notifObj.setNotificationMessage(registrationDaoInterface.getNotification(1));
+				message = "Payment Failed! Try again later";
 			}
 			
 		}
-		NotificationOperation NotifOp = new NotificationOperation();
+		NotificationOperation.getInstance().sendNotification(studentId, "payment", message);
+//		NotificationOperation NotifOp = new NotificationOperation();
 		//Notification to be sent here
 //		NotifOp.sendNotification(notifObj);
 	}
