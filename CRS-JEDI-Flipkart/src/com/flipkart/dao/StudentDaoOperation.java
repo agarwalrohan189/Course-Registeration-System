@@ -12,6 +12,9 @@ import java.util.*;
 import com.flipkart.bean.Course;
 import com.flipkart.constant.SQLQueries;
 import com.flipkart.exception.DatabaseException;
+import com.flipkart.exception.ProfNotFoundException;
+import com.flipkart.exception.StudentNotFoundException;
+import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.utils.DBUtil;
 
 /**
@@ -31,16 +34,21 @@ public class StudentDaoOperation implements StudentDaoInterface{
 			stmt = conn.prepareStatement(SQLQueries.GET_COURSE_CATALOGUE);
 			ResultSet catalogue= stmt.executeQuery();
 			
-			
 			while(catalogue.next()) {
-				stmt = conn.prepareStatement(SQLQueries.GET_USER_NAME);
-				stmt.setString(1,catalogue.getString("pid"));
-				ResultSet profName=stmt.executeQuery();
-				courses.add(new Course(catalogue.getInt("cid"), catalogue.getString("cname"), catalogue.getString("pid"), profName.getString("name"), catalogue.getInt("filledSeats")));
+				courses.add(new Course(catalogue.getInt("cid"), catalogue.getString("cname"), catalogue.getString("pid"), UserDAOOperation.getInstance().getDetails(catalogue.getString("pid")).getName(), catalogue.getInt("filledSeats")));
 			}
 		}
 		catch(SQLException e) {
 			throw new DatabaseException();
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (StudentNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ProfNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		finally {
 			try {

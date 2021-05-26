@@ -8,6 +8,8 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
+import com.flipkart.constant.Gender;
+import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueries;
 import com.flipkart.exception.*;
 import com.flipkart.utils.DBUtil;
@@ -52,7 +54,8 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             statement.setInt(1, course.getCourseId());
             statement.setString(2, course.getCourseName());
             statement.setString(3, null);
-
+            statement.setBoolean(4, true);
+            statement.setInt(5, 0);
             int row = statement.executeUpdate();
 
             System.out.println(row + " course added");
@@ -170,7 +173,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             statement.setString(1, professor.getId());
             statement.setString(2, professor.getDepartment());
             statement.setString(3, professor.getQualification());
-            statement.setDate(2, (Date) professor.getDateOfJoining());
+            statement.setDate(4, new Date(professor.getDateOfJoining().getTime()));
             int row = statement.executeUpdate();
 
             System.out.println(row + " professor added.");
@@ -220,11 +223,11 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             statement.setString(1, user.getId());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getName());
-            statement.setString(4, user.getGender().toString());
-            statement.setString(5, user.getRole().toString());
+            statement.setInt(4, Gender.genderToInt(user.getGender()));
+            statement.setInt(5, Role.roleToInt(user.getRole()));
             statement.setString(6, user.getAddress());
-            statement.setString(6, user.getUsername());
-            statement.setDate(6, (Date) user.getDoB());
+            statement.setString(7, user.getUsername());
+            statement.setDate(8, new Date(user.getDoB().getTime()));
             int row = statement.executeUpdate();
 
             System.out.println(row + " user added.");
@@ -313,6 +316,17 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
      */
     @Override
     public void addStudent(Student student) throws StudentAlreadyExistsException, StudentNotAddedException {
+    	
+    	try {
+
+            this.addUser(student);
+
+        }catch (UserNotAddedException e) {
+
+            e.printStackTrace();
+            throw new StudentNotAddedException(student.getId());
+        }
+    	
         statement = null;
         Connection conn = DBUtil.getConnection();
         try {
