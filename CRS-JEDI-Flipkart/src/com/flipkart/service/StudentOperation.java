@@ -25,11 +25,9 @@ public class StudentOperation implements StudentInterface {
 	}
 
 	@Override
-	public List<RegisteredCourse> viewGrades(String StudentId) throws StudentNotFoundException {
-		// TODO Auto-generated method stub
-		
-		//Dao method 
-		return null;
+	public List<RegisteredCourse> viewGrades(String studentId) throws StudentNotFoundException {
+		RegistrationInterface registrationInterface = new RegistrationOperation();
+		return registrationInterface.viewRegisteredCourses(studentId);
 	}
 
 }
