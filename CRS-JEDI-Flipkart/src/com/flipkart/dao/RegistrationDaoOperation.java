@@ -254,5 +254,64 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
             }
         }
 	}
+	
+	@Override
+	public boolean isRegistrationDone(String studentId) throws StudentNotFoundException {
+		Connection conn = DBUtil.getConnection();
+		boolean regDone;
+		try 
+		{
+			statement = conn.prepareStatement(SQLQueries.GET_REGISTRATION_STATUS);
+			statement.setString(1, studentId);
+			ResultSet rs = statement.executeQuery();
+			regDone = rs.getBoolean("isRegistered");
+		} 
+		catch (SQLException e) 
+        {
+            System.err.println(e.getMessage());
+            throw new StudentNotFoundException(studentId);
+        }
+        finally
+        {
+            try{
+                statement.close();
+                conn.close();
+            }
+            catch(Exception e){
+                System.err.println("Couldn't close connection to database");
+                System.err.println(e.getMessage());
+            }
+        }
+		return regDone;
+	}
+
+	public boolean isPaymentDone(String studentId) throws StudentNotFoundException  {
+		Connection conn = DBUtil.getConnection();
+		boolean paid;
+		try 
+		{
+			statement = conn.prepareStatement(SQLQueries.GET_PAYMENT_STATUS);
+			statement.setString(1, studentId);
+			ResultSet rs = statement.executeQuery();
+			paid = rs.getBoolean("paymentIsDone");
+		} 
+		catch (SQLException e) 
+        {
+            System.err.println(e.getMessage());
+            throw new StudentNotFoundException(studentId);
+        }
+        finally
+        {
+            try{
+                statement.close();
+                conn.close();
+            }
+            catch(Exception e){
+                System.err.println("Couldn't close connection to database");
+                System.err.println(e.getMessage());
+            }
+        }
+		return paid;
+	}
 
 }

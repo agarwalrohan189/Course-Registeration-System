@@ -56,5 +56,5 @@ public interface RegistrationInterface {
 
 	public float calculateFee(String studentId) throws StudentNotFoundException;
 
-	public void payFee(String studentId, ModeOfPayment mode, float amount) throws StudentNotFoundException;
+	public void payFee(String studentId, ModeOfPayment mode, float amount) throws StudentNotFoundException, RegistrationNotCompleteException, PaymentAlreadyDoneException;
 }
