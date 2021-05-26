@@ -282,12 +282,11 @@ public class AdminMenu {
 			int cid = scanner.nextInt();scanner.nextLine();
 			System.out.println("Course Name:");
 			String cname = scanner.nextLine();
-			System.out.println("Professor ID");
-			String pid = scanner.nextLine();
-			System.out.println("Professor name");
-			String pname = scanner.nextLine();
-
-			adminDaoInterface.addCourse(new Course(cid,cname,pid,pname,0));
+//			System.out.println("Professor ID");
+//			String pid = scanner.nextLine();
+//			System.out.println("Professor name");
+//			String pname = UserDAOOperation.getInstance().getDetails(pid).getName();
+			adminDaoInterface.addCourse(new Course(cid,cname,"","",0));
 
 			System.out.println("+++++++++Course Added+++++++++");
 		}catch (Exception e){

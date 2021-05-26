@@ -26,20 +26,23 @@ public class LoginMenu {
 	}
 
 	public static void showMainMenu() {
-		System.out.println("________________________");
-		System.out.println("Welcome");
-		System.out.println("1. Login");
-		System.out.println("2. Exit");
-		System.out.println("________________________");
-		int optionChosen = scanner.nextInt();
-		switch(optionChosen) {		
-		case 1:
-			login();
-			break;
-			
-		case 2:
-			exit();
-			break;
+		while (true)
+		{
+			System.out.println("________________________");
+			System.out.println("Welcome");
+			System.out.println("1. Login");
+			System.out.println("2. Exit");
+			System.out.println("________________________");
+			int optionChosen = scanner.nextInt();
+			switch(optionChosen) {		
+			case 1:
+				login();
+				break;
+				
+			case 2:
+				exit();
+				break;
+			}
 		}
 	}
 

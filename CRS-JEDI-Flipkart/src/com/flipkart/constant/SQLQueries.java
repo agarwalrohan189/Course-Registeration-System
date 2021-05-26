@@ -27,7 +27,7 @@ public class SQLQueries {
 			public static final String GET_ADMIN_DETAILS_QUERY = "select * from admins where id = ?";
 
 	public static final String DELETE_COURSE_QUERY = "delete from CourseCatalogue where cid = ?";
-	public static final String ADD_COURSE_QUERY = "insert into CourseCatalogue(cid, cname, pid, valid) values (?, ?, ?, ?)";
+	public static final String ADD_COURSE_QUERY = "insert into CourseCatalogue(cid, cname, pid, valid, filledSeats) values (?, ?, ?, ?, ?)";
 	public static final String ADD_USER_QUERY = "insert into Users(id, password, name, gender, role, address, username, dob) values (?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String ADD_PROFESSOR_QUERY = "insert into Professors(id, department, qualification, doj) values (?, ?, ?, ?)";
 	public static final String DELETE_PROFESSOR_QUERY = "delete from Professors where id = ?";

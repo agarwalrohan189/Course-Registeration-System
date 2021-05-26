@@ -62,4 +62,14 @@ public enum Gender {
 		
 		return gender;
 	}
+	
+	public static int genderToInt (Gender gender)
+	{
+		switch (gender)
+		{
+			case MALE:	return 1;
+			case FEMALE: return 2;
+			default: return 3;
+		}
+	}
 }
