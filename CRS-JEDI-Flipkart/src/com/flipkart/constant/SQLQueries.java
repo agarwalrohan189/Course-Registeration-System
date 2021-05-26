@@ -34,7 +34,7 @@ public class SQLQueries {
 		public static final String GET_ROLE="select role from user where userId = ? ";
 		public static final String IS_APPROVED="select isApproved from student where studentId = ? ";
 		public static final String GET_STUDENT_ID="select studentId from student where userId = ? ";
-		public static final String UPDATE_PASSWORD="update user set password=? where userId = ? ";
+		public static final String UPDATE_PASSWORD="update Users set password=? where id = ? ";
 		public static final String GET_PROF_NAME = "select name from user where userId = ?";
 			
 		// Student Queries
