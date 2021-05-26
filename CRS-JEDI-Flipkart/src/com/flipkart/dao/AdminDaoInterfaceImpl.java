@@ -542,11 +542,11 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
             while(resultSet.next()) {
                 String pid = resultSet.getString(3);
-                sql = SQLQueries.GET_PROFESSOR_NAME;
-                statement = conn.prepareStatement(sql);
-                statement.setString(1, pid);
-                ResultSet resultSet1 = statement.executeQuery();
-                String profName = resultSet1.getString(1);
+//                sql = SQLQueries.GET_PROFESSOR_NAME;
+//                statement = conn.prepareStatement(sql);
+//                statement.setString(1, pid);
+//                ResultSet resultSet1 = statement.executeQuery();
+                String profName = UserDAOOperation.getInstance().getDetails(pid).getName();
 
                 Course course = new Course(resultSet.getInt(1), resultSet.getString(2),
                         resultSet.getString(3), profName, resultSet.getInt(5));
@@ -555,7 +555,16 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        } catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (StudentNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ProfNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         finally {
 			try {
 				conn.close();

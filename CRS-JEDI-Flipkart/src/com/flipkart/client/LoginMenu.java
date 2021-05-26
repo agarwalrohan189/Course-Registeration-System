@@ -34,6 +34,7 @@ public class LoginMenu {
 			System.out.println("2. Exit");
 			System.out.println("________________________");
 			int optionChosen = scanner.nextInt();
+			scanner.nextLine();
 			switch(optionChosen) {		
 			case 1:
 				login();
@@ -41,7 +42,7 @@ public class LoginMenu {
 				
 			case 2:
 				exit();
-				break;
+				return;
 			}
 		}
 	}

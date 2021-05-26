@@ -18,10 +18,11 @@ public class SQLQueries {
 			
 			//ProfessorDao queries
 			public static final String GET_PROFESSOR_DETAILS_QUERY = "select * from Professors where id = ?";
-			public static final String GET_PROFESSOR_NAME = "select name from Professors where id = ?";
-			public static final String ADD_GRADE = "update registeredcourse set grade=? where cid=?, sid=?";
-			public static final String GET_ENROLLED_STUDENTS = "select users.id, users.name from ((registeredcourse inner join users on users.id=registeredcourse.sid) inner join coursecatalogue on registeredcourse.cid=coursecatalogue.cid) where pid=?, cid=?"; 
-			public static final String GET_COURSES = "select * from (Professors inner join CourseCatalogue on Professors.id=CourseCatalogue.pid) where Professors.id=?";
+			public static final String GET_PROFESSOR_NAME = "select name from Users where id = ?";
+			public static final String ADD_GRADE = "update RegisteredCourse set grade=? where cid=? and sid=?";
+			public static final String GET_ENROLLED_STUDENTS = "select * from RegisteredCourse where cid=?";
+//			public static final String GET_ENROLLED_STUDENTS = "select users.id, users.name from ((registeredcourse inner join users on users.id=registeredcourse.sid) inner join coursecatalogue on registeredcourse.cid=coursecatalogue.cid) where pid=?, cid=?"; 
+			public static final String GET_COURSES = "select * from CourseCatalogue where pid=?";
 		
 			//AdminDao Queries
 			public static final String GET_ADMIN_DETAILS_QUERY = "select * from admins where id = ?";
@@ -56,7 +57,7 @@ public class SQLQueries {
 
 
 
-	        public static final String ADD_COURSE = "insert into RegisteredCourse (sid,cid) values ( ? , ? )";
+	        public static final String ADD_COURSE = "insert into RegisteredCourse (sid,cid,semesterYear,semesterNum) values (?,?,?,?)";
 	        public static final String DECREMENT_COURSE_SEATS = "update CourseCatalogue set filledSeats = filledSeats-1 where cid = ? ";
 	        
 	        public static final String DROP_COURSE = "delete from RegisteredCourse where cid = ? AND sid = ?;";
@@ -64,7 +65,7 @@ public class SQLQueries {
 	        
 	        public static final String VIEW_REGISTERED_COURSES=" select * from CourseCatalogue inner join RegisteredCourse on CourseCatalogue.cid = RegisteredCourse.cid where RegisteredCourse.sid = ?";
 	        
-	        public static final String SET_REGISTRATION_STATUS="update Students set isRegistered = true  where sid = ?";
+	        public static final String SET_REGISTRATION_STATUS="update Students set isRegistered = true  where id = ?";
 
 
 
@@ -79,7 +80,7 @@ public class SQLQueries {
 			public static final float feesPerCourse = 1000;
 			public static final int semesterYear = 2021;
 			public static final int semesterNum = 1;
-			public static final String GET_NUM_REGISTERED_COURSES = "select count(*) from Students where sid = ? and semesterYear = ? and semesterNum = ?";
+			public static final String GET_NUM_REGISTERED_COURSES = "select * from RegisteredCourse where sid = ? and semesterYear = ? and semesterNum = ?";
 			
 			
 			public static final String GET_NOTIFICATION_MESSAGE = "select message from Notification where nid = ?";
