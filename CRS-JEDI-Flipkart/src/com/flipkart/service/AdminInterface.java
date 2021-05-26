@@ -26,13 +26,6 @@ public interface AdminInterface {
     public void removeCourse(int courseID) throws CourseNotFoundException, CourseNotDeletedException;
 
     /**
-     * To validate course registration of a student.
-     * @param studentID -> ID of student to be added
-     * @param registeredStudents -> List of registered students in the course
-     */
-    public void validateRegistration(String studentID, List<Student> registeredStudents) throws StudentNotRegisteredException, StudentNotFoundException;
-
-    /**
      * Adds a professor object to the database
      * @param professor : professor object containing the details of the prof
      */
@@ -70,6 +63,6 @@ public interface AdminInterface {
      * Method to generate Report card of student.
      * @param studentID -> ID of student whose report card is being generated
      */
-    public void generateReportCard(String studentID);
+    public void generateReportCard(String studentID) throws StudentNotFoundException;
 
 }
