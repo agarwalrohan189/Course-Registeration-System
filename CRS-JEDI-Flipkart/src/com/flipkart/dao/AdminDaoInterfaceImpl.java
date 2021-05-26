@@ -18,7 +18,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class AdminDaoInterfaceImpl implements AdminDaoInterface {
@@ -356,6 +358,23 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             while (resultSet.next()){
                 reportCard.put(resultSet.getInt("cid"),resultSet.getInt("grade"));
             }
+
+            Iterator<Map.Entry<Integer,Integer>> it = reportCard.entrySet().iterator();
+
+            float cpi = 0;
+            int courses = 0;
+
+            System.out.println("CourseID-------Grade");
+
+            while (it.hasNext()){
+                Map.Entry<Integer,Integer> entry = it.next();
+                courses+=1;cpi+=entry.getValue();
+                System.out.println(entry.getKey() + "---" + entry.getValue());
+            }
+
+            cpi = cpi/(float) courses;
+
+            System.out.println("*_*_*_*_*_*_* CPI - " + cpi +  " *_*_*_*_*_*_*");
 
         }catch (Exception e){
             throw new StudentNotFoundException(studentID);
