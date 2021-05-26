@@ -197,8 +197,62 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 	@Override
 	public float calculateFee(String studentId) throws StudentNotFoundException{
-		// TODO Auto-generated method stub
-		return 0;
+		Connection conn = DBUtil.getConnection();
+		int num_courses = 0;
+		try 
+		{
+			statement = conn.prepareStatement(SQLQueries.GET_NUM_REGISTERED_COURSES);
+			statement.setString(1, studentId);
+			statement.setString(2, Integer.toString(SQLQueries.semesterYear));
+			statement.setString(3, Integer.toString(SQLQueries.semesterNum));
+			ResultSet rs = statement.executeQuery();
+			num_courses = rs.getInt("count");
+		} 
+		catch (SQLException e) 
+        {
+            System.err.println(e.getMessage());
+            throw new StudentNotFoundException(studentId);
+        }
+        finally
+        {
+            try{
+                statement.close();
+                conn.close();
+            }
+            catch(Exception e){
+                System.err.println("Couldn't close connection to database");
+                System.err.println(e.getMessage());
+            }
+        }
+		return num_courses * SQLQueries.feesPerCourse;
+		
+	}
+	
+	@Override
+	public void feePaid(String studentId) throws StudentNotFoundException{
+		Connection conn = DBUtil.getConnection();
+		try 
+		{
+			statement = conn.prepareStatement(SQLQueries.SET_PAYMENT_STATUS);
+			statement.setString(1, studentId);
+			statement.executeUpdate();
+		} 
+		catch (SQLException e) 
+        {
+            System.err.println(e.getMessage());
+            throw new StudentNotFoundException(studentId);
+        }
+        finally
+        {
+            try{
+                statement.close();
+                conn.close();
+            }
+            catch(Exception e){
+                System.err.println("Couldn't close connection to database");
+                System.err.println(e.getMessage());
+            }
+        }
 	}
 
 }

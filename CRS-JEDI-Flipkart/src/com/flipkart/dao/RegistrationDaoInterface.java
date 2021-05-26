@@ -51,4 +51,6 @@ public interface RegistrationDaoInterface {
 	 * @return
 	 */
 	public float calculateFee(String studentId) throws StudentNotFoundException;
+
+	public void feePaid(String studentId) throws StudentNotFoundException;
 }

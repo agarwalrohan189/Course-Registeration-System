@@ -80,7 +80,7 @@ public class RegistrationOperation implements RegistrationInterface {
 		Payment payObj = new Payment(studentId, mode, amount);
 		PaymentNotification notifObj = new PaymentNotification(payObj, feeToBePaid);
 		if(payObj.isStatus()) {
-			decrement_fee();
+			registrationDaoInterface.feePaid(studentId);
 		}
 		NotificationOperation NotifOp = new NotificationOperation();
 		NotifOp.sendNotification(notifObj);
