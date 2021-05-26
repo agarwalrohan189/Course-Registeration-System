@@ -211,7 +211,8 @@ public class StudentMenu {
 				System.out.println("3. Debit Card");
 				
 				System.out.println("Select Mode of Payment : ");
-				switch(sc.nextInt())
+				int modeChoice = sc.nextInt();
+				switch(modeChoice)
 				{
 						case 1:
 							registrationInterface.payFee(studentID, ModeOfPayment.CREDIT_CARD, amount);
