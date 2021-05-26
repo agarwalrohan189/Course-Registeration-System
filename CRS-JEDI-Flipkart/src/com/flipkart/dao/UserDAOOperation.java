@@ -148,7 +148,8 @@ public class UserDAOOperation implements UserDAOInterface{
 							String branch = studentResult.getString("branch");
 							int batchYear = studentResult.getInt("batchYear");
 							boolean paymentDone = studentResult.getBoolean("paymentIsDone");
-							return new Student(userId, name, role, password, gender, address, username, dob, branch, batchYear, paymentDone);
+							boolean isRegistered = studentResult.getBoolean("isRegistered");
+							return new Student(userId, name, role, password, gender, address, username, dob, branch, batchYear, paymentDone, isRegistered);
 						}
 					}
 					catch(SQLException e)

@@ -33,14 +33,25 @@ public class RegistrationOperation implements RegistrationInterface {
 	UserInterface userInterface = UserOperation.getInstance();
 
 	@Override
-	public void registerCourses(String studentId) throws StudentNotFoundException{
-//		Check_if_possible();//>3
+	public boolean registerCourses(String studentId) throws StudentNotFoundException{ //status=alternate, primary or registered
+		if(registrationDaoInterface.isRegistrationDone(studentId)) {
+			return false;
+		}
 		registrationDaoInterface.registerCourses(studentId);
+		return true;
+	}
+	
+	@Override
+	public boolean isRegistrationDone(String studentId) throws StudentNotFoundException{
+		return registrationDaoInterface.isRegistrationDone(studentId);
 	}
 
 	@Override
 	public boolean addCourse(String studentId, int courseCode)
 			throws CourseNotFoundException, CourseLimitExceededException, CourseSeatsFullException, StudentNotFoundException, DatabaseException{
+		if(!registrationDaoInterface.isRegistrationDone(studentId)) {
+			return false;
+		}
 		Course course = registrationDaoInterface.getCourse(courseCode);
 		if(course.getFilledSeats()>=Course.MAX_SEATS){
 			throw new CourseSeatsFullException(course.getCourseId());
@@ -48,11 +59,15 @@ public class RegistrationOperation implements RegistrationInterface {
 		if(viewRegisteredCourses(studentId).size() >= Student.MAX_COURSES){
 			throw new CourseLimitExceededException(Student.MAX_COURSES);
 		}
-		return registrationDaoInterface.addCourse(studentId, courseCode);
+		registrationDaoInterface.addCourse(studentId, courseCode);
+		return true;
 	}
 
 	@Override
 	public boolean dropCourse(String studentId, int courseCode) throws CourseNotFoundException, StudentNotFoundException, DatabaseException{
+		if(!registrationDaoInterface.isRegistrationDone(studentId)) {
+			return false;
+		}
 		List<RegisteredCourse> regCourses = viewRegisteredCourses(studentId);
 		boolean isRegistered=false;
 		for(RegisteredCourse course : regCourses){
@@ -63,7 +78,8 @@ public class RegistrationOperation implements RegistrationInterface {
 		if(!isRegistered){
 			throw new CourseNotFoundException(courseCode);
 		}
-		return registrationDaoInterface.dropCourse(studentId, courseCode);
+		registrationDaoInterface.dropCourse(studentId, courseCode);
+		return true;
 	}
 
 	@Override

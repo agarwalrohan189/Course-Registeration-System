@@ -138,7 +138,7 @@ public class StudentMenu {
 	 * Register courses for the semester
 	 */
 	private void registerCourses() {
-//		if(notregistered)
+//		if(!)
 		try {
 			registrationInterface.registerCourses(studentID);
 		}
