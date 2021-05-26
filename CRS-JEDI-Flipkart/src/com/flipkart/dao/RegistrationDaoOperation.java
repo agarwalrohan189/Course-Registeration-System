@@ -285,6 +285,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		return regDone;
 	}
 
+	@Override
 	public boolean isPaymentDone(String studentId) throws StudentNotFoundException  {
 		Connection conn = DBUtil.getConnection();
 		boolean paid;
