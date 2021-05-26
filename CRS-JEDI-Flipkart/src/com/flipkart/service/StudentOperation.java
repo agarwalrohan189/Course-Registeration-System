@@ -8,9 +8,12 @@ import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourse;
+import com.flipkart.bean.Student;
 import com.flipkart.dao.StudentDaoInterface;
 import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.exception.DatabaseException;
+import com.flipkart.exception.StudentAlreadyExistsException;
+import com.flipkart.exception.StudentNotAddedException;
 import com.flipkart.exception.StudentNotFoundException;
 
 /**

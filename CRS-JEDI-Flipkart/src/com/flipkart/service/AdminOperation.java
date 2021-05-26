@@ -53,7 +53,7 @@ public class AdminOperation implements AdminInterface{
 
     @Override
     public void removeProf(String profID) throws ProfNotFoundException {
-        try{
+        try {
             adminDaoInterfaceImpl.removeProf(profID);
         } catch (Exception e) {
             throw e;
@@ -122,4 +122,19 @@ public class AdminOperation implements AdminInterface{
             throw e;
         }
     }
+
+    /**
+     * Method to approve Student
+     * @param studentId -> ID of student to be approved
+     * @throws StudentNotFoundException
+     */
+    @Override
+    public void approveStudent(String studentId) throws StudentNotFoundException {
+        try {
+            adminDaoInterfaceImpl.approveStudent(studentId);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
 }

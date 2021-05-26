@@ -308,67 +308,6 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 		}
     }
 
-    /**
-     * Adds student to the database using SQL command
-     *
-     * @param student -> student to be added
-     * @throws UserAlreadyExistsException
-     */
-    @Override
-    public void addStudent(Student student) throws StudentAlreadyExistsException, StudentNotAddedException {
-    	
-    	try {
-
-            this.addUser(student);
-
-        }catch (UserNotAddedException e) {
-
-            e.printStackTrace();
-            throw new StudentNotAddedException(student.getId());
-        }
-    	
-        statement = null;
-        Connection conn = DBUtil.getConnection();
-        try {
-
-            String sql = SQLQueries.ADD_STUDENT;
-            statement = conn.prepareStatement(sql);
-
-            statement.setString(1, student.getId());
-            statement.setString(2, student.getBranch());
-            statement.setInt(3, student.getBatchYear());
-            statement.setBoolean(4, student.isPaymentDone());
-            int row = statement.executeUpdate();
-
-            System.out.println(row + " student added.");
-            if(row == 0) {
-                System.out.println("Student with userId: " + student.getId() + " not added.");
-                throw new StudentAlreadyExistsException(student.getId());
-            }
-
-            System.out.println("User with userId: " + student.getUsername() + " added.");
-
-        }catch(SQLException se) {
-
-            System.out.println(se.getMessage());
-            throw new StudentNotAddedException(student.getId());
-
-        }
-        finally {
-			try {
-				conn.close();
-			}
-			catch(SQLException ex){
-				System.out.println(ex.getMessage());
-				try {
-					throw new DatabaseException();
-				} catch (DatabaseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-    }
 
     /**
      * Remove student from database using SQL command
@@ -625,5 +564,35 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             }
         }
         System.out.println("Validation complete!");
+    }
+
+    /**
+     *  Method to approve Student
+     *  @param studentId -> ID of student to be approved
+     *  @throws StudentNotFoundException
+     */
+    @Override
+    public void approveStudent(String studentId) throws StudentNotFoundException {
+        Connection conn = DBUtil.getConnection();
+        statement = null;
+        try {
+            String sql = SQLQueries.APPROVE_STUDENT_QUERY;
+            statement = conn.prepareStatement(sql);
+
+            statement.setString(1,studentId);
+            int row = statement.executeUpdate();
+
+            logger.info(row + " student approved.");
+            if(row == 0) {
+                //logger.error("Student with studentId: " + studentId + " not found.");
+                throw new StudentNotFoundException(studentId);
+            }
+
+            //logger.info("Student with studentId: " + studentId + " approved by admin.");
+
+        }catch(SQLException se) {
+            //logger.error(se.getMessage());
+        }
+
     }
 }

@@ -38,6 +38,8 @@ public class SQLQueries {
 	public static final String DELETE_STUDENT_QUERY = "delete from Students where id = ?";
 	public static final String DELETE_REGISTERED_COURSE_QUERY = "delete from RegisteredCourse where cid = ?";
 	public static final String GET_STUDENT_GRADES = "select * from registeredcourse where sid = ?";
+	public static final String APPROVE_STUDENT_QUERY = "update Students set isApproved = 1 where id = ?";
+	public static final String IS_APPROVED_STUDENT_QUERY = "select isApproved from Students where id = ?";
 
 
 

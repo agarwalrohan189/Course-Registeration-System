@@ -7,7 +7,10 @@ import java.util.Scanner;
 
 import com.flipkart.constant.Role;
 import com.flipkart.exception.PasswordMismatchException;
+import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.exception.UserNotFoundException;
+import com.flipkart.service.StudentInterface;
+import com.flipkart.service.StudentOperation;
 import com.flipkart.service.UserOperation;
 
 /**
@@ -59,6 +62,52 @@ public class LoginMenu {
 		System.out.println("Enter password: ");
 		String password = scanner.next();
 		loginMain(uName, password);
+	}
+
+	private static void signup() {
+		try {
+			StudentDaoInterface studentDaoInterface = new StudentDaoOperation();
+
+			System.out.println("Enter Student ID");
+			String sid = scanner.nextLine();
+			System.out.println("Enter Student name");
+			String name = scanner.nextLine();
+			Role role = Role.Student;
+			System.out.println("Enter Student Password");
+			String pass = scanner.nextLine();
+			System.out.println("Enter Student Gender, 1=male, 2=female, 3=other");
+			int gende = scanner.nextInt();scanner.nextLine();
+			Gender gender = Gender.OTHER;
+			switch (gende){
+				case 1:
+					gender = Gender.MALE;break;
+				case 2:
+					gender = Gender.FEMALE;break;
+				case 3:
+					gender = Gender.OTHER;break;
+			}
+			System.out.println("Enter Address of student");
+			String address = scanner.nextLine();
+			System.out.println("Enter Username of student");
+			String username = scanner.nextLine();
+			System.out.println("Enter Student DOB(Date of Birth) in dd/mm/yyyy format");
+			String dob = scanner.nextLine();
+			Date doB = new SimpleDateFormat("dd/MM/yyyy").parse(dob);
+			System.out.println("Enter Branch of the student");
+			String branch = scanner.nextLine();
+			System.out.println("Enter Student's Batch year");
+			int batchYear = scanner.nextInt();scanner.nextLine();
+
+			Student student = new Student(sid,name,role,pass,gender,address,username,doB,branch,batchYear,false, false);
+
+			studentDaoInterface.signUp(student);
+
+			System.out.println("++++++++   Sign up complete   +++++++++");
+			System.out.println("++++++++ Waiting for approval +++++++++");
+
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private static void loginMain(String userId, String password) {

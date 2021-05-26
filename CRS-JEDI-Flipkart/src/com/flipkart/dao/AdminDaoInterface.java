@@ -60,13 +60,6 @@ public interface AdminDaoInterface {
     public void removeProf(String profID) throws ProfNotFoundException;
 
     /**
-     * Adds student to the database using SQL command
-     * @param student -> student to be added
-     * @throws UserAlreadyExistsException
-     */
-    public void addStudent(Student student) throws StudentAlreadyExistsException, StudentNotAddedException;
-
-    /**
      * Remove student from database using SQL command
      * @param studentID -> student which is to be removed
      * @throws UserNotFoundException
