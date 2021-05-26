@@ -248,6 +248,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	public boolean isRegistrationDone(String studentId) throws StudentNotFoundException {
 		Connection conn = DBUtil.getConnection();
 		boolean regDone;
+		System.out.println(studentId);
 		try 
 		{
 			statement = conn.prepareStatement(SQLQueries.GET_REGISTRATION_STATUS);
