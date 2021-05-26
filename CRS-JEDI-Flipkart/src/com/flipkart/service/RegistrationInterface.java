@@ -3,6 +3,7 @@
  */
 package com.flipkart.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.flipkart.bean.RegisteredCourse;
@@ -19,7 +20,7 @@ public interface RegistrationInterface {
 	 * Register selected courses
 	 * @param studentId
 	 */
-	public boolean registerCourses(String studentId)throws StudentNotFoundException;
+	public boolean registerCourses(String studentId, HashMap<Integer,Boolean> courseIDs )throws StudentNotFoundException;
 	
 	public boolean isRegistrationDone(String studentId) throws StudentNotFoundException;
 

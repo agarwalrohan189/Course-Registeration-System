@@ -3,10 +3,12 @@
  */
 package com.flipkart.client;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Student;
 import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.dao.RegistrationDaoInterface;
@@ -17,6 +19,8 @@ import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.RegistrationOperation;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentOperation;
+import com.flipkart.service.UserInterface;
+import com.flipkart.service.UserOperation;
 
 /**
  * @author shubh
@@ -140,9 +144,24 @@ public class StudentMenu {
 	 * Register courses for the semester
 	 */
 	private void registerCourses() {
-//		if(!)
+		Scanner sc = new Scanner(System.in);
 		try {
-			registrationInterface.registerCourses(studentID);
+			HashMap<Integer,Boolean> courseIDs = new HashMap<>();
+			System.out.println("Enter Course IDs for prefererred Course #1 : ");
+			courseIDs.put(sc.nextInt(), true);
+			System.out.println("Enter Course IDs for prefererred Course #2 : ");
+			courseIDs.put(sc.nextInt(), true);
+			System.out.println("Enter Course IDs for prefererred Course #3 : ");
+			courseIDs.put(sc.nextInt(), true);
+			System.out.println("Enter Course IDs for prefererred Course #4 : ");
+			courseIDs.put(sc.nextInt(), true);
+			
+			System.out.println("Enter Course IDs for alternate Course #1 : ");
+			courseIDs.put(sc.nextInt(), false);
+			System.out.println("Enter Course IDs for alternate Course #2 : ");
+			courseIDs.put(sc.nextInt(), false);
+			
+			registrationInterface.registerCourses(studentID, courseIDs);
 		}
 		catch (Exception e) {
 			System.err.println(e.getMessage());

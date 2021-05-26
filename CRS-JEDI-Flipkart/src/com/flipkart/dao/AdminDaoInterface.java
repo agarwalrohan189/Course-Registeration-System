@@ -7,6 +7,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.exception.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -72,6 +73,9 @@ public interface AdminDaoInterface {
      * @param courseID -> ID of course which professor is requesting
      */
     public void assignProf(String profID, int courseID) throws CourseNotFoundException, ProfNotFoundException;
+    
+    public HashMap<String,List<Integer>> getPreferredCourses() throws DatabaseException;
+    public HashMap<String,List<Integer>> getAlternateCourses() throws DatabaseException;
 
     /**
      * Method to generate Report card of student using SQL command.

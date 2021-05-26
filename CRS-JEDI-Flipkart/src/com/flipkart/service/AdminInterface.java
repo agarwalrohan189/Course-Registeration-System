@@ -51,7 +51,7 @@ public interface AdminInterface {
      * @param courseID -> ID of course which professor is requesting
      */
     public void assignProf(String profID, int courseID) throws CourseNotFoundException, ProfNotFoundException;
-
+    
     /**
      * Method to generate Report card of student.
      * @param studentID -> ID of student whose report card is being generated
@@ -67,7 +67,7 @@ public interface AdminInterface {
     /**
      * Method to ensure no course has less than three registered students
      */
-    public void validateRegistration() throws CourseNotDeletedException;
+    public void validateRegistration() throws DatabaseException;
 
     /**
      * Method to approve Student

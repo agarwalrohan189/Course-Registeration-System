@@ -6,9 +6,11 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.constant.Gender;
+import com.flipkart.constant.Grade;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueries;
 import com.flipkart.exception.*;
@@ -436,6 +438,88 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 				}
 			}
 		}
+    }
+    
+    @Override
+    public HashMap<String,List<Integer>> getPreferredCourses() throws DatabaseException {
+    	Connection conn = DBUtil.getConnection();
+    	HashMap<String,List<Integer>> preferredCourseList = new HashMap<>();
+		try 
+		{
+			statement = conn.prepareStatement(SQLQueries.VIEW_PREFERRED_COURSES);
+			ResultSet rs = statement.executeQuery();
+			
+			while (rs.next()) {
+				List<Integer> courses;
+				if(preferredCourseList.containsKey(rs.getString("sid"))) {
+					courses = preferredCourseList.remove(rs.getString("sid"));
+				}
+				else {
+					courses = new ArrayList<>();
+				}
+				courses.add(rs.getInt("cid"));
+				preferredCourseList.put(rs.getString("sid"), courses);
+			}
+			
+			return preferredCourseList;
+		}
+        catch (SQLException e) 
+        {
+            System.err.println(e.getMessage());
+            throw new DatabaseException();
+        }
+        finally
+        {
+            try{
+                statement.close();
+                conn.close();
+            }
+            catch(Exception e){
+                System.err.println("Couldn't close connection to database");
+                System.err.println(e.getMessage());
+            }
+        }
+    }
+    
+    @Override
+    public HashMap<String,List<Integer>> getAlternateCourses() throws DatabaseException {
+    	Connection conn = DBUtil.getConnection();
+    	HashMap<String,List<Integer>> alternateCourseList = new HashMap<>();
+		try 
+		{
+			statement = conn.prepareStatement(SQLQueries.VIEW_ALTERNATE_COURSES);
+			ResultSet rs = statement.executeQuery();
+			
+			while (rs.next()) {
+				List<Integer> courses;
+				if(alternateCourseList.containsKey(rs.getString("sid"))) {
+					courses = alternateCourseList.remove(rs.getString("sid"));
+				}
+				else {
+					courses = new ArrayList<>();
+				}
+				courses.add(rs.getInt("cid"));
+				alternateCourseList.put(rs.getString("sid"), courses);
+			}
+			
+			return alternateCourseList;
+		}
+        catch (SQLException e) 
+        {
+            System.err.println(e.getMessage());
+            throw new DatabaseException();
+        }
+        finally
+        {
+            try{
+                statement.close();
+                conn.close();
+            }
+            catch(Exception e){
+                System.err.println("Couldn't close connection to database");
+                System.err.println(e.getMessage());
+            }
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.flipkart.dao;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.flipkart.bean.Course;
@@ -16,7 +17,7 @@ public interface RegistrationDaoInterface {
 	 * Register selected courses
 	 * @param studentId
 	 */
-	public void registerCourses(String studentId) throws StudentNotFoundException;
+	public void registerCourses(String studentId, HashMap<Integer,Boolean> courseIDs) throws StudentNotFoundException;
 
 	public Course getCourse(int courseId) throws CourseNotFoundException;
 

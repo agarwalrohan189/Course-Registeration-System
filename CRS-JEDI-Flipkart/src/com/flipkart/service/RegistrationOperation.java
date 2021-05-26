@@ -3,6 +3,7 @@
  */
 package com.flipkart.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.flipkart.bean.Course;
@@ -46,11 +47,11 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 
 	@Override
-	public boolean registerCourses(String studentId) throws StudentNotFoundException{ //status=alternate, primary or registered
+	public boolean registerCourses(String studentId, HashMap<Integer,Boolean> courseIDs) throws StudentNotFoundException{ //status=alternate, primary or registered
 		if(registrationDaoInterface.isRegistrationDone(studentId)) {
 			return false;
 		}
-		registrationDaoInterface.registerCourses(studentId);
+		registrationDaoInterface.registerCourses(studentId, courseIDs);
 		return true;
 	}
 	

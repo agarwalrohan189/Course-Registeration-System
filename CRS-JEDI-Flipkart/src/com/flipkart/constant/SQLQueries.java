@@ -59,7 +59,9 @@ public class SQLQueries {
 
 
 
-
+			public static final String CHOOSE_COURSE = "insert into ChosenCourse (sid,cid,isPrimary) values (?,?,?)";
+			public static final String VIEW_PREFERRED_COURSES = "select * from ChosenCourse where isPrimary=true";
+			public static final String VIEW_ALTERNATE_COURSES = "select * from ChosenCourse where isPrimary=false";
 	        public static final String ADD_COURSE = "insert into RegisteredCourse (sid,cid,semesterYear,semesterNum) values (?,?,?,?)";
 	        public static final String DECREMENT_COURSE_SEATS = "update CourseCatalogue set filledSeats = filledSeats-1 where cid = ? ";
 	        

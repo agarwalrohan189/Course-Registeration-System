@@ -4,7 +4,9 @@
 package com.flipkart.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourse;
@@ -40,30 +42,34 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
     }
 
 	@Override
-	public void registerCourses(String studentId) throws StudentNotFoundException{
-		// Connection conn = DBUtil.getConnection();
-		// try 
-		// {
-		// 	statement = conn.prepareStatement(SQLQueries.SET_REGISTRATION_STATUS);
-		// 	statement.setString(1, studentId);
-		// 	statement.executeUpdate();
-		// } 
-		// catch (SQLException e) 
-        // {
-        //     System.err.println(e.getMessage());
-        //     throw new StudentNotFoundException(studentId);
-        // }
-        // finally
-        // {
-        //     try{
-        //         statement.close();
-        //         conn.close();
-        //     }
-        //     catch(Exception e){
-        //         System.err.println("Couldn't close connection to database");
-        //         System.err.println(e.getMessage());
-        //     }
-        // }
+	public void registerCourses(String studentId, HashMap<Integer,Boolean> courseIDs) throws StudentNotFoundException{
+		 Connection conn = DBUtil.getConnection();
+		 try 
+		 {      
+			 for (Map.Entry<Integer,Boolean> courseElement : courseIDs.entrySet()) {
+				 statement = conn.prepareStatement(SQLQueries.CHOOSE_COURSE);
+		            statement.setString(1, studentId);
+		            statement.setInt(2, courseElement.getKey());
+		            statement.setBoolean(3, courseElement.getValue());
+		            statement.executeUpdate();
+			 }
+		 }
+		 catch (SQLException e) 
+         {
+             System.err.println(e.getMessage());
+             throw new StudentNotFoundException(studentId);
+         }
+         finally
+         {
+             try{
+                 statement.close();
+                 conn.close();
+             }
+             catch(Exception e){
+                 System.err.println("Couldn't close connection to database");
+                 System.err.println(e.getMessage());
+             }
+         }
 	}
 
     @Override
