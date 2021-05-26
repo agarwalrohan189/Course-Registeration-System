@@ -302,8 +302,8 @@ public class AdminMenu {
 
 			System.out.println("Course ID\tCourse Name\tInstructor ID\tInstructor Name\tFilled Seats");
 			for (Course course : courseList) {
-				System.out.printf(course.getCourseId() + "\t" + course.getCourseName() + "\t" + course.getInstructorId() +
-						"\t" + course.getInstructorName() + "\t" + course.getFilledSeats());
+				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getInstructorId() +
+						"\t\t" + course.getInstructorName() + "\t\t" + course.getFilledSeats());
 			}
 
 		}catch (Exception e){

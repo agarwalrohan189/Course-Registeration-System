@@ -99,9 +99,10 @@ public class StudentMenu {
 	private void viewCourseCatalogue() {
 		try {
 			List<Course> courses = studentInterface.viewCourseCatalogue();
-			System.out.println("Course ID\tCourse Name\tRemaining Seats");
+			System.out.println("Course ID\tCourse Name\tInstructor ID\tInstructor Name\tFilled Seats");
 			for (Course course : courses) {
-				System.out.printf(course.getCourseId() + "\t" + course.getCourseName() + "\t" + (Course.MAX_SEATS - course.getFilledSeats()) );
+				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getInstructorId() +
+						"\t\t" + course.getInstructorName() + "\t\t" + course.getFilledSeats());
 			}
 		}
 		catch (Exception e) {
@@ -118,7 +119,7 @@ public class StudentMenu {
 			List<RegisteredCourse> courses = studentInterface.viewGrades(studentID);
 			System.out.println("Course ID\tCourse Name\tGrade");
 			for(RegisteredCourse course:courses) {
-				System.out.println(course.getCourseId() + "\t" + course.getCourseName() + "\t" + course.getGrade());
+				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getGrade());
 			}
 		}
 		catch (StudentNotFoundException e) {
@@ -187,9 +188,9 @@ public class StudentMenu {
 	private void viewRegisteredCourses() {
 		try {
 			List<RegisteredCourse> courses = registrationInterface.viewRegisteredCourses(studentID);
-			System.out.println("Course ID\tCourse Name");
+			System.out.println("Course ID\tCourse Name\tInstructor");
 			for(RegisteredCourse course:courses) {
-				System.out.println(course.getCourseId() + "\t" + course.getCourseName() + "\t" + course.getGrade());
+				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" +course.getInstructor());
 			}
 		}
 		catch (StudentNotFoundException e) {

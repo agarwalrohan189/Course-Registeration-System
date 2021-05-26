@@ -42,7 +42,7 @@ public class LoginMenu {
 				
 			case 2:
 				exit();
-				break;
+				return;
 			}
 		}
 	}
