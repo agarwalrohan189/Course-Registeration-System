@@ -52,7 +52,7 @@ public class UserDAOOperation implements UserDAOInterface{
 		try
 		{
 			User user = getDetails(userID);
-			if (password != user.getPassword())
+			if (!password.equals (user.getPassword()))
 				throw new PasswordMismatchException(userID);
 			else
 				return user.getRole();
