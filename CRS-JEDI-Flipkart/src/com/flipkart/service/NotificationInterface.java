@@ -18,5 +18,7 @@ public interface NotificationInterface {
      */
 //    public int sendNotification(String notificationMessage, String studentID, Payment method, double amount);
 
-	public int sendNotification(PaymentNotification NotifObj);
+	public void sendNotification(String sid, String type, String message);
+	
+	public void showNotifications(String sid);
 }

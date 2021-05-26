@@ -101,7 +101,8 @@ public class RegistrationOperation implements RegistrationInterface {
 			
 		}
 		NotificationOperation NotifOp = new NotificationOperation();
-		NotifOp.sendNotification(notifObj);
+		//Notification to be sent here
+//		NotifOp.sendNotification(notifObj);
 	}
 
 

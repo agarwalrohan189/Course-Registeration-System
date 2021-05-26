@@ -10,6 +10,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.exception.StudentNotFoundException;
+import com.flipkart.service.NotificationOperation;
 import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.RegistrationOperation;
 import com.flipkart.service.StudentInterface;
@@ -47,7 +48,8 @@ public class StudentMenu {
 			System.out.println("5. Drop Course");
 			System.out.println("6. View registered courses");
 			System.out.println("7. Make Payment");
-			System.out.println("8. Logout");
+			System.out.println("8. Notification");
+			System.out.println("9. Logout");
 
 			int input = sc.nextInt();
 			sc.nextLine();
@@ -80,8 +82,12 @@ public class StudentMenu {
 			case 7:
 				payFee();
 				break;
-
+				
 			case 8:
+				NotificationOperation.getInstance().showNotifications(studentID);
+				break;
+
+			case 9:
 				// Logout
 //				sc.close();
 				System.out.println("==================== Logging Out ====================");
