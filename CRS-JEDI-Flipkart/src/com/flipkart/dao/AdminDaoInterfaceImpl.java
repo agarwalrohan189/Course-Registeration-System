@@ -351,10 +351,10 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
             ResultSet resultSet = statement.executeQuery();
 
-            HashMap<Integer,String> reportCard = new HashMap<Integer, String>();
+            HashMap<Integer,Integer> reportCard = new HashMap<Integer, Integer>();
 
             while (resultSet.next()){
-                reportCard.put(resultSet.getInt("cid"),resultSet.getString("grade"));
+                reportCard.put(resultSet.getInt("cid"),resultSet.getInt("grade"));
             }
 
         }catch (Exception e){

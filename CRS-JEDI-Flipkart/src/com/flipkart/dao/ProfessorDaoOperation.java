@@ -2,6 +2,7 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
+import com.flipkart.constant.Grade;
 import com.flipkart.constant.SQLQueries;
 import com.flipkart.exception.GradeNotAssignedException;
 import com.flipkart.exception.ProfNotFoundException;
@@ -77,12 +78,12 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
     }
 
     @Override
-    public void assignGrade(String studentID, int courseID, String grade) throws StudentNotFoundException, GradeNotAssignedException{
+    public void assignGrade(String studentID, int courseID, Grade grade) throws StudentNotFoundException, GradeNotAssignedException{
         Connection connection = DBUtil.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQLQueries.ADD_GRADE);
 
-            preparedStatement.setString(1,grade);
+            preparedStatement.setInt(1,grade.hasValue());
             preparedStatement.setInt(2,courseID);
             preparedStatement.setString(3,studentID);
 

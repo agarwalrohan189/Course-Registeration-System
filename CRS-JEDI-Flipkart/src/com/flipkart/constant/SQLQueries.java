@@ -32,8 +32,6 @@ public class SQLQueries {
 		//Student Queries
 		public static final String ADD_STUDENT="insert into Students (id,branch,batchYear,paymentIsDone) values (?,?,?,?)";
 		public static final String DELETE_STUDENT_QUERY = "delete from Students where id = ?";
-		public static final String ADD_STUDENT="insert into Students (id,branch,batchYear,paymentIsDone) values (?,?,?,?)";
-		public static final String DELETE_STUDENT_QUERY = "delete from Students where id = ?";
 		
 		// CourseCatalogue Queries
 		public static final String GET_COURSE_CATALOGUE="select * from CourseCatalogue where valid = true";
