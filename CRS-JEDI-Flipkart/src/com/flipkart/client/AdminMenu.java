@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * @author sayan
+ * @author Yash
  *
  */
 public class AdminMenu {
