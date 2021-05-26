@@ -314,5 +314,35 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
         }
 		return paid;
 	}
+	
+	@Override
+	public String getNotification(int notifId) throws NotifIdNotExistsException{
+		Connection conn = DBUtil.getConnection();
+		String notifMessage;
+		try 
+		{
+			statement = conn.prepareStatement(SQLQueries.GET_NOTIFICATION_MESSAGE);
+			statement.setString(1, Integer.toString(notifId));
+			ResultSet rs = statement.executeQuery();
+			notifMessage = rs.getString("message");
+		} 
+		catch (SQLException e) 
+        {
+            System.err.println(e.getMessage());
+            throw new NotifIdNotExistsException(notifId);
+        }
+        finally
+        {
+            try{
+                statement.close();
+                conn.close();
+            }
+            catch(Exception e){
+                System.err.println("Couldn't close connection to database");
+                System.err.println(e.getMessage());
+            }
+        }
+		return notifMessage;
+	}
 
 }
