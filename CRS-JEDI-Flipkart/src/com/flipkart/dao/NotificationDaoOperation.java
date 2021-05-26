@@ -49,7 +49,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 		}
 		catch(SQLException e)
 		{
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		finally
 		{
@@ -84,7 +84,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 		}
 		catch(SQLException e)
 		{
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		finally
 		{
@@ -119,7 +119,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 		}
 		catch(SQLException e)
 		{
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		finally
 		{
