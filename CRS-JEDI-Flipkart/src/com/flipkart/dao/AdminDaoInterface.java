@@ -65,9 +65,21 @@ public interface AdminDaoInterface {
      * @param courseID -> ID of course which professor is requesting
      */
     public void assignProf(String profID, int courseID) throws CourseNotFoundException, ProfNotFoundException;
-    
-    public HashMap<String,List<Integer>> getPreferredCourses() throws DatabaseException;
+
+    /**
+     * Get alternate courses for registration of student
+     * @return -> Map containing student ID and corresponding alternate courses
+     * @throws DatabaseException
+     */
     public HashMap<String,List<Integer>> getAlternateCourses() throws DatabaseException;
+    
+
+    /**
+     * Get primary courses for registration of student
+     * @return -> Map containing student ID and corresponding primary courses
+     * @throws DatabaseException
+     */
+    public HashMap<String,List<Integer>> getPreferredCourses() throws DatabaseException;
 
     /**
      * Method to generate Report card of student using SQL command.
