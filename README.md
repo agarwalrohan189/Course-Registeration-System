@@ -1,4 +1,4 @@
-#Course-Regitration-System
+Course-Regitration-System
 
 A basic Course registration JAVA application with 3 versions including POS applicaton, REST APIs and Dropwizard deployment. It can be easily and efficiently provide complete backend support to a UI designed for operations like sign-up, login, register and many more with the help of MySQL database. The code is implemented in a well structured manner followin the Client->Service->DatabaseAccess model with proper Exception handling at all stages. 
 
