@@ -13,6 +13,7 @@ import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.dao.RegistrationDaoInterface;
 import com.flipkart.dao.RegistrationDaoOperation;
+import com.flipkart.exception.InvalidBankDetailsException;
 import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.service.NotificationOperation;
 import com.flipkart.service.RegistrationInterface;
