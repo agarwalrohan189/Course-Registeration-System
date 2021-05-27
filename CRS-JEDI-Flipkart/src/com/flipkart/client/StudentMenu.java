@@ -253,7 +253,8 @@ public class StudentMenu {
 			}else {
 				float fee = registrationInterface.calculateFee(studentID);
 				System.out.println("Pending amount is : "+fee+", Do you want to pay? (Y/N) : ");
-				if(sc.next().equals("Y")){
+				String inp = sc.next();
+				if(inp.equals("Y") || inp.equals("y")){
 					float amount = fee;
 					System.out.println("==================== Payment Gateway ====================");
 					System.out.println("1. Credit Card");
@@ -314,15 +315,30 @@ public class StudentMenu {
 	private void payViaDebitCard(String studentID, float amount) {
 		try {
 			Scanner sc = new Scanner(System.in);
+			sc.useDelimiter("\r\n");
 			System.out.println("==================== Debit Card Details ====================");
+
 			System.out.println("Card Number:");
-			sc.next();
+			String cardNo = sc.next();
+			if(!cardNo.matches("\\d{16}")) {
+				throw new InvalidBankDetailsException();
+			}
+			
 			System.out.println("Name:");
 			sc.next();
-			System.out.println("Expiry Date:");
-			sc.next();
+			
+			System.out.println("Expiry Date(dd-mm-yyyy):");
+			String date = sc.next();
+			if(!date.matches("\\d{2}-\\d{2}-\\d{4}")) {
+				throw new InvalidBankDetailsException();
+			}
+			
 			System.out.println("CVV:");
-			sc.next();
+			String cvv = sc.next();
+			if(!cvv.matches("\\d{3}")) {
+				throw new InvalidBankDetailsException();
+			}
+			
 			registrationInterface.payFee(studentID, ModeOfPayment.DEBIT_CARD, amount);
 		}catch(Exception e) {
 			System.err.println(e.getMessage());
@@ -357,15 +373,30 @@ public class StudentMenu {
 	private void payViaCreditCard(String studentID2, float amount) {
 		try {
 			Scanner sc = new Scanner(System.in);
+			sc.useDelimiter("\r\n");
 			System.out.println("==================== Credit Card Details ====================");
+
 			System.out.println("Card Number:");
-			sc.next();
+			String cardNo = sc.next();
+			if(!cardNo.matches("\\d{16}")) {
+				throw new InvalidBankDetailsException();
+			}
+			
 			System.out.println("Name:");
 			sc.next();
-			System.out.println("Expiry Date:");
-			sc.next();
+			
+			System.out.println("Expiry Date(dd-mm-yyyy):");
+			String date = sc.next();
+			if(!date.matches("\\d{2}-\\d{2}-\\d{4}")) {
+				throw new InvalidBankDetailsException();
+			}
+			
 			System.out.println("CVV:");
-			sc.next();
+			String cvv = sc.next();
+			if(!cvv.matches("\\d{3}")) {
+				throw new InvalidBankDetailsException();
+			}
+			
 			registrationInterface.payFee(studentID, ModeOfPayment.CREDIT_CARD, amount);
 		}catch(Exception e) {
 			System.err.println(e.getMessage());

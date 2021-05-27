@@ -21,7 +21,18 @@ public interface NotificationInterface {
      */
 //    public int sendNotification(String notificationMessage, String studentID, Payment method, double amount);
 
+	/**
+     * Method for sending notification to the student.
+     * @param sid -> ID of student to whom notification is to be sent
+     * @param type -> type of notification
+     * @param message -> notification message
+     */
 	public void sendNotification(String sid, String type, String message);
 	
+	/**
+     * Method for viewing notification for the student.
+     * @param sid -> ID of student to whom notification is to be sent
+     * @return List<Notification> -> list of notification objects containing notification details
+     */
 	public List<Notification> getNotifications(String sid);
 }

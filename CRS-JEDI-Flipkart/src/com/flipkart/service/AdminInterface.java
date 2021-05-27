@@ -13,21 +13,26 @@ import java.util.List;
  */
 public interface AdminInterface {
 
-    /**
+	/**
      * Method to add course in catalogue.
      * @param course -> Course to be added
+     * @throws CourseFoundException
      */
     public void addCourse(Course course) throws CourseFoundException;
 
     /**
      * Method to remove course from course catalogue.
      * @param courseID -> ID of course which is to be removed
+     * @throws CourseNotFoundException
+     * @throws CourseNotDeletedException
      */
     public void removeCourse(int courseID) throws CourseNotFoundException, CourseNotDeletedException;
 
     /**
      * Adds a professor object to the database
      * @param professor : professor object containing the details of the prof
+     * @throws ProfNotAddedException
+     * @throws ProfFoundException
      */
     public void addProf(Professor professor) throws ProfNotAddedException, ProfFoundException;
 
@@ -35,13 +40,14 @@ public interface AdminInterface {
      * removes a professor object from the database
      * @param profID : professor ID of professor to be removed
      * @throws ProfFoundException
+     * @throws ProfNotDeletedException
      */
     public void removeProf(String profID) throws ProfNotFoundException, ProfNotDeletedException;
 
     /**
      * Remove student from database
      * @param studentID -> student which is to be removed
-     * @throws UserNotFoundException
+     * @throws StudentNotFoundException
      */
     public void removeStudent(String studentID) throws StudentNotFoundException;
 
@@ -49,12 +55,15 @@ public interface AdminInterface {
      * Add professor as instructor in the given course.
      * @param profID -> ID of professor to be added
      * @param courseID -> ID of course which professor is requesting
+     * @throws CourseNotFoundException
+     * @throws ProfNotFoundException
      */
     public void assignProf(String profID, int courseID) throws CourseNotFoundException, ProfNotFoundException;
     
     /**
      * Method to generate Report card of student.
      * @param studentID -> ID of student whose report card is being generated
+     * @throws StudentNotFoundException
      */
     public void generateReportCard(String studentID) throws StudentNotFoundException;
 
@@ -66,6 +75,7 @@ public interface AdminInterface {
 
     /**
      * Method to ensure no course has less than three registered students
+     * @throws DatabaseException
      */
     public void validateRegistration() throws DatabaseException;
 
@@ -78,11 +88,13 @@ public interface AdminInterface {
     
     /**
      * Method to accept scholarship from students
+     * @param studentID
      */
     public void paymentDoneViaScholarship(String studentID);
     
     /**
      * Method to accept Demand Draft from students
+     * @param studentID
      */
     public void paymentDoneViaDemandDraft(String studentID);
 
@@ -94,6 +106,7 @@ public interface AdminInterface {
 
     /**
      * Method view pending approvals of students
+     * @return list of student objects whose approvals are pending
      */
     public List<Student> viewPending();
 }
