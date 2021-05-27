@@ -3,13 +3,14 @@
  */
 package com.flipkart.client;
 
+import java.lang.System.Logger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
 import com.flipkart.bean.Student;
-import com.flipkart.constant.Gender;
-import com.flipkart.constant.Role;
+import com.flipkart.constant.GenderConstant;
+import com.flipkart.constant.RoleConstant;
 import com.flipkart.dao.StudentDaoInterface;
 import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.exception.PasswordMismatchException;
@@ -23,9 +24,7 @@ import com.flipkart.service.UserOperation;
  * @author sayan
  *
  */
-public class LoginMenu {
-
-//	private static Logger logger = Logger.getLogger(LoginMenu.class);
+public class CRSApplication {
 
 	/**
 	 * Main method
@@ -33,7 +32,6 @@ public class LoginMenu {
 	 */
 	private static Scanner scanner = new Scanner(System.in);
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		showMainMenu();
 	}
 
@@ -50,31 +48,35 @@ public class LoginMenu {
 			System.out.println("3. Exit");
 			System.out.println("\n==========================================================================\n");
 			System.out.println("Enter Option : ");
-			int optionChosen = scanner.nextInt();
-			scanner.nextLine();
-			switch(optionChosen) {		
-			case 1:
-				login();
-				break;
+//			try {
+				String optionChosen = scanner.nextLine();
+				switch(optionChosen) {		
+				case "1":
+					login();
+					break;
 
-			case 2:
-				signup();
-				break;
+				case "2":
+					signup();
+					break;
 
-			case 3:
-				exit();
-				return;
-			default:
-				System.err.println("Invalid Option");
-			}
+				case "3":
+					exit();
+					return;
+				default:
+					System.err.println("Invalid Option.");
+				}
+//			}
+//			catch(Exception e) {
+//				System.err.println("Invalid Option");
+//			}
 		}
+			
 	}
 
 	/**
 	 * Method to exit application
 	 */
 	private static void exit() {
-		// TODO Auto-generated method stub
 		System.out.println("Exit Application");
 	}
 
@@ -82,11 +84,10 @@ public class LoginMenu {
 	 * Method to login into application
 	 */
 	private static void login() {
-		// TODO Auto-generated method stub
-		System.out.println("Enter username : ");
-		String uName = scanner.next();
+		System.out.println("Enter user ID : ");
+		String uName = scanner.nextLine();
 		System.out.println("Enter password : ");
-		String password = scanner.next();
+		String password = scanner.nextLine();
 		loginMain(uName, password);
 	}
 
@@ -101,19 +102,19 @@ public class LoginMenu {
 			String sid = scanner.nextLine();
 			System.out.println("Enter Student name : ");
 			String name = scanner.nextLine();
-			Role role = Role.Student;
+			RoleConstant role = RoleConstant.Student;
 			System.out.println("Enter Student Password : ");
 			String pass = scanner.nextLine();
 			System.out.println("Enter Student Gender, 1=male, 2=female, 3=other : ");
 			int gende = scanner.nextInt();scanner.nextLine();
-			Gender gender = Gender.OTHER;
+			GenderConstant gender = GenderConstant.OTHER;
 			switch (gende){
 				case 1:
-					gender = Gender.MALE;break;
+					gender = GenderConstant.MALE;break;
 				case 2:
-					gender = Gender.FEMALE;break;
+					gender = GenderConstant.FEMALE;break;
 				case 3:
-					gender = Gender.OTHER;break;
+					gender = GenderConstant.OTHER;break;
 			}
 			System.out.println("Enter Address of student : ");
 			String address = scanner.nextLine();
@@ -145,25 +146,20 @@ public class LoginMenu {
 	 * @param password -> password of user
 	 */
 	private static void loginMain(String userId, String password) {
-		// TODO Auto-generated method stub
-		Role role = null;
+		RoleConstant role = null;
 		try {
 			role = UserOperation.getInstance().login(userId, password);
-		} catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-		} catch (PasswordMismatchException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+		} catch (Exception e){
+			System.err.println(e.getMessage());
 		}
 		finally
 		{
-			if (role == Role.Student)
+			if (role == RoleConstant.Student)
 			{
 				StudentInterface studentInterface = StudentOperation.getInstance();
 				try {
 					if (studentInterface.isApproved(userId)) {
-						StudentMenu sm = new StudentMenu(userId);
+						StudentCRSMenu sm = new StudentCRSMenu(userId);
 						System.out.println("Student Logged in successfully with user ID: " + userId);
 						sm.displayMenu();
 					} else {
@@ -174,15 +170,15 @@ public class LoginMenu {
 					System.out.println(e.getMessage());
 				}
 			}
-			else if (role == Role.Professor)
+			else if (role == RoleConstant.Professor)
 			{
-				ProfessorMenu pm = new ProfessorMenu(userId);
+				ProfessorCRSMenu pm = new ProfessorCRSMenu(userId);
 				System.out.println("Professor Logged in successfully with user ID: " + userId);
 				pm.displayMenu();
 			}
-			else if (role == Role.Admin)
+			else if (role == RoleConstant.Admin)
 			{
-				AdminMenu am = new AdminMenu();
+				AdminCRSMenu am = new AdminCRSMenu();
 				System.out.println("Admin Logged in successfully with user ID: " + userId);
 				am.printAdminMenu();
 			}

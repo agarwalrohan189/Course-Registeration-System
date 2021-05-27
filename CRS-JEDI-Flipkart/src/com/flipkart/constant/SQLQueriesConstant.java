@@ -7,7 +7,7 @@ package com.flipkart.constant;
  * @author rohanagarwal
  *
  */
-public class SQLQueries {
+public class SQLQueriesConstant {
 	
 
 	//UserDao queries

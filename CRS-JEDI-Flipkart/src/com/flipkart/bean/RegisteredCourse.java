@@ -3,7 +3,7 @@
  */
 package com.flipkart.bean;
 
-import com.flipkart.constant.Grade;
+import com.flipkart.constant.GradeConstant;
 
 /**
  * @author Shubham
@@ -13,7 +13,7 @@ public class RegisteredCourse {
 
 	String courseName, instructor, studentId;
 	int semesterNo, courseId;
-	Grade grade;
+	GradeConstant grade;
 	
 	
 	
@@ -26,7 +26,7 @@ public class RegisteredCourse {
 	 * @param grade
 	 */
 	public RegisteredCourse(String courseName, String instructor, String studentId, int semesterNo, int courseId,
-			Grade grade) {
+			GradeConstant grade) {
 		this.courseName = courseName;
 		this.instructor = instructor;
 		this.studentId = studentId;
@@ -99,13 +99,13 @@ public class RegisteredCourse {
 	/**
 	 * @return the grade
 	 */
-	public Grade getGrade() {
+	public GradeConstant getGrade() {
 		return grade;
 	}
 	/**
 	 * @param grade the grade to set
 	 */
-	public void setGrade(Grade grade) {
+	public void setGrade(GradeConstant grade) {
 		this.grade = grade;
 	}
 	

@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
-import com.flipkart.constant.Grade;
+import com.flipkart.constant.GradeConstant;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
 
@@ -17,7 +17,7 @@ import com.flipkart.service.ProfessorOperation;
  * @author shubh
  *
  */
-public class ProfessorMenu {
+public class ProfessorCRSMenu {
 
 //	private static Logger logger = Logger.getLogger(ProfessorMenu.class);
 
@@ -28,7 +28,7 @@ public class ProfessorMenu {
 	 * Constructor
 	 * @param profID
 	 */
-	public ProfessorMenu(String profID) {
+	public ProfessorCRSMenu(String profID) {
 		this.professorID = profID;
 	}
 
@@ -104,7 +104,7 @@ public class ProfessorMenu {
 			List<Student> students = professorInterface.viewStudent(courseID, professorID);
 			System.out.printf("%10s%20s%20s\n","StudentID","Student Name","Branch");
 			for (Student student : students) {
-				System.out.format("%10d%20s%20s\n", student.getId(),  student.getName(), student.getBranch());
+				System.out.format("%10s%20s%20s\n", student.getId(),  student.getName(), student.getBranch());
 			}
 		}
 		catch(Exception e){
@@ -124,7 +124,7 @@ public class ProfessorMenu {
 		System.out.println("Enter Grade : ");
 		String grade = sc.next();
 		try {
-			professorInterface.assignGrade(studentID, courseID, Grade.fromString(grade));
+			professorInterface.assignGrade(studentID, courseID, GradeConstant.fromString(grade));
 		}
 		catch(Exception e){
 			System.err.println(e.getMessage());

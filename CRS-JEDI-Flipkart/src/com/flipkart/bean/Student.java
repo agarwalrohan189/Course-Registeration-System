@@ -5,8 +5,8 @@ package com.flipkart.bean;
 
 import java.util.Date;
 
-import com.flipkart.constant.Gender;
-import com.flipkart.constant.Role;
+import com.flipkart.constant.GenderConstant;
+import com.flipkart.constant.RoleConstant;
 
 /**
  * @author Shubham
@@ -37,7 +37,7 @@ public class Student extends User {
 	 * @param paymentDone
 	 * @param isRegistered
 	 */
-	public Student(String id, String name, Role role, String password, Gender gender, String address, String username,
+	public Student(String id, String name, RoleConstant role, String password, GenderConstant gender, String address, String username,
 			Date doB, String branch, int batchYear, boolean paymentDone, boolean isRegistered) {
 		super(id, name, role, password, gender, address, username, doB);
 		this.branch = branch;

@@ -22,6 +22,8 @@ import java.sql.ResultSet;
 import com.flipkart.constant.*;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Year;
 
 /**
  * @author shubh
@@ -61,7 +63,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		 try 
 		 {      
 			 for (Map.Entry<Integer,Boolean> courseElement : courseIDs.entrySet()) {
-				 statement = conn.prepareStatement(SQLQueries.CHOOSE_COURSE);
+				 statement = conn.prepareStatement(SQLQueriesConstant.CHOOSE_COURSE);
 		            statement.setString(1, studentId);
 		            statement.setInt(2, courseElement.getKey());
 		            statement.setBoolean(3, courseElement.getValue());
@@ -105,7 +107,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
             	throw new CourseNotFoundException(courseId); 
             else
             {
-            	Course course = new Course(rs.getInt("cid"), rs.getString("cname"), rs.getString("pid"), UserDAOOperation.getInstance().getDetails(rs.getString("pid")).getName(), rs.getInt("filledSeats"));
+            	Course course = new Course(rs.getInt("cid"), rs.getString("cname"), rs.getString("pid"), UserDaoOperation.getInstance().getDetails(rs.getString("pid")).getName(), rs.getInt("filledSeats"));
             	return course;
             }
         }
@@ -115,13 +117,13 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
             throw new CourseNotFoundException(courseId);
         } catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} catch (StudentNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} catch (ProfNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
         finally
         {
@@ -151,14 +153,14 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
         Connection conn = DBUtil.getConnection();
         try
         {
-            statement = conn.prepareStatement(SQLQueries.ADD_COURSE);
+            statement = conn.prepareStatement(SQLQueriesConstant.ADD_COURSE);
             statement.setString(1, studentId);
             statement.setInt(2, courseCode);
-            statement.setInt(3, 2020);
-            statement.setInt(4, 1);
+            statement.setInt(3, Year.now().getValue());
+            statement.setInt(4, (LocalDate.now().getMonthValue()>6?2:1));
             statement.executeUpdate();
             
-            statement = conn.prepareStatement(SQLQueries.INCREMENT_COURSE_SEATS);
+            statement = conn.prepareStatement(SQLQueriesConstant.INCREMENT_COURSE_SEATS);
             statement.setInt(1, courseCode);
             statement.executeUpdate();
             return true;
@@ -193,12 +195,12 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		Connection conn = DBUtil.getConnection();	
         try
         {
-            statement = conn.prepareStatement(SQLQueries.DROP_COURSE);
+            statement = conn.prepareStatement(SQLQueriesConstant.DROP_COURSE);
             statement.setInt(1, courseCode);
             statement.setString(2, studentId);
             statement.execute();
             
-            statement = conn.prepareStatement(SQLQueries.DECREMENT_COURSE_SEATS);
+            statement = conn.prepareStatement(SQLQueriesConstant.DECREMENT_COURSE_SEATS);
             statement.setInt(1, courseCode);
             statement.execute();
             
@@ -235,13 +237,13 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		List<RegisteredCourse> registeredCourseList = new ArrayList<>();
 		try 
 		{
-			statement = conn.prepareStatement(SQLQueries.VIEW_REGISTERED_COURSES);
+			statement = conn.prepareStatement(SQLQueriesConstant.VIEW_REGISTERED_COURSES);
 			statement.setString(1, studentId);
 
 			ResultSet rs = statement.executeQuery();
 			
 			while (rs.next()) {
-				RegisteredCourse course = new RegisteredCourse(rs.getString("cname"), UserDAOOperation.getInstance().getDetails(rs.getString("pid")).getName(), studentId, rs.getInt("semesterNum"), rs.getInt("cid"), Grade.fromInt(rs.getInt("grade")));			
+				RegisteredCourse course = new RegisteredCourse(rs.getString("cname"), UserDaoOperation.getInstance().getDetails(rs.getString("pid")).getName(), studentId, rs.getInt("semesterNum"), rs.getInt("cid"), GradeConstant.fromInt(rs.getInt("grade")));			
                 registeredCourseList.add(course);
 			}
 		}
@@ -251,10 +253,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
             throw new StudentNotFoundException(studentId);
         } catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} catch (ProfNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
         finally
         {
@@ -278,7 +280,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	@Override
 	public float calculateFee(String studentId) throws StudentNotFoundException{
 		int num_courses = viewRegisteredCourses(studentId).size();;
-		return num_courses * SQLQueries.feesPerCourse;
+		return num_courses * SQLQueriesConstant.feesPerCourse;
 	}
 
     /**
@@ -291,7 +293,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		Connection conn = DBUtil.getConnection();
 		try 
 		{
-			statement = conn.prepareStatement(SQLQueries.SET_PAYMENT_STATUS);
+			statement = conn.prepareStatement(SQLQueriesConstant.SET_PAYMENT_STATUS);
 			statement.setString(1, studentId);
 			statement.executeUpdate();
 		} 
@@ -325,7 +327,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		boolean regDone;
 		try 
 		{
-			statement = conn.prepareStatement(SQLQueries.GET_STUDENT_DETAILS_QUERY);
+			statement = conn.prepareStatement(SQLQueriesConstant.GET_STUDENT_DETAILS_QUERY);
 			statement.setString(1, studentId);
 			ResultSet rs = statement.executeQuery();
 			rs.next();
@@ -362,7 +364,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		boolean paid;
 		try 
 		{
-			statement = conn.prepareStatement(SQLQueries.GET_STUDENT_DETAILS_QUERY);
+			statement = conn.prepareStatement(SQLQueriesConstant.GET_STUDENT_DETAILS_QUERY);
 			statement.setString(1, studentId);
 			ResultSet rs = statement.executeQuery();
 			rs.next();
@@ -399,7 +401,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		String notifMessage;
 		try 
 		{
-			statement = conn.prepareStatement(SQLQueries.GET_NOTIFICATION_MESSAGE);
+			statement = conn.prepareStatement(SQLQueriesConstant.GET_NOTIFICATION_MESSAGE);
 			statement.setString(1, Integer.toString(notifId));
 			ResultSet rs = statement.executeQuery();
 			rs.next();

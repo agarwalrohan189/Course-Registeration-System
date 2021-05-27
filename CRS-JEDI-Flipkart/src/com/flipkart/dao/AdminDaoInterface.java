@@ -32,15 +32,6 @@ public interface AdminDaoInterface {
     public void removeCourse(int courseID) throws CourseNotFoundException, CourseNotDeletedException;
 
     /**
-     * To validate course registration of a student using SQL command.
-     * @param studentID -> ID of student to be added
-     * @param registeredStudents -> List of registered students in the course
-     * @throws StudentNotRegisteredException
-     * @throws StudentNotFoundException
-     */
-    public void validateRegistration(String studentID, List<Student> registeredStudents) throws StudentNotRegisteredException, StudentNotFoundException;
-
-    /**
      * Adds a professor object to the database using SQL command
      * @param professor : professor object containing the details of the prof
      * @throws ProfNotAddedException

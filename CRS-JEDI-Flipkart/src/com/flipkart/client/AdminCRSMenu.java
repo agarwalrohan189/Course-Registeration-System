@@ -6,8 +6,9 @@ package com.flipkart.client;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.RegisteredCourse;
-import com.flipkart.constant.Gender;
-import com.flipkart.constant.Role;
+import com.flipkart.bean.Student;
+import com.flipkart.constant.GenderConstant;
+import com.flipkart.constant.RoleConstant;
 import com.flipkart.service.AdminOperation;
 import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.RegistrationOperation;
@@ -22,8 +23,7 @@ import java.util.Scanner;
  * @author Yash
  *
  */
-public class AdminMenu {
-//	private static Logger logger = Logger.getLogger(LoginMenu.class);
+public class AdminCRSMenu {
 	
 	Scanner scanner = new Scanner(System.in);
 
@@ -142,13 +142,16 @@ public class AdminMenu {
 			float cpi=0;
 			int count=0;
 			for(RegisteredCourse course:courses) {
-				System.out.format("%10d%20s%20s\n", course.getCourseId(), course.getCourseName(), course.getGrade().toString());
 				if(course.getGrade()!=null) {
+					System.out.format("%10d%20s%20s\n", course.getCourseId(), course.getCourseName(), course.getGrade().toString());
 					cpi+=course.getGrade().hasValue();
 					count++;
 				}
+				else {
+					System.out.format("%10d%20s%20s\n", course.getCourseId(), course.getCourseName(), "Not Graded");
+				}
 			}
-			System.out.println("CPI : "+(cpi/count));
+			System.out.println("\nCPI : "+(cpi/count));
 		}catch (Exception e){
 			System.out.println(e.getMessage());
 		}
@@ -159,7 +162,9 @@ public class AdminMenu {
 	 */
 	private void assignProf() {
 		try {
-
+			List<Professor> profs = AdminOperation.getInstance().viewProfessors();
+			System.out.printf("%10s%20s%20s\n","Prof ID","Prof Name","Department");
+			profs.forEach((prof) -> System.out.printf("%10s%20s%20s\n",prof.getId(),prof.getName(),prof.getDepartment()));
 			System.out.println("Enter the professor ID");
 			String profID = scanner.nextLine();
 			System.out.println("Enter Course ID of course to be assigned");
@@ -178,10 +183,10 @@ public class AdminMenu {
 	 */
 	private void validateRegistrations() {
 		try {
-
+			
 			AdminOperation.getInstance().validateRegistration();
 
-			System.out.println(":) :) :) registrations Validated :) :) :)");
+			System.out.println("Registrations Validated");
 		}catch (Exception e){
 			System.out.println(e.getMessage());
 		}
@@ -197,7 +202,7 @@ public class AdminMenu {
 
 			AdminOperation.getInstance().removeStudent(studentID);
 
-			System.out.println("----------Student Removed---------");
+			System.out.println("Student Removed");
 		}catch (Exception e){
 			System.out.println(e.getMessage());
 		}
@@ -209,6 +214,10 @@ public class AdminMenu {
 	private void approveStudent() {
 		try
 		{
+			List<Student> students = AdminOperation.getInstance().viewPending();
+			System.out.println("==================== Pending students ====================\n");
+			System.out.printf("%10s%20s%20s\n","Student ID","Student Name","Branch");
+			students.forEach((stud) -> System.out.printf("%10s%20s%20s\n",stud.getId(),stud.getName(),stud.getBranch()));
 			System.out.println("Enter student id: ");
 			String studentId = scanner.nextLine();
 			AdminOperation.getInstance().approveStudent(studentId);
@@ -224,7 +233,9 @@ public class AdminMenu {
 	 */
 	private void removeProf() {
 		try {
-
+			List<Professor> profs = AdminOperation.getInstance().viewProfessors();
+			System.out.printf("%10s%20s%20s\n","Prof ID","Prof Name","Department");
+			profs.forEach((prof) -> System.out.printf("%10s%20s%20s\n",prof.getId(),prof.getName(),prof.getDepartment()));
 			System.out.println("Enter Professor ID");
 			String profID = scanner.nextLine();
 			
@@ -246,19 +257,19 @@ public class AdminMenu {
 			String pid = scanner.nextLine();
 			System.out.println("Enter Professor name");
 			String name = scanner.nextLine();
-			Role role = Role.Professor;
+			RoleConstant role = RoleConstant.Professor;
 			System.out.println("Enter Professor Password");
 			String pass = scanner.nextLine();
 			System.out.println("Enter Professor Gender, 1=male, 2=female, 3=other");
 			int gende = scanner.nextInt();scanner.nextLine();
-			Gender gender = Gender.OTHER;
+			GenderConstant gender = GenderConstant.OTHER;
 			switch (gende){
 				case 1:
-					gender = Gender.MALE;break;
+					gender = GenderConstant.MALE;break;
 				case 2:
-					gender = Gender.FEMALE;break;
+					gender = GenderConstant.FEMALE;break;
 				case 3:
-					gender = Gender.OTHER;break;
+					gender = GenderConstant.OTHER;break;
 			}
 			System.out.println("Enter Address of Professor");
 			String address = scanner.nextLine();

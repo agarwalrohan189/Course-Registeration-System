@@ -1,7 +1,7 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.Course;
-import com.flipkart.constant.Grade;
+import com.flipkart.constant.GradeConstant;
 import com.flipkart.dao.ProfessorDaoOperation;
 import com.flipkart.exception.GradeNotAssignedException;
 import com.flipkart.exception.ProfNotFoundException;
@@ -52,7 +52,7 @@ public class ProfessorOperation implements ProfessorInterface{
     }
 
     @Override
-    public void assignGrade( String studentID, int courseID, Grade grade) throws GradeNotAssignedException, StudentNotFoundException {
+    public void assignGrade( String studentID, int courseID, GradeConstant grade) throws GradeNotAssignedException, StudentNotFoundException {
         try{
             professorDaoOperation.assignGrade(studentID,courseID,grade);
         }catch (Exception e){

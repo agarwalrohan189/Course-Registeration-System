@@ -9,11 +9,11 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
-import com.flipkart.client.LoginMenu;
-import com.flipkart.constant.Gender;
-import com.flipkart.constant.Grade;
-import com.flipkart.constant.Role;
-import com.flipkart.constant.SQLQueries;
+import com.flipkart.client.CRSApplication;
+import com.flipkart.constant.GenderConstant;
+import com.flipkart.constant.GradeConstant;
+import com.flipkart.constant.RoleConstant;
+import com.flipkart.constant.SQLQueriesConstant;
 import com.flipkart.exception.*;
 import com.flipkart.utils.DBUtil;
 
@@ -26,26 +26,25 @@ import java.util.*;
 
 import org.apache.log4j.Logger;
 
-public class AdminDaoInterfaceImpl implements AdminDaoInterface {
-	private static Logger logger = Logger.getLogger(AdminDaoInterfaceImpl.class);
+public class AdminDaoOperation implements AdminDaoInterface {
+	private static Logger logger = Logger.getLogger(AdminDaoOperation.class);
 
-    private static volatile AdminDaoInterfaceImpl instance = null;
-//    private static Logger logger = Logger.getLogger(String.valueOf(AdminDaoInterfaceImpl.class));
+    private static volatile AdminDaoOperation instance = null;
     private PreparedStatement statement = null;
 
     /**
      * Constructor
      */
-    private AdminDaoInterfaceImpl(){}
+    private AdminDaoOperation(){}
 
     /**
      * Singleton pattern to generate unique instance of the class
      * @return
      */
-    public static AdminDaoInterfaceImpl getInstance() {
+    public static AdminDaoOperation getInstance() {
         if (instance == null) {
-            synchronized (AdminDaoInterfaceImpl.class) {
-                instance = new AdminDaoInterfaceImpl();
+            synchronized (AdminDaoOperation.class) {
+                instance = new AdminDaoOperation();
             }
         }
         return instance;
@@ -61,7 +60,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         statement = null;
         Connection conn = DBUtil.getConnection();
         try {
-            String sql = SQLQueries.ADD_COURSE_QUERY;
+            String sql = SQLQueriesConstant.ADD_COURSE_QUERY;
             statement = conn.prepareStatement(sql);
             statement.setInt(1, course.getCourseId());
             statement.setString(2, course.getCourseName());
@@ -79,7 +78,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             logger.info("Course with courseCode : " + course.getCourseId() + " is added to catalog.");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new CourseFoundException(course.getCourseId());
         }
         finally {
@@ -92,7 +91,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 					throw new DatabaseException();
 				} catch (DatabaseException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error(e.getMessage());
 				}
 			}
 		}
@@ -109,7 +108,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         statement = null;
         Connection conn = DBUtil.getConnection();
         try{
-            String sql = SQLQueries.DELETE_COURSE_QUERY;
+            String sql = SQLQueriesConstant.DELETE_COURSE_QUERY;
             statement = conn.prepareStatement(sql);
             statement.setInt(1, courseID);
             int row = statement.executeUpdate();
@@ -122,7 +121,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             logger.info("Course with course code : " + courseID + " deleted.");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new CourseNotDeletedException(courseID);
         }
         finally {
@@ -135,22 +134,10 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 					throw new DatabaseException();
 				} catch (DatabaseException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error(e.getMessage());
 				}
 			}
 		}
-    }
-
-    /**
-     * To validate course registration of a student using SQL command.
-     * @param studentID          -> ID of student to be added
-     * @param registeredStudents -> List of registered students in the course
-     * @throws StudentNotRegisteredException
-     * @throws StudentNotFoundException
-     */
-    @Override
-    public void validateRegistration(String studentID, List<Student> registeredStudents) throws StudentNotRegisteredException, StudentNotFoundException {
-
     }
 
     /**
@@ -167,7 +154,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
         }catch (UserNotAddedException e) {
 
-            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new ProfNotAddedException(professor.getId());
         }
 
@@ -176,7 +163,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         Connection conn = DBUtil.getConnection();
         try {
 
-            String sql = SQLQueries.ADD_PROFESSOR_QUERY;
+            String sql = SQLQueriesConstant.ADD_PROFESSOR_QUERY;
             statement = conn.prepareStatement(sql);
 
             statement.setString(1, professor.getId());
@@ -209,7 +196,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 					throw new DatabaseException();
 				} catch (DatabaseException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error(e.getMessage());
 				}
 			}
 		}
@@ -225,14 +212,14 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         Connection conn = DBUtil.getConnection();
         try {
 
-            String sql = SQLQueries.ADD_USER_QUERY;
+            String sql = SQLQueriesConstant.ADD_USER_QUERY;
             statement = conn.prepareStatement(sql);
 
             statement.setString(1, user.getId());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getName());
-            statement.setInt(4, Gender.genderToInt(user.getGender()));
-            statement.setInt(5, Role.roleToInt(user.getRole()));
+            statement.setInt(4, GenderConstant.genderToInt(user.getGender()));
+            statement.setInt(5, RoleConstant.roleToInt(user.getRole()));
             statement.setString(6, user.getAddress());
             statement.setString(7, user.getUsername());
             statement.setDate(8, new Date(user.getDoB().getTime()));
@@ -262,7 +249,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 					throw new DatabaseException();
 				} catch (DatabaseException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error(e.getMessage());
 				}
 			}
 		}
@@ -279,7 +266,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         Connection conn = DBUtil.getConnection();
         try {
 
-            String sql = SQLQueries.DELETE_PROFESSOR_QUERY;
+            String sql = SQLQueriesConstant.DELETE_PROFESSOR_QUERY;
             statement = conn.prepareStatement(sql);
 
             statement.setString(1, profID);
@@ -291,7 +278,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
                 throw new ProfNotFoundException(profID);
             }
             
-            String sq2 = SQLQueries.DELETE_USER_QUERY;
+            String sq2 = SQLQueriesConstant.DELETE_USER_QUERY;
             statement = conn.prepareStatement(sq2);
 
             statement.setString(1, profID);
@@ -326,7 +313,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 					throw new DatabaseException();
 				} catch (DatabaseException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error(e.getMessage());
 				}
 			}
 		}
@@ -344,7 +331,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         Connection conn = DBUtil.getConnection();
         try {
 
-            String sql = SQLQueries.DELETE_STUDENT_QUERY;
+            String sql = SQLQueriesConstant.DELETE_STUDENT_QUERY;
             statement = conn.prepareStatement(sql);
 
             statement.setString(1, studentID);
@@ -356,7 +343,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
                 throw new StudentNotFoundException(studentID);
             }
             
-            String sq2 = SQLQueries.DELETE_USER_QUERY;
+            String sq2 = SQLQueriesConstant.DELETE_USER_QUERY;
             statement = conn.prepareStatement(sq2);
 
             statement.setString(1, studentID);
@@ -377,7 +364,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
         } catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
         finally {
 			try {
@@ -389,7 +376,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 					throw new DatabaseException();
 				} catch (DatabaseException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error(e.getMessage());
 				}
 			}
 		}
@@ -406,7 +393,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         Connection conn = DBUtil.getConnection();
         try {
 
-            String sql = SQLQueries.ASSIGN_COURSE_QUERY;
+            String sql = SQLQueriesConstant.ASSIGN_COURSE_QUERY;
             statement = conn.prepareStatement(sql);
 
             statement.setString(1, profID);
@@ -437,7 +424,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 					throw new DatabaseException();
 				} catch (DatabaseException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error(e.getMessage());
 				}
 			}
 		}
@@ -454,7 +441,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
     	HashMap<String,List<Integer>> preferredCourseList = new HashMap<>();
 		try 
 		{
-			statement = conn.prepareStatement(SQLQueries.VIEW_PREFERRED_COURSES);
+			statement = conn.prepareStatement(SQLQueriesConstant.VIEW_PREFERRED_COURSES);
 			ResultSet rs = statement.executeQuery();
 			
 			while (rs.next()) {
@@ -500,7 +487,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
     	HashMap<String,List<Integer>> alternateCourseList = new HashMap<>();
 		try 
 		{
-			statement = conn.prepareStatement(SQLQueries.VIEW_ALTERNATE_COURSES);
+			statement = conn.prepareStatement(SQLQueriesConstant.VIEW_ALTERNATE_COURSES);
 			ResultSet rs = statement.executeQuery();
 			
 			while (rs.next()) {
@@ -539,7 +526,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
     public void setRegistrationStatus(String studentID) throws SQLException{
     	Connection conn = DBUtil.getConnection();
         statement = null;
-        String sql = SQLQueries.SET_REGISTRATION_STATUS;
+        String sql = SQLQueriesConstant.SET_REGISTRATION_STATUS;
         statement = conn.prepareStatement(sql);
         statement.setString(1,studentID);
         statement.executeUpdate();
@@ -554,7 +541,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         statement = null;
         Connection conn = DBUtil.getConnection();
         try {
-            String sql = SQLQueries.GET_STUDENT_GRADES;
+            String sql = SQLQueriesConstant.GET_STUDENT_GRADES;
             statement = conn.prepareStatement(sql);
             statement.setString(1,studentID);
 
@@ -596,7 +583,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 					throw new DatabaseException();
 				} catch (DatabaseException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error(e.getMessage());
 				}
 			}
 		}
@@ -612,7 +599,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         List<Course> coursesList = new ArrayList<>();
         Connection conn = DBUtil.getConnection();
         try{
-            String sql = SQLQueries.GET_COURSE_CATALOGUE;
+            String sql = SQLQueriesConstant.GET_COURSE_CATALOGUE;
             statement = conn.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
@@ -629,7 +616,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
                 	pid = "NA";
                 }
                 else
-                	profName = UserDAOOperation.getInstance().getDetails(pid).getName();
+                	profName = UserDaoOperation.getInstance().getDetails(pid).getName();
 
                 Course course = new Course(resultSet.getInt(1), resultSet.getString(2),
                 		pid, profName, resultSet.getInt(5));
@@ -637,16 +624,9 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (StudentNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ProfNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            logger.error(e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage());
 		}
         finally {
 			try {
@@ -657,8 +637,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 				try {
 					throw new DatabaseException();
 				} catch (DatabaseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+                    logger.error(e.getMessage());
 				}
 			}
 		}
@@ -678,14 +657,14 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
                 Connection conn = DBUtil.getConnection();
                 try {
                     setFilledSeats(0,course.getCourseId());
-                    String sql = SQLQueries.DELETE_REGISTERED_COURSE_QUERY;
+                    String sql = SQLQueriesConstant.DELETE_REGISTERED_COURSE_QUERY;
                     statement = conn.prepareStatement(sql);
                     statement.setInt(1, course.getCourseId());
                     statement.executeUpdate();
 
                    
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    logger.error(e.getMessage());
                     throw new CourseNotDeletedException(course.getCourseId());
                 }
                 finally {
@@ -697,7 +676,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         				try {
         					throw new DatabaseException();
         				} catch (DatabaseException e) {
-        					//Do nothing
+                            logger.error(e.getMessage());
         				}
         			}
         		}
@@ -715,7 +694,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
     private void setFilledSeats(int num, int courseID)throws SQLException {
     	Connection conn = DBUtil.getConnection();
         statement = null;
-        String sql = SQLQueries.SET_FILLED_SEATS;
+        String sql = SQLQueriesConstant.SET_FILLED_SEATS;
         statement = conn.prepareStatement(sql);
         statement.setInt(1,num);
         statement.setInt(2,courseID);
@@ -729,7 +708,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
     public void deleteChosenCourses() throws SQLException{
     	Connection conn = DBUtil.getConnection();
         statement = null;
-        String sql = SQLQueries.CLEAR_CHOSEN_COURSES;
+        String sql = SQLQueriesConstant.CLEAR_CHOSEN_COURSES;
         statement = conn.prepareStatement(sql);
         statement.executeUpdate();
     }
@@ -744,7 +723,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         Connection conn = DBUtil.getConnection();
         statement = null;
         try {
-            String sql = SQLQueries.APPROVE_STUDENT_QUERY;
+            String sql = SQLQueriesConstant.APPROVE_STUDENT_QUERY;
             statement = conn.prepareStatement(sql);
 
             statement.setString(1,studentId);
@@ -776,13 +755,13 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         List<Professor> professorList = new ArrayList<Professor>();
         try {
 
-            String sql = SQLQueries.VIEW_PROFESSOR_QUERY;
+            String sql = SQLQueriesConstant.VIEW_PROFESSOR_QUERY;
             statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
             while(resultSet.next()) {
                 String pid = resultSet.getString("id");
-                Professor professor = (Professor) UserDAOOperation.getInstance().getDetails(pid);
+                Professor professor = (Professor) UserDaoOperation.getInstance().getDetails(pid);
                 professorList.add(professor);
             }
 
@@ -793,9 +772,9 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         } catch (UserNotFoundException e) {
             //
         } catch (StudentNotFoundException e) {
-            //e.printStackTrace();
+            //logger.error(e.getMessage());
         } catch (ProfNotFoundException e) {
-            //e.printStackTrace();
+            //logger.error(e.getMessage());
         }finally {
             try {
                 connection.close();
@@ -805,8 +784,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
                 try {
                     throw new DatabaseException();
                 } catch (DatabaseException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    logger.error(e.getMessage());
                 }
             }
         }
@@ -822,23 +800,23 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         statement = null;
         List<Student> studentList  = new ArrayList<Student>();
         try{
-            String sql = SQLQueries.VIEW_PENDING_STUDENTS;
+            String sql = SQLQueriesConstant.VIEW_PENDING_STUDENTS;
             statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 String sid = resultSet.getString("id");
-                Student student = (Student) UserDAOOperation.getInstance().getDetails(sid);
+                Student student = (Student) UserDaoOperation.getInstance().getDetails(sid);
                 studentList.add(student);
             }
         }catch (SQLException se){
             logger.error(se.getMessage());
         } catch (UserNotFoundException e) {
-            //e.printStackTrace();
+            //logger.error(e.getMessage());
         } catch (StudentNotFoundException e) {
-            //e.printStackTrace();
+            //logger.error(e.getMessage());
         } catch (ProfNotFoundException e) {
-            //e.printStackTrace();
+            //logger.error(e.getMessage());
         }finally {
             try {
                 connection.close();
@@ -849,7 +827,7 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
                     throw new DatabaseException();
                 } catch (DatabaseException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    logger.error(e.getMessage());
                 }
             }
         }

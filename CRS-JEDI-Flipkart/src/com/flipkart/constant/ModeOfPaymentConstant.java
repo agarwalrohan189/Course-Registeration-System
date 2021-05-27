@@ -7,7 +7,7 @@ package com.flipkart.constant;
  * @author rohanagarwal
  *
  */
-public enum ModeOfPayment {
+public enum ModeOfPaymentConstant {
 
 	CREDIT_CARD,NET_BANKING,DEBIT_CARD;
 	
@@ -16,16 +16,16 @@ public enum ModeOfPayment {
 	 * @param value
 	 * @return Mode of Payment
 	 */
-	public static ModeOfPayment getModeofPayment(int value)
+	public static ModeOfPaymentConstant getModeofPayment(int value)
 	{
 		switch(value)
 		{
 			case 1:
-				return ModeOfPayment.CREDIT_CARD;
+				return ModeOfPaymentConstant.CREDIT_CARD;
 			case 2:
-				return ModeOfPayment.NET_BANKING;
+				return ModeOfPaymentConstant.NET_BANKING;
 			case 3:
-				return ModeOfPayment.DEBIT_CARD;
+				return ModeOfPaymentConstant.DEBIT_CARD;
 			default:
 				return null;
 				
@@ -38,7 +38,7 @@ public enum ModeOfPayment {
 	 * @param mode
 	 * @return Mode of payment in string
 	 */
-	public static String getStringModeOfPayment(ModeOfPayment mode) {
+	public static String getStringModeOfPayment(ModeOfPaymentConstant mode) {
 		switch(mode) {
 			case CREDIT_CARD:
 				return "Credit Card";

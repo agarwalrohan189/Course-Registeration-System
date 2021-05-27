@@ -3,7 +3,7 @@ package com.flipkart.constant;
 /**
  * Enum to represent gender
  */
-public enum Gender {
+public enum GenderConstant {
 	MALE(1),FEMALE(2),OTHER(3);
 	private final int gender;
 	
@@ -11,7 +11,7 @@ public enum Gender {
 	 * Parameterized Constructor
 	 * @param gender
 	 */
-	private Gender(int gender)
+	private GenderConstant(int gender)
 	{
 		this.gender=gender;
 	}
@@ -32,16 +32,16 @@ public enum Gender {
 	 * @param val
 	 * @return Gender object
 	 */
-	public static Gender getName(int val)
+	public static GenderConstant getName(int val)
 	{
-		Gender gender=Gender.OTHER;
+		GenderConstant gender=GenderConstant.OTHER;
 		switch(val)
 		{
 		case 1:
-			gender=Gender.MALE;
+			gender=GenderConstant.MALE;
 			break;
 		case 2:
-			gender=Gender.FEMALE;
+			gender=GenderConstant.FEMALE;
 			break;
 			
 		}
@@ -53,15 +53,15 @@ public enum Gender {
 	 * @param val
 	 * @return Gender object
 	 */
-	public static Gender stringToGender(String val)
+	public static GenderConstant stringToGender(String val)
 	{
-		Gender gender=Gender.OTHER;
+		GenderConstant gender=GenderConstant.OTHER;
 		if(val.equalsIgnoreCase("male"))
-			gender=Gender.MALE;
+			gender=GenderConstant.MALE;
 		else if(val.equalsIgnoreCase("female"))
-			gender=Gender.FEMALE;
+			gender=GenderConstant.FEMALE;
 		else if(val.equalsIgnoreCase("other"))
-			gender=Gender.OTHER;
+			gender=GenderConstant.OTHER;
 		
 		return gender;
 	}
@@ -71,7 +71,7 @@ public enum Gender {
 	 * @param gender Gender of user
 	 * @return integer corresponding to gender
 	 */
-	public static int genderToInt (Gender gender)
+	public static int genderToInt (GenderConstant gender)
 	{
 		switch (gender)
 		{

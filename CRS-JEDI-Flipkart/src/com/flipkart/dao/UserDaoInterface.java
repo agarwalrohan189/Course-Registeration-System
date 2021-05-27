@@ -4,7 +4,7 @@
 package com.flipkart.dao;
 
 import com.flipkart.bean.User;
-import com.flipkart.constant.Role;
+import com.flipkart.constant.RoleConstant;
 import com.flipkart.exception.PasswordIsWeakException;
 import com.flipkart.exception.PasswordMatchedOldException;
 import com.flipkart.exception.PasswordMismatchException;
@@ -16,7 +16,7 @@ import com.flipkart.exception.UserNotFoundException;
  * @author Shubham
  * User Dao Interface
  */
-public interface UserDAOInterface {
+public interface UserDaoInterface {
 
     /**
      * Method for logging in
@@ -25,7 +25,7 @@ public interface UserDAOInterface {
      * @return -> Role of the user
      * @throws PasswordMismatchException
      */
-	public Role login(String userID,String password) throws PasswordMismatchException;
+	public RoleConstant login(String userID,String password) throws PasswordMismatchException;
 
     /**
      * Set password for the user

@@ -15,10 +15,7 @@ import com.flipkart.bean.Admin;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
-import com.flipkart.client.LoginMenu;
-import com.flipkart.constant.Role;
-import com.flipkart.constant.Gender;
-import com.flipkart.constant.SQLQueries;
+import com.flipkart.client.CRSApplication;
 import com.flipkart.exception.PasswordIsWeakException;
 import com.flipkart.exception.PasswordMatchedOldException;
 import com.flipkart.exception.PasswordMismatchException;
@@ -26,26 +23,27 @@ import com.flipkart.exception.ProfNotFoundException;
 import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.utils.DBUtil;
+import com.flipkart.constant.*;
 
 /**
  * @author Shubham
  *
  */
-public class UserDAOOperation implements UserDAOInterface{
-	private static Logger logger = Logger.getLogger(UserDAOOperation.class);
+public class UserDaoOperation implements UserDaoInterface{
+	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
 
-	private static volatile UserDAOOperation instance = null;
+	private static volatile UserDaoOperation instance = null;
 	
-	private UserDAOOperation()
+	private UserDaoOperation()
 	{		
 	}
 	
-	public static UserDAOOperation getInstance()
+	public static UserDaoOperation getInstance()
 	{
 		if(instance==null)
 		{
-			synchronized(UserDAOOperation.class){
-				instance=new UserDAOOperation();
+			synchronized(UserDaoOperation.class){
+				instance=new UserDaoOperation();
 			}
 		}
 		return instance;
@@ -58,7 +56,7 @@ public class UserDAOOperation implements UserDAOInterface{
 	 * @return -> Role of the user
 	 * @throws PasswordMismatchException
 	 */
-	public Role login(String userID, String password) throws PasswordMismatchException {
+	public RoleConstant login(String userID, String password) throws PasswordMismatchException {
 		try
 		{
 			User user = getDetails(userID);
@@ -70,17 +68,9 @@ public class UserDAOOperation implements UserDAOInterface{
 		catch(PasswordMismatchException e)
 		{
 			logger.info(e.getMessage());
-		} catch (StudentNotFoundException e) {
-			// TODO Auto-generated catch block
-			logger.info(e.getMessage());
-		} catch (ProfNotFoundException e) {
-			// TODO Auto-generated catch block
-			logger.info(e.getMessage());
-		} catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e){
 			logger.info(e.getMessage());
 		}
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -95,7 +85,6 @@ public class UserDAOOperation implements UserDAOInterface{
 	 */
 	public boolean setPassword(String userId, String newPassword)
 			throws UserNotFoundException, PasswordMatchedOldException, PasswordIsWeakException {
-		// TODO Auto-generated method stub
 		Connection conn = DBUtil.getConnection();
 		try {
 			
@@ -106,7 +95,7 @@ public class UserDAOOperation implements UserDAOInterface{
 			if (newPassword.length() < 8)
 				throw new PasswordIsWeakException(newPassword);
 			
-			PreparedStatement updatePassword = conn.prepareStatement(SQLQueries.UPDATE_PASSWORD);
+			PreparedStatement updatePassword = conn.prepareStatement(SQLQueriesConstant.UPDATE_PASSWORD);
 			updatePassword.setString(1, newPassword);
 			updatePassword.setString(2, userId);
 			updatePassword.executeQuery();
@@ -115,10 +104,8 @@ public class UserDAOOperation implements UserDAOInterface{
 		{
 			logger.info(e.getMessage());
 		} catch (StudentNotFoundException e) {
-			// TODO Auto-generated catch block
 			logger.info(e.getMessage());
 		} catch (ProfNotFoundException e) {
-			// TODO Auto-generated catch block
 			logger.info(e.getMessage());
 		}
 		finally
@@ -126,8 +113,7 @@ public class UserDAOOperation implements UserDAOInterface{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.info(e.getMessage());
 			}
 		}
 		return false;
@@ -142,11 +128,10 @@ public class UserDAOOperation implements UserDAOInterface{
 	 * @throws ProfNotFoundException
 	 */
 	public User getDetails(String userId) throws UserNotFoundException, StudentNotFoundException, ProfNotFoundException {
-		// TODO Auto-generated method stub
 		Connection conn = DBUtil.getConnection();
 		try
 		{
-			PreparedStatement getUserDetails = conn.prepareStatement(SQLQueries.GET_USER_DETAILS_QUERY);
+			PreparedStatement getUserDetails = conn.prepareStatement(SQLQueriesConstant.GET_USER_DETAILS_QUERY);
 			getUserDetails.setString(1, userId);
 			ResultSet userResult = getUserDetails.executeQuery();
 			
@@ -156,16 +141,16 @@ public class UserDAOOperation implements UserDAOInterface{
 			{
 				String password = userResult.getString("password");
 				String name = userResult.getString("name");
-				Gender gender = Gender.getName(userResult.getInt("gender"));
-				Role role = Role.values()[userResult.getInt("role")];
+				GenderConstant gender = GenderConstant.getName(userResult.getInt("gender"));
+				RoleConstant role = RoleConstant.values()[userResult.getInt("role")];
 				String address = userResult.getString("address");
 				String username = userResult.getString("username");
 				Date dob = userResult.getDate("dob");
-				if (role == Role.Student)
+				if (role == RoleConstant.Student)
 				{
 					try
 					{
-						PreparedStatement stmt = conn.prepareStatement(SQLQueries.GET_STUDENT_DETAILS_QUERY);
+						PreparedStatement stmt = conn.prepareStatement(SQLQueriesConstant.GET_STUDENT_DETAILS_QUERY);
 						stmt.setString(1, userId);
 						ResultSet studentResult = stmt.executeQuery();
 						
@@ -185,11 +170,11 @@ public class UserDAOOperation implements UserDAOInterface{
 						logger.info(e.getMessage());
 					}
 				}
-				else if (role == Role.Professor)
+				else if (role == RoleConstant.Professor)
 				{
 					try
 					{
-						PreparedStatement stmt = conn.prepareStatement(SQLQueries.GET_PROFESSOR_DETAILS_QUERY);
+						PreparedStatement stmt = conn.prepareStatement(SQLQueriesConstant.GET_PROFESSOR_DETAILS_QUERY);
 						stmt.setString(1, userId);
 						ResultSet profresult = stmt.executeQuery();
 						
@@ -212,7 +197,7 @@ public class UserDAOOperation implements UserDAOInterface{
 				{
 					try
 					{
-						PreparedStatement stmt = conn.prepareStatement(SQLQueries.GET_ADMIN_DETAILS_QUERY);
+						PreparedStatement stmt = conn.prepareStatement(SQLQueriesConstant.GET_ADMIN_DETAILS_QUERY);
 						stmt.setString(1, userId);
 						ResultSet adminresult = stmt.executeQuery();
 						
@@ -241,7 +226,7 @@ public class UserDAOOperation implements UserDAOInterface{
 				conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e.getMessage());
 			}
 		}
 		return null;

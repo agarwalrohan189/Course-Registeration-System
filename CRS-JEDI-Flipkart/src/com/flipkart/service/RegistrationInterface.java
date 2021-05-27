@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.flipkart.bean.RegisteredCourse;
-import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.constant.ModeOfPaymentConstant;
 import com.flipkart.exception.*;
 
 /**
@@ -82,5 +82,5 @@ public interface RegistrationInterface {
 	 * @throws StudentNotFoundException
 	 * @throws NotifIdNotExistsException
 	 */
-	public void payFee(String studentId, ModeOfPayment mode, float amount) throws StudentNotFoundException, NotifIdNotExistsException;
+	public void payFee(String studentId, ModeOfPaymentConstant mode, float amount) throws StudentNotFoundException, NotifIdNotExistsException;
 }

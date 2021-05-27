@@ -4,7 +4,7 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.User;
-import com.flipkart.constant.Role;
+import com.flipkart.constant.RoleConstant;
 import com.flipkart.exception.PasswordIsWeakException;
 import com.flipkart.exception.PasswordMatchedOldException;
 import com.flipkart.exception.PasswordMismatchException;
@@ -24,7 +24,7 @@ public interface UserInterface {
      * @throws UserNotFoundException
      * @throws PasswordMismatchException
      */
-    public Role login(String userID,String password) throws UserNotFoundException, PasswordMismatchException;
+    public RoleConstant login(String userID,String password) throws UserNotFoundException, PasswordMismatchException;
 
     /**
      * @param userID

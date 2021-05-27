@@ -4,8 +4,8 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.User;
-import com.flipkart.constant.Role;
-import com.flipkart.dao.UserDAOOperation;
+import com.flipkart.constant.RoleConstant;
+import com.flipkart.dao.UserDaoOperation;
 import com.flipkart.exception.PasswordIsWeakException;
 import com.flipkart.exception.PasswordMatchedOldException;
 import com.flipkart.exception.PasswordMismatchException;
@@ -40,20 +40,17 @@ public class UserOperation implements UserInterface {
 		return instance;
 	}
 	
-	public Role login(String userID, String password) throws UserNotFoundException, PasswordMismatchException {
-		// TODO Auto-generated method stub
-		return UserDAOOperation.getInstance().login(userID, password);
+	public RoleConstant login(String userID, String password) throws UserNotFoundException, PasswordMismatchException {
+		return UserDaoOperation.getInstance().login(userID, password);
 	}
 
 	public boolean setPassword(String userID, String newPassword) throws UserNotFoundException, PasswordMatchedOldException, PasswordIsWeakException{
-		// TODO Auto-generated method stub
-		UserDAOOperation.getInstance().setPassword(userID, newPassword);
+		UserDaoOperation.getInstance().setPassword(userID, newPassword);
 		return false;
 	}
 
 	public User getDetails(String userId) throws UserNotFoundException, ProfNotFoundException, StudentNotFoundException {
-		// TODO Auto-generated method stub	
-		return UserDAOOperation.getInstance().getDetails(userId);
+		return UserDaoOperation.getInstance().getDetails(userId);
 	}
 
 }

@@ -3,14 +3,14 @@ package com.flipkart.service;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
-import com.flipkart.constant.SQLQueries;
-import com.flipkart.dao.AdminDaoInterfaceImpl;
+import com.flipkart.constant.SQLQueriesConstant;
+import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.dao.NotificationDaoOperation;
 import com.flipkart.exception.*;
 import com.flipkart.utils.DBUtil;
 import com.flipkart.dao.RegistrationDaoInterface;
 import com.flipkart.dao.RegistrationDaoOperation;
-import com.flipkart.dao.UserDAOOperation;
+import com.flipkart.dao.UserDaoOperation;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -35,7 +35,7 @@ public class AdminOperation implements AdminInterface{
         return instance;
     }
 
-    AdminDaoInterfaceImpl adminDaoInterfaceImpl = AdminDaoInterfaceImpl.getInstance();
+    AdminDaoOperation adminDaoInterfaceImpl = AdminDaoOperation.getInstance();
     NotificationDaoOperation notificationDao = NotificationDaoOperation.getInstance();
     @Override
     public void addCourse(Course course) throws CourseFoundException {

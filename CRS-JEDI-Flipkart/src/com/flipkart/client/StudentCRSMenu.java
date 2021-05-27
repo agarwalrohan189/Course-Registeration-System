@@ -10,10 +10,9 @@ import java.util.Scanner;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.RegisteredCourse;
-import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.constant.ModeOfPaymentConstant;
 import com.flipkart.dao.RegistrationDaoInterface;
 import com.flipkart.dao.RegistrationDaoOperation;
-import com.flipkart.exception.InvalidBankDetailsException;
 import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.service.NotificationOperation;
 import com.flipkart.service.RegistrationInterface;
@@ -25,8 +24,7 @@ import com.flipkart.service.StudentOperation;
  * @author shubh
  *
  */
-public class StudentMenu {
-//	private static Logger logger = Logger.getLogger(StudentMenu.class);
+public class StudentCRSMenu {
 
 	String studentID;
 	StudentInterface studentInterface = StudentOperation.getInstance();
@@ -36,7 +34,7 @@ public class StudentMenu {
 	 * Constructor
 	 * @param studentID-> ID of student whose menu is being displayed
 	 */
-	public StudentMenu(String studentID) {
+	public StudentCRSMenu(String studentID) {
 		this.studentID = studentID;
 	}
 
@@ -128,9 +126,9 @@ public class StudentMenu {
 	private void viewCourseCatalogue() {
 		try {
 			List<Course> courses = studentInterface.viewCourseCatalogue();
-			System.out.printf("%10s|%20s%20s%20s%20s\n","Course ID","Course Name","Instructor ID","Instructor Name","Filled Seats");
+			System.out.printf("%10s%20s%20s%20s%20s\n","Course ID","Course Name","Instructor ID","Instructor Name","Filled Seats");
 			for (Course course : courses) {
-				System.out.format("%10d|%20s%20s%20s%20d\n", course.getCourseId(), course.getCourseName(), course.getInstructorId(),course.getInstructorName(),course.getFilledSeats());
+				System.out.format("%10d%20s%20s%20s%20d\n", course.getCourseId(), course.getCourseName(), course.getInstructorId(),course.getInstructorName(),course.getFilledSeats());
 			}
 		}
 		catch (Exception e) {
@@ -144,9 +142,14 @@ public class StudentMenu {
 	private void viewGrades() {
 		try {
 			List<RegisteredCourse> courses = studentInterface.viewGrades(studentID);
-			System.out.printf("%10s|%20s%20s\n","Course ID","Course Name","Grade");
+			System.out.printf("%10s%20s%20s\n","Course ID","Course Name","Grade");
 			for(RegisteredCourse course:courses) {
-				System.out.format("%10d|%20s%20s\n", course.getCourseId(), course.getCourseName(), course.getGrade().toString());
+				if(course.getGrade()!=null) {
+					System.out.format("%10d%20s%20s\n", course.getCourseId(), course.getCourseName(), course.getGrade().toString());
+				}
+				else {
+					System.out.format("%10d%20s%20s\n", course.getCourseId(), course.getCourseName(), "Not Graded");
+				}
 			}
 		}
 		catch (StudentNotFoundException e) {
@@ -158,9 +161,13 @@ public class StudentMenu {
 	 * Register courses for the semester
 	 */
 	private void registerCourses() {
-		viewCourseCatalogue();
-		Scanner sc = new Scanner(System.in);
 		try {
+			if(registrationInterface.isRegistrationDone(studentID)) {
+				System.err.println("Already Registered");
+				return;
+			}
+			viewCourseCatalogue();
+			Scanner sc = new Scanner(System.in);
 			HashMap<Integer,Boolean> courseIDs = new HashMap<>();
 			System.out.println("Enter Course IDs for prefererred Course #1 : ");
 			courseIDs.put(sc.nextInt(), true);
@@ -230,9 +237,9 @@ public class StudentMenu {
 	private void viewRegisteredCourses() {
 		try {
 			List<RegisteredCourse> courses = registrationInterface.viewRegisteredCourses(studentID);
-			System.out.printf("%10s|%20s%20s\n","Course ID","Course Name","Instructor");
+			System.out.printf("%10s%20s%20s\n","Course ID","Course Name","Instructor");
 			for(RegisteredCourse course:courses) {
-				System.out.format("%10d|%20s%20s\n", course.getCourseId(), course.getCourseName(), course.getInstructor());
+				System.out.format("%10d%20s%20s\n", course.getCourseId(), course.getCourseName(), course.getInstructor());
 			}
 		}
 		catch (StudentNotFoundException e) {
@@ -321,8 +328,9 @@ public class StudentMenu {
 
 			System.out.println("Card Number:");
 			String cardNo = sc.next();
-			if(!cardNo.matches("\\d{16}")) {
-				throw new InvalidBankDetailsException();
+			while(!cardNo.matches("\\d{16}")) {
+				System.err.println("Invalid Debit Card details entered. Enter again : ");
+				cardNo = sc.next();
 			}
 			
 			System.out.println("Name:");
@@ -330,17 +338,19 @@ public class StudentMenu {
 			
 			System.out.println("Expiry Date(dd-mm-yyyy):");
 			String date = sc.next();
-			if(!date.matches("\\d{2}-\\d{2}-\\d{4}")) {
-				throw new InvalidBankDetailsException();
+			while(!date.matches("\\d{2}-\\d{2}-\\d{4}")) {
+				System.err.println("Invalid date format entered. Enter Again : ");
+				date = sc.next();
 			}
 			
 			System.out.println("CVV:");
 			String cvv = sc.next();
-			if(!cvv.matches("\\d{3}")) {
-				throw new InvalidBankDetailsException();
+			while(!cvv.matches("\\d{3}")) {
+				System.err.println("Invalid CVV entered. Enter again : ");
+				cvv = sc.next();
 			}
 			
-			registrationInterface.payFee(studentID, ModeOfPayment.DEBIT_CARD, amount);
+			registrationInterface.payFee(studentID, ModeOfPaymentConstant.DEBIT_CARD, amount);
 		}catch(Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -359,8 +369,7 @@ public class StudentMenu {
 			sc.next();
 			System.out.println("Password:");
 			sc.next();
-//			sc.close()
-			registrationInterface.payFee(studentID, ModeOfPayment.NET_BANKING, amount);
+			registrationInterface.payFee(studentID, ModeOfPaymentConstant.NET_BANKING, amount);
 		}catch(Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -379,8 +388,9 @@ public class StudentMenu {
 
 			System.out.println("Card Number:");
 			String cardNo = sc.next();
-			if(!cardNo.matches("\\d{16}")) {
-				throw new InvalidBankDetailsException();
+			while(!cardNo.matches("\\d{16}")) {
+				System.err.println("Invalid Credit Card details entered. Enter again : ");
+				cardNo = sc.next();
 			}
 			
 			System.out.println("Name:");
@@ -388,17 +398,19 @@ public class StudentMenu {
 			
 			System.out.println("Expiry Date(dd-mm-yyyy):");
 			String date = sc.next();
-			if(!date.matches("\\d{2}-\\d{2}-\\d{4}")) {
-				throw new InvalidBankDetailsException();
+			while(!date.matches("\\d{2}-\\d{2}-\\d{4}")) {
+				System.err.println("Invalid date format entered. Enter Again : ");
+				date = sc.next();
 			}
 			
 			System.out.println("CVV:");
 			String cvv = sc.next();
-			if(!cvv.matches("\\d{3}")) {
-				throw new InvalidBankDetailsException();
+			while(!cvv.matches("\\d{3}")) {
+				System.err.println("Invalid CVV entered. Enter again : ");
+				cvv = sc.next();
 			}
 			
-			registrationInterface.payFee(studentID, ModeOfPayment.CREDIT_CARD, amount);
+			registrationInterface.payFee(studentID, ModeOfPaymentConstant.CREDIT_CARD, amount);
 		}catch(Exception e) {
 			System.err.println(e.getMessage());
 		}

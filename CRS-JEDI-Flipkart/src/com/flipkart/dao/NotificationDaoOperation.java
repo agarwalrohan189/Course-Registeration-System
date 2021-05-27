@@ -13,8 +13,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Notification;
-import com.flipkart.client.LoginMenu;
-import com.flipkart.constant.SQLQueries;
+import com.flipkart.client.CRSApplication;
+import com.flipkart.constant.SQLQueriesConstant;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.utils.DBUtil;
 
@@ -50,11 +50,10 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 	 */
 	@Override
 	public void saveNotification(String sid, String type, String message) {
-		// TODO Auto-generated method stub
 		Connection conn = DBUtil.getConnection();
 		try
 		{
-			PreparedStatement insertNotification = conn.prepareStatement(SQLQueries.INSERT_NOTIFICATION);
+			PreparedStatement insertNotification = conn.prepareStatement(SQLQueriesConstant.INSERT_NOTIFICATION);
 			insertNotification.setString(1, sid);
 			int nid = generateNotificationId();
 			if (nid == -1)
@@ -74,7 +73,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 				conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e.getMessage());
 			}
 		}
 	}
@@ -85,11 +84,10 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 	 */
 	@Override
 	public List<Notification> getNotifications(String sid) {
-		// TODO Auto-generated method stub
 		Connection conn = DBUtil.getConnection();
 		try
 		{
-			PreparedStatement selectNotification = conn.prepareStatement(SQLQueries.SELECT_NOTIFICATION);
+			PreparedStatement selectNotification = conn.prepareStatement(SQLQueriesConstant.SELECT_NOTIFICATION);
 			selectNotification.setString(1, sid);
 			ResultSet result = selectNotification.executeQuery();
 			
@@ -112,7 +110,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 				conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e.getMessage());
 			}
 		}
 		return null;
@@ -128,7 +126,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 		int notificationId = 0;
 		try
 		{
-			PreparedStatement getAllNotifications = conn.prepareStatement(SQLQueries.SELECT_ALL_NOTIFICATIONS);
+			PreparedStatement getAllNotifications = conn.prepareStatement(SQLQueriesConstant.SELECT_ALL_NOTIFICATIONS);
 			ResultSet result = getAllNotifications.executeQuery();
 			int maxNotificationId = 0;
 			
@@ -152,7 +150,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 				conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e.getMessage());
 			}
 		}
 		return notificationId;

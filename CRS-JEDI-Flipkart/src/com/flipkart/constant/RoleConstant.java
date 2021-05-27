@@ -7,7 +7,7 @@ package com.flipkart.constant;
  * @author Shubham
  *
  */
-public enum Role {
+public enum RoleConstant {
 	Student,
 	Professor,
 	Admin;
@@ -17,7 +17,7 @@ public enum Role {
 	 * @param role -> role of user
 	 * @return -> Integer corresponding to role
 	 */
-	public static int roleToInt(Role role)
+	public static int roleToInt(RoleConstant role)
 	{
 		switch (role)
 		{
