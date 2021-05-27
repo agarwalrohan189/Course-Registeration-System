@@ -2,8 +2,6 @@
  * 
  */
 package com.flipkart.client;
-
-import java.lang.System.Logger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
