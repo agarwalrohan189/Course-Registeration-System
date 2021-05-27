@@ -50,7 +50,14 @@ public class UserDAOOperation implements UserDAOInterface{
 		}
 		return instance;
 	}
-	
+
+	/**
+	 * Method for logging in
+	 * @param userID -> userID of user logging in
+	 * @param password -> Password of user logging in
+	 * @return -> Role of the user
+	 * @throws PasswordMismatchException
+	 */
 	public Role login(String userID, String password) throws PasswordMismatchException {
 		try
 		{
@@ -77,6 +84,15 @@ public class UserDAOOperation implements UserDAOInterface{
 		return null;
 	}
 
+	/**
+	 * Set password for the user
+	 * @param userId -> userID of user logging in
+	 * @param newPassword -> Password of user logging in
+	 * @return -> whether password is set or not
+	 * @throws UserNotFoundException
+	 * @throws PasswordMatchedOldException
+	 * @throws PasswordIsWeakException
+	 */
 	public boolean setPassword(String userId, String newPassword)
 			throws UserNotFoundException, PasswordMatchedOldException, PasswordIsWeakException {
 		// TODO Auto-generated method stub
@@ -117,6 +133,14 @@ public class UserDAOOperation implements UserDAOInterface{
 		return false;
 	}
 
+	/**
+	 * Get details of the user
+	 * @param userId -> userID of user whose details we want
+	 * @return -> User object containing details of user
+	 * @throws UserNotFoundException
+	 * @throws StudentNotFoundException
+	 * @throws ProfNotFoundException
+	 */
 	public User getDetails(String userId) throws UserNotFoundException, StudentNotFoundException, ProfNotFoundException {
 		// TODO Auto-generated method stub
 		Connection conn = DBUtil.getConnection();

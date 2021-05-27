@@ -32,7 +32,12 @@ public enum ModeOfPayment {
 		}
 			
 	}
-	
+
+	/**
+	 * Method to get string representing mode of payment
+	 * @param mode
+	 * @return Mode of payment in string
+	 */
 	public static String getStringModeOfPayment(ModeOfPayment mode) {
 		switch(mode) {
 			case CREDIT_CARD:

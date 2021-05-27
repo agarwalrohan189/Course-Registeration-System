@@ -23,7 +23,11 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 	private static Logger logger = Logger.getLogger(NotificationDaoOperation.class);
 
 	private static volatile NotificationDaoOperation instance = null;
-	
+
+	/**
+	 * To get instance of the class with singleton pattern
+	 * @return
+	 */
 	public static NotificationDaoOperation getInstance()
 	{
 		if(instance==null)
@@ -34,7 +38,13 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 		}
 		return instance;
 	}
-	
+
+	/**
+	 * Save Notification to the database
+	 * @param sid Student ID
+	 * @param type Mode of payment
+	 * @param message Message to be displayed
+	 */
 	@Override
 	public void saveNotification(String sid, String type, String message) {
 		// TODO Auto-generated method stub
@@ -66,6 +76,10 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 		}
 	}
 
+	/**
+	 * Method to show notification of the student
+	 * @param sid student ID
+	 */
 	@Override
 	public void showNotifications(String sid) {
 		// TODO Auto-generated method stub
@@ -100,7 +114,11 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 			}
 		}
 	}
-	
+
+	/**
+	 * To generate unique notification ID
+	 * @return
+	 */
 	public int generateNotificationId()
 	{
 		Connection conn = DBUtil.getConnection();

@@ -15,7 +15,10 @@ public class PaymentNotification {
 //	private int paymentId;
 //	private float amount;
 //	private ModeOfPayment paymentMethod;
-	
+
+	/**
+	 * Message of notification
+	 */
 	private String message;
 	
 	/*public PaymentNotification(Payment payObj, float amtToBePaid) {
@@ -30,11 +33,19 @@ public class PaymentNotification {
 			message = "Amount(" + payObj.amount + ") paid via " + ModeOfPayment.getStringModeOfPayment(payObj.paymentMethod) + " is less than required(" + amtToBePaid + "). Please deposit remaining fee before due date.";
 		}
 	}*/
-	
+
+	/**
+	 * Getter of notification message
+	 * @return -> Notification message
+	 */
 	public String getNotificationMessage() {
 		return message;
 	}
-	
+
+	/**
+	 * Setter of notification message
+	 * @param message -> New message
+	 */
 	public void setNotificationMessage(String message) {
 		this.message = message;
 	}

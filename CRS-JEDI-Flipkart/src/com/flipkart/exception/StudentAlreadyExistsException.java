@@ -11,6 +11,9 @@ public class StudentAlreadyExistsException extends Exception {
 
 	private String studentID;
 
+	/**
+	 * @param id -> ID of student
+	 */
 	public StudentAlreadyExistsException(String id) {
 		setUserId(id);
 	}
@@ -23,6 +26,9 @@ public class StudentAlreadyExistsException extends Exception {
 		this.studentID = userId;
 	}
 
+	/**
+	 * @return -> Message to be displayed
+	 */
 	public String getMessage() {
 		return "User with id: "+ this.studentID +" already exists!";
 	}

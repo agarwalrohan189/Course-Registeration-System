@@ -90,7 +90,12 @@ public interface AdminDaoInterface {
      */
     public List<Course> viewCourses();
 
+    /**
+     * For deleting the chosen courses
+     * @throws SQLException
+     */
     public void deleteChosenCourses() throws SQLException;
+
     /**
      * Method to ensure no course has less than three registered students
      */

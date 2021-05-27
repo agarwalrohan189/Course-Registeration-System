@@ -11,7 +11,7 @@ public class PaymentAlreadyDoneException extends Exception{
 	private String studentId;
 
 	/**
-	 * @param studentName
+	 * @param studentId -> ID of student
 	 */
 	public PaymentAlreadyDoneException(String studentId) {
 		this.studentId = studentId;

@@ -11,6 +11,9 @@ public class StudentNotAddedException extends Exception {
 
 	private String studentId;
 
+	/**
+	 * @param id -> ID of student
+	 */
 	public StudentNotAddedException(String id) {
 		setUserId(id);
 	}
@@ -23,6 +26,9 @@ public class StudentNotAddedException extends Exception {
 		this.studentId = userId;
 	}
 
+	/**
+	 * @return -> Message to be displayed
+	 */
 	public String getMessage() {
 		return "User with id: "+ this.studentId +" cannot be added";
 	}

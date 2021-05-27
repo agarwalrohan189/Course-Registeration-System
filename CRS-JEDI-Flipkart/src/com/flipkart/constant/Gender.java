@@ -1,5 +1,8 @@
 package com.flipkart.constant;
 
+/**
+ * Enum to represent gender
+ */
 public enum Gender {
 	MALE(1),FEMALE(2),OTHER(3);
 	private final int gender;
@@ -62,7 +65,12 @@ public enum Gender {
 		
 		return gender;
 	}
-	
+
+	/**
+	 * Method to return corresponding integer value of enum
+	 * @param gender Gender of user
+	 * @return integer corresponding to gender
+	 */
 	public static int genderToInt (Gender gender)
 	{
 		switch (gender)

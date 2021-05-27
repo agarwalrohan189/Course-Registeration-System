@@ -11,7 +11,7 @@ public class RegistrationNotCompleteException extends Exception{
 	private String studentId;
 
 	/**
-	 * @param studentName
+	 * @param studentId -> ID of student
 	 */
 	public RegistrationNotCompleteException(String studentId) {
 		this.studentId = studentId;

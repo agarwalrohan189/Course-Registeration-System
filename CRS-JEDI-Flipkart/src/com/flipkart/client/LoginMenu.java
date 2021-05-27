@@ -31,6 +31,7 @@ public class LoginMenu {
 //	private static Logger logger = Logger.getLogger(LoginMenu.class);
 
 	/**
+	 * Main method
 	 * @param args
 	 */
 	private static Scanner scanner = new Scanner(System.in);
@@ -39,6 +40,9 @@ public class LoginMenu {
 		showMainMenu();
 	}
 
+	/**
+	 * Method to display main menu
+	 */
 	public static void showMainMenu() {
 		while (true)
 		{
@@ -66,11 +70,17 @@ public class LoginMenu {
 		}
 	}
 
+	/**
+	 * Method to exit application
+	 */
 	private static void exit() {
 		// TODO Auto-generated method stub
 		System.out.println("Exit Application");
 	}
 
+	/**
+	 * Method to login into application
+	 */
 	private static void login() {
 		// TODO Auto-generated method stub
 		System.out.println("Enter username: ");
@@ -80,6 +90,9 @@ public class LoginMenu {
 		loginMain(uName, password);
 	}
 
+	/**
+	 * Method for student to signup
+	 */
 	private static void signup() {
 		try {
 			StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
@@ -126,6 +139,11 @@ public class LoginMenu {
 		}
 	}
 
+	/**
+	 * Method "login" will call this method for logging in
+	 * @param userId -> user ID of user logging in
+	 * @param password -> password of user
+	 */
 	private static void loginMain(String userId, String password) {
 		// TODO Auto-generated method stub
 		Role role = null;

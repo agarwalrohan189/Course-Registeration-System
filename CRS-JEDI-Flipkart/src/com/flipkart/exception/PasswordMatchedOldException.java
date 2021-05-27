@@ -8,9 +8,16 @@ package com.flipkart.exception;
  *
  */
 public class PasswordMatchedOldException extends Exception{
+	/**
+	 * Constructor
+	 * @param password -> password
+	 */
 	public PasswordMatchedOldException(String password) {
 	}
-	
+
+	/**
+	 * @return Message to be displayed
+	 */
 	@Override
 	public String getMessage() 
 	{

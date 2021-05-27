@@ -16,7 +16,11 @@ import java.util.Properties;
  *
  */
 public class DBUtil {
-	
+
+    /**
+     * Get connection of SQL Database
+     * @return -> Connection
+     */
 	@SuppressWarnings("unused")
 	public static Connection getConnection() {
 		

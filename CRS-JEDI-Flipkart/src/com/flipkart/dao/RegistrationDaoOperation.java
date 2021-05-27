@@ -33,8 +33,15 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
     private static volatile RegistrationDaoOperation instance = null;
     private PreparedStatement statement = null;
 
+    /**
+     * Constructor
+     */
     private RegistrationDaoOperation(){}
 
+    /**
+     * Singleton Pattern for getting only one class instance
+     * @return -> Instance of Class
+     */
     public static RegistrationDaoOperation getInstance() {
         if (instance == null) {
             synchronized (RegistrationDaoOperation.class) {
@@ -44,6 +51,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
         return instance;
     }
 
+    /**
+     * Register selected courses
+     * @param studentId
+     */
 	@Override
 	public void registerCourses(String studentId, HashMap<Integer,Boolean> courseIDs) throws StudentNotFoundException{
 		 Connection conn = DBUtil.getConnection();
@@ -75,6 +86,12 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
          }
 	}
 
+    /**
+     * Get details of the course from course ID
+     * @param courseId -> Course ID of course
+     * @return -> Course
+     * @throws CourseNotFoundException
+     */
     @Override
     public Course getCourse(int courseId) throws CourseNotFoundException{
         Connection conn = DBUtil.getConnection();
@@ -120,6 +137,15 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
         return null;
 	}
 
+    /**
+     * Add a course
+     * @param studentId
+     * @param courseCode
+     * @return -> Whether course is added or not
+     * @throws CourseNotFoundException
+     * @throws CourseLimitExceededException
+     * @throws CourseSeatsFullException
+     */
 	@Override
 	public boolean addCourse(String studentId, int courseCode) throws DatabaseException{
         Connection conn = DBUtil.getConnection();
@@ -155,6 +181,13 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
         }
 	}
 
+    /**
+     * Drop a course
+     * @param studentId
+     * @param courseCode
+     * @return -> Whether course is dropped or not
+     * @throws CourseNotFoundException
+     */
 	@Override
 	public boolean dropCourse(String studentId, int courseCode) throws DatabaseException{
 		Connection conn = DBUtil.getConnection();	
@@ -191,6 +224,11 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
         }
 	}
 
+    /**
+     * View registered courses
+     * @param studentId
+     * @return -> List of registered courses
+     */
 	@Override
 	public List<RegisteredCourse> viewRegisteredCourses(String studentId) throws StudentNotFoundException{
 		Connection conn = DBUtil.getConnection();
@@ -232,12 +270,22 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		return registeredCourseList;
 	}
 
+    /**
+     * Calculate fee of the student
+     * @param studentId -> Student ID of student whose fees are calculated
+     * @return Fee to be paid
+     */
 	@Override
 	public float calculateFee(String studentId) throws StudentNotFoundException{
 		int num_courses = viewRegisteredCourses(studentId).size();;
 		return num_courses * SQLQueries.feesPerCourse;
 	}
-	
+
+    /**
+     * Confirm the payment made
+     * @param studentId -> student ID of student whose confirmation is to be done
+     * @throws StudentNotFoundException
+     */
 	@Override
 	public void feePaid(String studentId) throws StudentNotFoundException{
 		Connection conn = DBUtil.getConnection();
@@ -264,7 +312,13 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
             }
         }
 	}
-	
+
+	/**
+     * Check whether registration is done or not
+	 * @param studentId -> Student ID of student whose registration is being checked
+	 * @return -> Whether registration is done or not
+	 * @throws StudentNotFoundException
+	 */
 	@Override
 	public boolean isRegistrationDone(String studentId) throws StudentNotFoundException {
 		Connection conn = DBUtil.getConnection();
@@ -296,6 +350,12 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		return regDone;
 	}
 
+    /**
+     * Method to check whether payment is done or not
+     * @param studentId -> Student ID of student whose payment we're checking
+     * @return -> whether payment is done or not
+     * @throws StudentNotFoundException
+     */
 	@Override
 	public boolean isPaymentDone(String studentId) throws StudentNotFoundException  {
 		Connection conn = DBUtil.getConnection();
@@ -326,7 +386,13 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
         }
 		return paid;
 	}
-	
+
+    /**
+     * Method to get notification
+     * @param notifId -> ID of notification
+     * @return -> Message of notification
+     * @throws NotifIdNotExistsException
+     */
 	@Override
 	public String getNotification(int notifId) throws NotifIdNotExistsException{
 		Connection conn = DBUtil.getConnection();

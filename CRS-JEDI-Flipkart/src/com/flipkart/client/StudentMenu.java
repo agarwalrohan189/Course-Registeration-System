@@ -36,7 +36,8 @@ public class StudentMenu {
 	RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
 
 	/**
-	 * @param studentID
+	 * Constructor
+	 * @param studentID-> ID of student whose menu is being displayed
 	 */
 	public StudentMenu(String studentID) {
 		this.studentID = studentID;
@@ -292,10 +293,20 @@ public class StudentMenu {
 		}
 	}
 
+	/**
+	 * Pay by DD(Demand Draft)
+	 * @param studentID2-> Student of of student paying
+	 * @param amount -> Amount they are paying
+	 */
 	private void payViaDemandDraft(String studentID2, float amount) {
 		System.out.println("Check with registrar's office for offline payment");			
 	}
 
+	/**
+	 * Pay by scholarship
+	 * @param studentID2-> Student of of student paying
+	 * @param amount -> Amount they are paying
+	 */
 	private void payViaScholarship(String studentID2, float amount) {
 		System.out.println("Check with registrar's office for confirmation of scholarship");		
 	}
@@ -322,6 +333,11 @@ public class StudentMenu {
 		
 	}
 
+	/**
+	 * Pay via net banking
+	 * @param studentID2-> Student of of student paying
+	 * @param amount -> Amount they are paying
+	 */
 	private void payViaNetBanking(String studentID2, float amount) {
 		try {
 			Scanner sc = new Scanner(System.in);
@@ -338,6 +354,11 @@ public class StudentMenu {
 		}
 	}
 
+	/**
+	 * Pay via credit card
+	 * @param studentID2-> Student of of student paying
+	 * @param amount -> Amount they are paying
+	 */
 	private void payViaCreditCard(String studentID2, float amount) {
 		try {
 			Scanner sc = new Scanner(System.in);

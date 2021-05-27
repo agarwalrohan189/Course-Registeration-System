@@ -33,8 +33,15 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 //    private static Logger logger = Logger.getLogger(String.valueOf(AdminDaoInterfaceImpl.class));
     private PreparedStatement statement = null;
 
+    /**
+     * Constructor
+     */
     private AdminDaoInterfaceImpl(){}
 
+    /**
+     * Singleton pattern to generate unique instance of the class
+     * @return
+     */
     public static AdminDaoInterfaceImpl getInstance() {
         if (instance == null) {
             synchronized (AdminDaoInterfaceImpl.class) {
@@ -43,9 +50,9 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         }
         return instance;
     }
+
     /**
      * Method to add course in catalogue using SQL command.
-     *
      * @param course -> Course to be added
      * @throws CourseFoundException
      */
@@ -93,7 +100,6 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
     /**
      * Method to remove course from course catalogue using SQL command.
-     *
      * @param courseID -> ID of course which is to be removed
      * @throws CourseNotFoundException
      * @throws CourseNotDeletedException
@@ -137,7 +143,6 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
     /**
      * To validate course registration of a student using SQL command.
-     *
      * @param studentID          -> ID of student to be added
      * @param registeredStudents -> List of registered students in the course
      * @throws StudentNotRegisteredException
@@ -150,7 +155,6 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
     /**
      * Adds a professor object to the database using SQL command
-     *
      * @param professor : professor object containing the details of the prof
      * @throws ProfNotAddedException
      * @throws ProfFoundException
@@ -213,7 +217,6 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
     /**
      * Adds a user object to the database using SQL command
-     *
      * @param user : user object containing the details of the user
      */
     @Override
@@ -267,7 +270,6 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
     /**
      * removes a professor object from the database using SQL command
-     *
      * @param profID : professor ID of professor to be removed
      * @throws ProfFoundException
      */
@@ -333,7 +335,6 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
     /**
      * Remove student from database using SQL command
-     *
      * @param studentID -> student which is to be removed
      * @throws UserNotFoundException
      */
@@ -396,7 +397,6 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
     /**
      * Add professor as instructor in the given course using SQL command.
-     *
      * @param profID   -> ID of professor to be added
      * @param courseID -> ID of course which professor is requesting
      */
@@ -442,7 +442,12 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 			}
 		}
     }
-    
+
+    /**
+     * Get primary courses for registration of student
+     * @return -> Map containing student ID and corresponding primary courses
+     * @throws DatabaseException
+     */
     @Override
     public HashMap<String,List<Integer>> getPreferredCourses() throws DatabaseException {
     	Connection conn = DBUtil.getConnection();
@@ -483,7 +488,12 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             }
         }
     }
-    
+
+    /**
+     * Get alternate courses for registration of student
+     * @return -> Map containing student ID and corresponding alternate courses
+     * @throws DatabaseException
+     */
     @Override
     public HashMap<String,List<Integer>> getAlternateCourses() throws DatabaseException {
     	Connection conn = DBUtil.getConnection();
@@ -527,7 +537,6 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
     /**
      * Method to generate Report card of student using SQL command.
-     *
      * @param studentID -> ID of student whose report card is being generated
      */
     @Override
@@ -585,7 +594,6 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
 
     /**
      * Method to get list of courses in catalog
-     *
      * @return List of courses in CourseCatalogue
      */
     @Override
@@ -687,7 +695,13 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         }
         logger.info("Validation complete!");
     }
-    
+
+    /**
+     * Set filled seats of the given course
+     * @param num -> number of seats
+     * @param courseID -> course ID whose seats are being set
+     * @throws SQLException
+     */
     private void setFilledSeats(int num, int courseID)throws SQLException {
     	Connection conn = DBUtil.getConnection();
         statement = null;
@@ -698,6 +712,10 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         statement.executeUpdate();
     }
 
+    /**
+     * Delete chosen courses from database
+     * @throws SQLException
+     */
     public void deleteChosenCourses() throws SQLException{
     	Connection conn = DBUtil.getConnection();
         statement = null;

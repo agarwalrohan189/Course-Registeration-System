@@ -11,7 +11,12 @@ public enum Role {
 	Student,
 	Professor,
 	Admin;
-	
+
+	/**
+	 * Convert role to integer
+	 * @param role -> role of user
+	 * @return -> Integer corresponding to role
+	 */
 	public static int roleToInt(Role role)
 	{
 		switch (role)

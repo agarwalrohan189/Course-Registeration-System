@@ -9,6 +9,7 @@ public class Admin extends User {
 	private Date dateOfJoining;
 	
 	/**
+	 * Constructor
 	 * @param id
 	 * @param name
 	 * @param role

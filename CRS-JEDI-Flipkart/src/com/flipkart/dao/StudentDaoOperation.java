@@ -41,7 +41,6 @@ public class StudentDaoOperation implements StudentDaoInterface{
 
 	/**
 	 * Adds student to the database using SQL command
-	 *
 	 * @param student -> student to be added
 	 * @throws UserAlreadyExistsException
 	 */
@@ -101,6 +100,12 @@ public class StudentDaoOperation implements StudentDaoInterface{
 		}
 	}
 
+	/**
+	 * Check whether student is approved or not
+	 * @param studentID -> student ID of student to be checked
+	 * @return -> Whether student is approved or not
+	 * @throws StudentNotFoundException
+	 */
 	@Override
 	public boolean isApproved(String studentID) throws StudentNotFoundException {
 		Connection connection=DBUtil.getConnection();
@@ -138,6 +143,10 @@ public class StudentDaoOperation implements StudentDaoInterface{
 		return false;
 	}
 
+	/**
+	 * Get course catalogue
+	 * @return Course Catalogue displaying all courses offered
+	 */
 	@Override
 	public List<Course> getCourseCatalogue() throws DatabaseException{
 		Connection conn = DBUtil.getConnection();

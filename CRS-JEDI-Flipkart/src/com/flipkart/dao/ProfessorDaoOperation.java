@@ -16,12 +16,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * Dao class for professor operations
+ */
 public class ProfessorDaoOperation implements ProfessorDaoInterface{
 
     private static volatile ProfessorDaoOperation instance = null;
 
+    /**
+     * Constructor
+     */
     private ProfessorDaoOperation(){}
 
+    /**
+     * Singleton pattern to get only one instance of the class
+     * @return Instance of the class
+     */
     public static ProfessorDaoOperation getInstance() {
         if (instance == null) {
             synchronized (ProfessorDaoOperation.class) {
@@ -31,6 +41,11 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
         return instance;
     }
 
+    /**
+     * Method to view course which professor is teaching
+     * @return -> List of courses professor is teaching
+     * @throws ProfNotFoundException
+     */
     @Override
     public List<Course> viewCourses(String profID) throws ProfNotFoundException {
         Connection connection = DBUtil.getConnection();
@@ -45,7 +60,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                courseList.add(new Course(resultSet.getInt("cid"),resultSet.getString("cname"),resultSet.getString("pid"),
+                courseList.add(new Course(resultSet.getInt("cid"),resultSet.getString("cname"),profID,
                 		UserDAOOperation.getInstance().getDetails(resultSet.getString("pid")).getName(),resultSet.getInt("filledSeats")));
             }
         }catch (Exception e){
@@ -60,6 +75,13 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
         return courseList;
     }
 
+    /**
+     * Return enrolled student list for given course.
+     * @param courseID -> ID of course whose students are requested.
+     * @return -> List of students enrolled in course.
+     * @throws ProfNotFoundException
+     * @throws StudentNotFoundException
+     */
     @Override
     public List<Student> viewStudent(int courseID, String profID) throws ProfNotFoundException, StudentNotFoundException{
 
@@ -104,6 +126,14 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
         return studentList;
     }
 
+    /**
+     * Method to assign grade to student.
+     * @param studentID -> ID of student to whom grade will be assigned.
+     * @param courseID -> ID of course in which grade is given.
+     * @param grade -> Grade given to student.
+     * @throws StudentNotFoundException
+     * @throws GradeNotAssignedException
+     */
     @Override
     public void assignGrade(String studentID, int courseID, Grade grade) throws StudentNotFoundException, GradeNotAssignedException{
         Connection connection = DBUtil.getConnection();

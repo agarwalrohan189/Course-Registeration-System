@@ -28,6 +28,10 @@ public class AdminMenu {
 //	private static Logger logger = Logger.getLogger(LoginMenu.class);
 	
 	Scanner scanner = new Scanner(System.in);
+
+	/**
+	 * Menu displayed to the admin.
+	 */
 	public void printAdminMenu() {
 		boolean looping = true;
 		while (looping) {
@@ -101,6 +105,9 @@ public class AdminMenu {
 		}
 	}
 
+	/**
+	 * Method to confirm payment of the student
+	 */
 	private void confirmFeePayment() {
 		System.out.println("Enter Student Id:");
 		String studentId = scanner.next();
@@ -123,6 +130,9 @@ public class AdminMenu {
 		
 	}
 
+	/**
+	 * Method for generating report card of the student
+	 */
 	private void generateReport() {
 		try {
 
@@ -136,6 +146,9 @@ public class AdminMenu {
 		}
 	}
 
+	/**
+	 * Method for assigning professor to the course
+	 */
 	private void assignProf() {
 		try {
 
@@ -152,6 +165,9 @@ public class AdminMenu {
 		}
 	}
 
+	/**
+	 * Method for validating registrations
+	 */
 	private void validateRegistrations() {
 		try {
 
@@ -163,6 +179,9 @@ public class AdminMenu {
 		}
 	}
 
+	/**
+	 * Method for removing student from database
+	 */
 	private void removeStudent() {
 		try {
 			System.out.println("Enter Student ID");
@@ -176,6 +195,9 @@ public class AdminMenu {
 		}
 	}
 
+	/**
+	 * Method for approving student
+	 */
 	private void approveStudent() {
 		try
 		{
@@ -189,6 +211,9 @@ public class AdminMenu {
 		}
 	}
 
+	/**
+	 * Method for removing professor from database
+	 */
 	private void removeProf() {
 		try {
 
@@ -204,6 +229,9 @@ public class AdminMenu {
 		}
 	}
 
+	/**
+	 * Method for adding professor
+	 */
 	private void addProf() {
 		try {
 			System.out.println("Enter Professor ID");
@@ -249,6 +277,9 @@ public class AdminMenu {
 		}
 	}
 
+	/**
+	 * Method for removing course from database
+	 */
 	private void removeCourse() {
 		try {
 			System.out.println("Enter CourseID of course to be removed");
@@ -263,6 +294,9 @@ public class AdminMenu {
 		}
 	}
 
+	/**
+	 * Method for adding course
+	 */
 	private void addCourse() {
 		try {
 			System.out.println("Please Enter Following details of the course");
@@ -279,6 +313,9 @@ public class AdminMenu {
 		}
 	}
 
+	/**
+	 * Method to view course catalogue
+	 */
 	private void viewCourseCatalogue() {
 		try {
 			 List<Course> courseList = AdminOperation.getInstance().viewCourses();
@@ -294,7 +331,9 @@ public class AdminMenu {
 		}
 	}
 
-
+	/**
+	 * Method to log out
+	 */
 	private void logout() {
 //		scanner.close();
 		System.out.println("---------------Logging out---------------");

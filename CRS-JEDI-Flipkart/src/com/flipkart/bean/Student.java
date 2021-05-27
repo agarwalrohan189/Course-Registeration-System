@@ -33,8 +33,9 @@ public class Student extends User {
 	 * @param username
 	 * @param doB
 	 * @param branch
-	 * @param coursesEnrolled
 	 * @param batchYear
+	 * @param paymentDone
+	 * @param isRegistered
 	 */
 	public Student(String id, String name, Role role, String password, Gender gender, String address, String username,
 			Date doB, String branch, int batchYear, boolean paymentDone, boolean isRegistered) {
@@ -45,32 +46,58 @@ public class Student extends User {
 		this.isRegistered = isRegistered;
 	}
 
+	/**
+	 * @return -> get Branch
+	 */
 	public String getBranch() {
 		return branch;
 	}
+
+	/**
+	 * @param branch -> new branch to set
+	 */
 	public void setBranch(String branch) {
 		this.branch = branch;
 	}
-	
+
+	/**
+	 * @return -> get batch year
+	 */
 	public int getBatchYear() {
 		return batchYear;
 	}
+
+	/**
+	 * @param batchYear -> to set
+	 */
 	public void setBatchYear(int batchYear) {
 		this.batchYear = batchYear;
 	}
-	
+
+	/**
+	 * @return -> whether payment is done or not
+	 */
 	public boolean isPaymentDone() {
 		return paymentDone;
 	}
 
+	/**
+	 * @param paymentDone -> to set
+	 */
 	public void setPaymentDone(boolean paymentDone) {
 		this.paymentDone = paymentDone;
 	}
 
+	/**
+	 * @return whether student is registered or not
+	 */
 	public boolean getIsRegistered() {
 		return isRegistered;
 	}
 
+	/**
+	 * @param isRegistered to set
+	 */
 	public void setIsRegistered(boolean isRegistered) {
 		this.isRegistered = isRegistered;
 	}
