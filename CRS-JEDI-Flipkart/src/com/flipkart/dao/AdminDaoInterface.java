@@ -89,6 +89,8 @@ public interface AdminDaoInterface {
      * @return List of courses in CourseCatalogue
      */
     public List<Course> viewCourses();
+    
+    public void setRegistrationStatus(String studentID) throws SQLException;
 
     /**
      * For deleting the chosen courses

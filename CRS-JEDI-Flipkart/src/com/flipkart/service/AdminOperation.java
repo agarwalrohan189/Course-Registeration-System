@@ -145,12 +145,19 @@ public class AdminOperation implements AdminInterface{
         	}
         	adminDaoInterfaceImpl.validateRegistration();
         	adminDaoInterfaceImpl.deleteChosenCourses();
-        	studentIDs.forEach((k) -> NotificationOperation.getInstance().sendNotification(k, "registration", "Your courses have been validated, check registered courses.") );      	
+        	studentIDs.forEach((k) -> 
+        	{
+        		NotificationOperation.getInstance().sendNotification(k, "registration", "Your courses have been validated, check registered courses.");
+        		try{
+        			adminDaoInterfaceImpl.setRegistrationStatus(k);
+    			}catch(Exception e) {
+    				System.err.println("Failure.");
+    			}
+    		});      	
     	}
     	catch(Exception e) {
     		throw new DatabaseException();
     	}
-		
     }
 
     @Override

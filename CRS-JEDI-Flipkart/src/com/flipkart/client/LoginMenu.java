@@ -52,6 +52,7 @@ public class LoginMenu {
 			System.out.println("2. Sign Up (for students only)");
 			System.out.println("3. Exit");
 			System.out.println("________________________________________________");
+			System.out.println("Enter Option : ");
 			int optionChosen = scanner.nextInt();
 			scanner.nextLine();
 			switch(optionChosen) {		
@@ -66,6 +67,8 @@ public class LoginMenu {
 			case 3:
 				exit();
 				return;
+			default:
+				System.err.println("Invalid Option");
 			}
 		}
 	}
@@ -158,17 +161,17 @@ public class LoginMenu {
 		}
 		finally
 		{
-			if (role != null)
-				System.out.println("Logged in successfully with userid: " + userId);
 			if (role == Role.Student)
 			{
 				StudentInterface studentInterface = StudentOperation.getInstance();
 				try {
 					if (studentInterface.isApproved(userId)) {
 						StudentMenu sm = new StudentMenu(userId);
+						System.out.println("Student Logged in successfully with user ID: " + userId);
 						sm.displayMenu();
 					} else {
-						System.out.println("++++++++ Waiting for approval +++++++++");
+						System.err.println("Login Failed.");
+						System.err.println("Waiting for approval.");
 					}
 				} catch (StudentNotFoundException e) {
 					System.out.println(e.getMessage());
@@ -177,11 +180,13 @@ public class LoginMenu {
 			else if (role == Role.Professor)
 			{
 				ProfessorMenu pm = new ProfessorMenu(userId);
+				System.out.println("Professor Logged in successfully with user ID: " + userId);
 				pm.displayMenu();
 			}
 			else if (role == Role.Admin)
 			{
 				AdminMenu am = new AdminMenu();
+				System.out.println("Admin Logged in successfully with user ID: " + userId);
 				am.printAdminMenu();
 			}
 		}

@@ -534,6 +534,16 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             }
         }
     }
+    
+    @Override
+    public void setRegistrationStatus(String studentID) throws SQLException{
+    	Connection conn = DBUtil.getConnection();
+        statement = null;
+        String sql = SQLQueries.SET_REGISTRATION_STATUS;
+        statement = conn.prepareStatement(sql);
+        statement.setString(1,studentID);
+        statement.executeUpdate();
+    }
 
     /**
      * Method to generate Report card of student using SQL command.
@@ -561,17 +571,17 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
             float cpi = 0;
             int courses = 0;
 
-            logger.info("CourseID-------Grade");
+            logger.info("CourseID\t\tGrade");
 
             while (it.hasNext()){
                 Map.Entry<Integer,Integer> entry = it.next();
                 courses+=1;cpi+=entry.getValue();
-                logger.info(entry.getKey() + "---" + entry.getValue());
+                logger.info(entry.getKey()+"\t\t\t"+entry.getValue());
             }
 
             cpi = cpi/(float) courses;
 
-            logger.info("*_*_*_*_*_*_* CPI - " + cpi +  " *_*_*_*_*_*_*");
+            logger.info("CPI :" + cpi);
 
         }catch (Exception e){
             throw new StudentNotFoundException(studentID);

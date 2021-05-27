@@ -5,6 +5,7 @@ package com.flipkart.client;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
@@ -12,6 +13,8 @@ import com.flipkart.dao.AdminDaoInterfaceImpl;
 import com.flipkart.dao.UserDAOInterface;
 import com.flipkart.dao.UserDAOOperation;
 import com.flipkart.service.AdminOperation;
+import com.flipkart.service.RegistrationInterface;
+import com.flipkart.service.RegistrationOperation;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -138,9 +141,19 @@ public class AdminMenu {
 
 			System.out.println("Enter Student ID of student whose report is to be generated");
 			String studentID = scanner.nextLine();
-
-			AdminOperation.getInstance().generateReportCard(studentID);
-
+			RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
+			List<RegisteredCourse> courses = registrationInterface.viewRegisteredCourses(studentID);
+			System.out.println("Course ID\tCourse Name\tGrade");
+			float cpi=0;
+			int count=0;
+			for(RegisteredCourse course:courses) {
+				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getGrade());
+				if(course.getGrade()!=null) {
+					cpi+=course.getGrade().hasValue();
+					count++;
+				}
+			}
+			System.out.println("CPI : "+(cpi/count));
 		}catch (Exception e){
 			System.out.println(e.getMessage());
 		}
@@ -320,10 +333,11 @@ public class AdminMenu {
 		try {
 			 List<Course> courseList = AdminOperation.getInstance().viewCourses();
 
-			System.out.println("Course ID\tCourse Name\tInstructor ID\tInstructor Name\tFilled Seats");
+			System.out.printf("%10s%20s%20s%20s%20s\n","Course ID","Course Name","Instructor ID","Instructor Name","Filled Seats");
 			for (Course course : courseList) {
-				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getInstructorId() +
-						"\t\t" + course.getInstructorName() + "\t\t" + course.getFilledSeats());
+				System.out.format("%10d%20s%20s%20s%20d\n", course.getCourseId(), course.getCourseName(), course.getInstructorId(),course.getInstructorName(),course.getFilledSeats());
+//				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getInstructorId() +
+//						"\t\t" + course.getInstructorName() + "\t\t" + course.getFilledSeats());
 			}
 
 		}catch (Exception e){

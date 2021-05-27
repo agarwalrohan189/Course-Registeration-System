@@ -122,8 +122,7 @@ public class StudentMenu {
 			}
 		}
 		catch (Exception e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();			
+			System.err.println(e.getMessage());		
 		}
 	}
 
@@ -140,7 +139,6 @@ public class StudentMenu {
 		}
 		catch (StudentNotFoundException e) {
 			System.err.println(e.getMessage());
-			e.printStackTrace();
 		}
 	}
 
@@ -169,7 +167,6 @@ public class StudentMenu {
 		}
 		catch (Exception e) {
 			System.err.println(e.getMessage());
-			e.printStackTrace();
 		}
 	}
 
@@ -177,19 +174,21 @@ public class StudentMenu {
 	 * Add a course
 	 */
 	private void addCourse() {
+		viewCourseCatalogue();
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter CourseID");
 		int courseID = sc.nextInt();
 		sc.nextLine();
 		try {
-			registrationInterface.addCourse(studentID, courseID);
+			if(registrationInterface.addCourse(studentID, courseID)) {
+				System.out.println("Course Added!");
+			}
+			else {
+				System.out.println("Please Register first.");
+			}
 		}
 		catch(Exception e) {
 			System.err.println(e.getMessage());
-			e.printStackTrace();
-		}
-		finally{
-//			sc.close();
 		}
 	}
 
@@ -197,19 +196,18 @@ public class StudentMenu {
 	 * Drop a course
 	 */
 	private void dropCourse() {
+		System.out.println("Registered Courses :");
+		viewRegisteredCourses();
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter CourseID");
 		int courseID = sc.nextInt();
 		sc.nextLine();
 		try {
 			registrationInterface.dropCourse(studentID, courseID);
+			System.out.println("Course Dropped!");
 		}
 		catch(Exception e) {
 			System.err.println(e.getMessage());
-			e.printStackTrace();	
-		}
-		finally{
-//			sc.close();
 		}
 	}
 
@@ -226,7 +224,6 @@ public class StudentMenu {
 		}
 		catch (StudentNotFoundException e) {
 			System.err.println(e.getMessage());
-			e.printStackTrace();
 		}
 	}
 
@@ -286,10 +283,6 @@ public class StudentMenu {
 		}
 		catch(Exception e){
 			System.err.println(e.getMessage());
-			e.printStackTrace();	
-		}
-		finally{
-//			sc.close();
 		}
 	}
 
@@ -326,11 +319,7 @@ public class StudentMenu {
 			registrationInterface.payFee(studentID, ModeOfPayment.DEBIT_CARD, amount);
 		}catch(Exception e) {
 			System.err.println(e.getMessage());
-			e.printStackTrace();
-		}finally {
-			
 		}
-		
 	}
 
 	/**
@@ -350,7 +339,6 @@ public class StudentMenu {
 			registrationInterface.payFee(studentID, ModeOfPayment.NET_BANKING, amount);
 		}catch(Exception e) {
 			System.err.println(e.getMessage());
-			e.printStackTrace();
 		}
 	}
 
@@ -374,7 +362,6 @@ public class StudentMenu {
 			registrationInterface.payFee(studentID, ModeOfPayment.CREDIT_CARD, amount);
 		}catch(Exception e) {
 			System.err.println(e.getMessage());
-			e.printStackTrace();
 		}
 	}
 	
