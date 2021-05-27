@@ -1,11 +1,15 @@
 package com.flipkart.service;
 
+import org.apache.log4j.Logger;
+
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.PaymentNotification;
+import com.flipkart.client.LoginMenu;
 import com.flipkart.dao.NotificationDaoOperation;
 
 public class NotificationOperation implements NotificationInterface{
-	
+	private static Logger logger = Logger.getLogger(NotificationOperation.class);
+
 	private static volatile NotificationOperation instance = null;
 
 	private NotificationOperation(){}
@@ -23,20 +27,20 @@ public class NotificationOperation implements NotificationInterface{
 	
 //    @Override
 //    public int sendNotification(PaymentNotification NotifObj) {
-//        System.out.println("______________________");
-//    	System.out.println("Result of Payment:");
-//        System.out.println(NotifObj.getNotificationMessage());
-//        System.out.println("______________________");
+//        logger.info("______________________");
+//    	logger.info("Result of Payment:");
+//        logger.info(NotifObj.getNotificationMessage());
+//        logger.info("______________________");
 //    	return 0;
 //    }
 	
 	  @Override
 	  public void sendNotification(String sid, String type, String message) {
 		  if(type.equals("payment")) {
-		      System.out.println("______________________");
-		  	  System.out.println("Result of "+type+": ");
-		      System.out.println(message);
-		      System.out.println("______________________");
+		      logger.info("______________________");
+		  	  logger.info("Result of "+type+": ");
+		      logger.info(message);
+		      logger.info("______________________");
 		  }
 	      NotificationDaoOperation.getInstance().saveNotification(sid, type, message);
 	  	return;

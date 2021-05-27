@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.RegisteredCourse;
@@ -27,7 +29,8 @@ import com.flipkart.service.UserOperation;
  *
  */
 public class StudentMenu {
-	
+	private static Logger logger = Logger.getLogger(StudentMenu.class);
+
 	String studentID;
 	StudentInterface studentInterface = StudentOperation.getInstance();
 	RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
@@ -46,16 +49,16 @@ public class StudentMenu {
 		// Display the options available for the Student
 		Scanner sc = new Scanner(System.in);
 		while (true) {
-			System.out.println("========= Available Operations for Student ========");
-			System.out.println("1. View Course Catalogue");
-			System.out.println("2. View Grades");
-			System.out.println("3. Register");
-			System.out.println("4. Add Course");
-			System.out.println("5. Drop Course");
-			System.out.println("6. View registered courses");
-			System.out.println("7. Make Payment");
-			System.out.println("8. Show Notifications");
-			System.out.println("9. Logout");
+			logger.info("========= Available Operations for Student ========");
+			logger.info("1. View Course Catalogue");
+			logger.info("2. View Grades");
+			logger.info("3. Register");
+			logger.info("4. Add Course");
+			logger.info("5. Drop Course");
+			logger.info("6. View registered courses");
+			logger.info("7. Make Payment");
+			logger.info("8. Show Notifications");
+			logger.info("9. Logout");
 
 			int input = sc.nextInt();
 			sc.nextLine();
@@ -96,11 +99,11 @@ public class StudentMenu {
 			case 9:
 				// Logout
 //				sc.close();
-				System.out.println("==================== Logging Out ====================");
+				logger.info("==================== Logging Out ====================");
 				return;
 
 			default:
-				System.err.println("No such operation exists, valid choices 1, 2, 3, 4, 5 ,6 ,7 ,8");
+				logger.error("No such operation exists, valid choices 1, 2, 3, 4, 5 ,6 ,7 ,8");
 			}
 		}
 	}
@@ -111,14 +114,14 @@ public class StudentMenu {
 	private void viewCourseCatalogue() {
 		try {
 			List<Course> courses = studentInterface.viewCourseCatalogue();
-			System.out.println("Course ID\tCourse Name\tInstructor ID\tInstructor Name\tFilled Seats");
+			logger.info("Course ID\tCourse Name\tInstructor ID\tInstructor Name\tFilled Seats");
 			for (Course course : courses) {
-				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getInstructorId() +
+				logger.info(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getInstructorId() +
 						"\t\t" + course.getInstructorName() + "\t\t" + course.getFilledSeats());
 			}
 		}
 		catch (Exception e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 			e.printStackTrace();			
 		}
 	}
@@ -129,13 +132,13 @@ public class StudentMenu {
 	private void viewGrades() {
 		try {
 			List<RegisteredCourse> courses = studentInterface.viewGrades(studentID);
-			System.out.println("Course ID\tCourse Name\tGrade");
+			logger.info("Course ID\tCourse Name\tGrade");
 			for(RegisteredCourse course:courses) {
-				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getGrade());
+				logger.info(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getGrade());
 			}
 		}
 		catch (StudentNotFoundException e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -147,24 +150,24 @@ public class StudentMenu {
 		Scanner sc = new Scanner(System.in);
 		try {
 			HashMap<Integer,Boolean> courseIDs = new HashMap<>();
-			System.out.println("Enter Course IDs for prefererred Course #1 : ");
+			logger.info("Enter Course IDs for prefererred Course #1 : ");
 			courseIDs.put(sc.nextInt(), true);
-			System.out.println("Enter Course IDs for prefererred Course #2 : ");
+			logger.info("Enter Course IDs for prefererred Course #2 : ");
 			courseIDs.put(sc.nextInt(), true);
-			System.out.println("Enter Course IDs for prefererred Course #3 : ");
+			logger.info("Enter Course IDs for prefererred Course #3 : ");
 			courseIDs.put(sc.nextInt(), true);
-			System.out.println("Enter Course IDs for prefererred Course #4 : ");
+			logger.info("Enter Course IDs for prefererred Course #4 : ");
 			courseIDs.put(sc.nextInt(), true);
 			
-			System.out.println("Enter Course IDs for alternate Course #1 : ");
+			logger.info("Enter Course IDs for alternate Course #1 : ");
 			courseIDs.put(sc.nextInt(), false);
-			System.out.println("Enter Course IDs for alternate Course #2 : ");
+			logger.info("Enter Course IDs for alternate Course #2 : ");
 			courseIDs.put(sc.nextInt(), false);
 			
 			registrationInterface.registerCourses(studentID, courseIDs);
 		}
 		catch (Exception e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -174,14 +177,14 @@ public class StudentMenu {
 	 */
 	private void addCourse() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter CourseID");
+		logger.info("Enter CourseID");
 		int courseID = sc.nextInt();
 		sc.nextLine();
 		try {
 			registrationInterface.addCourse(studentID, courseID);
 		}
 		catch(Exception e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 			e.printStackTrace();
 		}
 		finally{
@@ -194,14 +197,14 @@ public class StudentMenu {
 	 */
 	private void dropCourse() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter CourseID");
+		logger.info("Enter CourseID");
 		int courseID = sc.nextInt();
 		sc.nextLine();
 		try {
 			registrationInterface.dropCourse(studentID, courseID);
 		}
 		catch(Exception e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 			e.printStackTrace();	
 		}
 		finally{
@@ -215,13 +218,13 @@ public class StudentMenu {
 	private void viewRegisteredCourses() {
 		try {
 			List<RegisteredCourse> courses = registrationInterface.viewRegisteredCourses(studentID);
-			System.out.println("Course ID\tCourse Name\tInstructor");
+			logger.info("Course ID\tCourse Name\tInstructor");
 			for(RegisteredCourse course:courses) {
-				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" +course.getInstructor());
+				logger.info(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" +course.getInstructor());
 			}
 		}
 		catch (StudentNotFoundException e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -234,22 +237,22 @@ public class StudentMenu {
 		RegistrationDaoInterface registrationDaoInterface = RegistrationDaoOperation.getInstance();
 		try{
 			if(!registrationDaoInterface.isRegistrationDone(studentID)) {
-				System.out.println("Registration not yet complete");
+				logger.info("Registration not yet complete");
 			}else if(registrationDaoInterface.isPaymentDone(studentID)) {
-				System.out.println("Payment already done");
+				logger.info("Payment already done");
 			}else {
 				float fee = registrationInterface.calculateFee(studentID);
-				System.out.println("Pending amount is : "+fee+", Do you want to pay in full? (Y/N) : ");
+				logger.info("Pending amount is : "+fee+", Do you want to pay in full? (Y/N) : ");
 				if(sc.next().equals("Y")){
 					float amount = fee;
-					System.out.println("==================== Payment Gateway ====================");
-					System.out.println("1. Credit Card");
-					System.out.println("2. Net Banking");
-					System.out.println("3. Debit Card");
-					System.out.println("4. Scholarship");
-					System.out.println("5. Demand Draft");
+					logger.info("==================== Payment Gateway ====================");
+					logger.info("1. Credit Card");
+					logger.info("2. Net Banking");
+					logger.info("3. Debit Card");
+					logger.info("4. Scholarship");
+					logger.info("5. Demand Draft");
 					
-					System.out.println("Select Mode of Payment : ");
+					logger.info("Select Mode of Payment : ");
 					int modeChoice = sc.nextInt();
 					switch(modeChoice)
 					{
@@ -274,14 +277,14 @@ public class StudentMenu {
 //						registrationInterface.payFee(studentID, ModeOfPayment.DEBIT_CARD, amount);
 						break;
 					default:
-						System.err.println("No such mode exists, valid choices 1, 2, 3");						
+						logger.error("No such mode exists, valid choices 1, 2, 3");						
 					}
 				}
 				
 			}
 		}
 		catch(Exception e){
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 			e.printStackTrace();	
 		}
 		finally{
@@ -290,28 +293,28 @@ public class StudentMenu {
 	}
 
 	private void payViaDemandDraft(String studentID2, float amount) {
-		System.out.println("Check with registrar's office for offline payment");			
+		logger.info("Check with registrar's office for offline payment");			
 	}
 
 	private void payViaScholarship(String studentID2, float amount) {
-		System.out.println("Check with registrar's office for confirmation of scholarship");		
+		logger.info("Check with registrar's office for confirmation of scholarship");		
 	}
 
 	private void payViaDebitCard(String studentID, float amount) {
 		try {
 			Scanner sc = new Scanner(System.in);
-			System.out.println("==================== Debit Card Details ====================");
-			System.out.println("Card Number:");
+			logger.info("==================== Debit Card Details ====================");
+			logger.info("Card Number:");
 			sc.next();
-			System.out.println("Name:");
+			logger.info("Name:");
 			sc.next();
-			System.out.println("Expiry Date:");
+			logger.info("Expiry Date:");
 			sc.next();
-			System.out.println("CVV:");
+			logger.info("CVV:");
 			sc.next();
 			registrationInterface.payFee(studentID, ModeOfPayment.DEBIT_CARD, amount);
 		}catch(Exception e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 			e.printStackTrace();
 		}finally {
 			
@@ -322,15 +325,15 @@ public class StudentMenu {
 	private void payViaNetBanking(String studentID2, float amount) {
 		try {
 			Scanner sc = new Scanner(System.in);
-			System.out.println("==================== Net Banking Details ====================");
-			System.out.println("User:");
+			logger.info("==================== Net Banking Details ====================");
+			logger.info("User:");
 			sc.next();
-			System.out.println("Password:");
+			logger.info("Password:");
 			sc.next();
 //			sc.close()
 			registrationInterface.payFee(studentID, ModeOfPayment.NET_BANKING, amount);
 		}catch(Exception e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -338,18 +341,18 @@ public class StudentMenu {
 	private void payViaCreditCard(String studentID2, float amount) {
 		try {
 			Scanner sc = new Scanner(System.in);
-			System.out.println("==================== Credit Card Details ====================");
-			System.out.println("Card Number:");
+			logger.info("==================== Credit Card Details ====================");
+			logger.info("Card Number:");
 			sc.next();
-			System.out.println("Name:");
+			logger.info("Name:");
 			sc.next();
-			System.out.println("Expiry Date:");
+			logger.info("Expiry Date:");
 			sc.next();
-			System.out.println("CVV:");
+			logger.info("CVV:");
 			sc.next();
 			registrationInterface.payFee(studentID, ModeOfPayment.CREDIT_CARD, amount);
 		}catch(Exception e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 			e.printStackTrace();
 		}
 	}

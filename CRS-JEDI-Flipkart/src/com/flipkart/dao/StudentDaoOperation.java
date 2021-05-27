@@ -9,8 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import org.apache.log4j.Logger;
+
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.client.LoginMenu;
 import com.flipkart.constant.SQLQueries;
 import com.flipkart.exception.*;
 import com.flipkart.utils.DBUtil;
@@ -20,6 +23,7 @@ import com.flipkart.utils.DBUtil;
  *
  */
 public class StudentDaoOperation implements StudentDaoInterface{
+	private static Logger logger = Logger.getLogger(StudentDaoOperation.class);
 
 	private static volatile StudentDaoOperation instance = null;
 	private PreparedStatement statement = null;
@@ -67,17 +71,17 @@ public class StudentDaoOperation implements StudentDaoInterface{
 			statement.setBoolean(4, student.isPaymentDone());
 			int row = statement.executeUpdate();
 
-			System.out.println(row + " student added.");
+			logger.info(row + " student added.");
 			if(row == 0) {
-				System.out.println("Student with userId: " + student.getId() + " not added.");
+				logger.info("Student with userId: " + student.getId() + " not added.");
 				throw new StudentAlreadyExistsException(student.getId());
 			}
 
-			System.out.println("User with userId: " + student.getUsername() + " added.");
+			logger.info("User with userId: " + student.getUsername() + " added.");
 
 		}catch(SQLException se) {
 
-			System.out.println(se.getMessage());
+			logger.info(se.getMessage());
 			throw new StudentNotAddedException(student.getId());
 
 		}
@@ -86,7 +90,7 @@ public class StudentDaoOperation implements StudentDaoInterface{
 				conn.close();
 			}
 			catch(SQLException ex){
-				System.out.println(ex.getMessage());
+				logger.info(ex.getMessage());
 				try {
 					throw new DatabaseException();
 				} catch (DatabaseException e) {
@@ -121,7 +125,7 @@ public class StudentDaoOperation implements StudentDaoInterface{
 				connection.close();
 			}
 			catch(SQLException ex){
-				System.out.println(ex.getMessage());
+				logger.info(ex.getMessage());
 				try {
 					throw new DatabaseException();
 				} catch (DatabaseException e) {
@@ -164,7 +168,7 @@ public class StudentDaoOperation implements StudentDaoInterface{
 				statement.close();
 			}
 			catch(SQLException ex){
-				System.out.println(ex.getMessage());
+				logger.info(ex.getMessage());
 				throw new DatabaseException();
 			}
 			finally {
@@ -172,7 +176,7 @@ public class StudentDaoOperation implements StudentDaoInterface{
 					conn.close();
 				}
 				catch(SQLException ex){
-					System.out.println(ex.getMessage());
+					logger.info(ex.getMessage());
 					throw new DatabaseException();
 				}
 			}

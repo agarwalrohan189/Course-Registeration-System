@@ -1,0 +1,40 @@
+08:22:27,739  INFO ProfessorMenu,main:46 - ========= Available Operations for Professor ========
+08:28:49,507  INFO ProfessorMenu,main:45 - ========= Available Operations for Professor ========
+08:32:06,798  INFO LoginMenu,main:45 - ________________________
+08:32:06,802  INFO LoginMenu,main:46 - Welcome
+08:32:06,802  INFO LoginMenu,main:47 - 1. Login
+08:32:06,803  INFO LoginMenu,main:48 - 2. Sign Up (for students only)
+08:32:06,803  INFO LoginMenu,main:49 - 3. Exit
+08:32:06,803  INFO LoginMenu,main:50 - ________________________
+08:32:11,994  INFO LoginMenu,main:76 - Enter username: 
+08:32:14,386  INFO LoginMenu,main:78 - Enter password: 
+08:32:15,692  INFO LoginMenu,main:45 - ________________________
+08:32:15,738  INFO LoginMenu,main:46 - Welcome
+08:32:15,739  INFO LoginMenu,main:47 - 1. Login
+08:32:15,739  INFO LoginMenu,main:48 - 2. Sign Up (for students only)
+08:32:15,740  INFO LoginMenu,main:49 - 3. Exit
+08:32:15,741  INFO LoginMenu,main:50 - ________________________
+08:32:37,440  INFO LoginMenu,main:76 - Enter username: 
+08:32:38,569  INFO LoginMenu,main:78 - Enter password: 
+08:32:39,250  INFO LoginMenu,main:144 - Logged in successfully with userid: 4
+08:32:39,256  INFO ProfessorMenu,main:45 - ========= Available Operations for Professor ========
+08:32:39,256  INFO ProfessorMenu,main:46 - 1. View Courses
+08:32:39,257  INFO ProfessorMenu,main:47 - 2. View Enrolled Students
+08:32:39,257  INFO ProfessorMenu,main:48 - 3. Assign grade
+08:32:39,257  INFO ProfessorMenu,main:49 - 4. Logout
+
+08:32:39,258  INFO ProfessorMenu,main:50 - Enter Option : 
+08:36:03,052  INFO LoginMenu,main:45 - ________________________
+08:36:03,056  INFO LoginMenu,main:46 - Welcome
+08:36:03,056  INFO LoginMenu,main:47 - 1. Login
+08:36:03,057  INFO LoginMenu,main:48 - 2. Sign Up (for students only)
+08:36:03,057  INFO LoginMenu,main:49 - 3. Exit
+08:36:03,057  INFO LoginMenu,main:50 - ________________________
+08:36:05,301  INFO LoginMenu,main:76 - Enter username: 
+08:36:06,966  INFO LoginMenu,main:78 - Enter password: 
+08:36:08,329  INFO LoginMenu,main:45 - ________________________
+08:36:08,329  INFO LoginMenu,main:46 - Welcome
+08:36:08,330  INFO LoginMenu,main:47 - 1. Login
+08:36:08,330  INFO LoginMenu,main:48 - 2. Sign Up (for students only)
+08:36:08,330  INFO LoginMenu,main:49 - 3. Exit
+08:36:08,331  INFO LoginMenu,main:50 - ________________________

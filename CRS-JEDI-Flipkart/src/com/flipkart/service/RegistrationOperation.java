@@ -6,12 +6,15 @@ package com.flipkart.service;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.flipkart.bean.Course;
 
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.PaymentNotification;
 import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.bean.Student;
+import com.flipkart.client.LoginMenu;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.dao.ProfessorDaoOperation;
 import com.flipkart.exception.CourseLimitExceededException;
@@ -30,6 +33,7 @@ import com.flipkart.dao.RegistrationDaoOperation;
  *
  */
 public class RegistrationOperation implements RegistrationInterface {
+	private static Logger logger = Logger.getLogger(RegistrationOperation.class);
 
 	private static volatile RegistrationOperation instance = null;
 	RegistrationDaoInterface registrationDaoInterface = RegistrationDaoOperation.getInstance();
@@ -49,11 +53,11 @@ public class RegistrationOperation implements RegistrationInterface {
 	@Override
 	public boolean registerCourses(String studentId, HashMap<Integer,Boolean> courseIDs) throws StudentNotFoundException{ //status=alternate, primary or registered
 		if(registrationDaoInterface.isRegistrationDone(studentId)) {
-			System.out.println("Already Registered");
+			logger.info("Already Registered");
 			return false;
 		}
 		registrationDaoInterface.registerCourses(studentId, courseIDs);
-		System.out.println("Courses sent for validation");
+		logger.info("Courses sent for validation");
 		return true;
 	}
 	

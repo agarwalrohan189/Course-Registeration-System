@@ -9,10 +9,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
+
 import com.flipkart.bean.Admin;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
+import com.flipkart.client.LoginMenu;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.SQLQueries;
@@ -29,6 +32,7 @@ import com.flipkart.utils.DBUtil;
  *
  */
 public class UserDAOOperation implements UserDAOInterface{
+	private static Logger logger = Logger.getLogger(UserDAOOperation.class);
 
 	private static volatile UserDAOOperation instance = null;
 	
@@ -58,16 +62,16 @@ public class UserDAOOperation implements UserDAOInterface{
 		}
 		catch(PasswordMismatchException e)
 		{
-			System.out.println(e.getMessage());
+			logger.info(e.getMessage());
 		} catch (StudentNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+			logger.info(e.getMessage());
 		} catch (ProfNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+			logger.info(e.getMessage());
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+			logger.info(e.getMessage());
 		}
 		// TODO Auto-generated method stub
 		return null;
@@ -93,13 +97,13 @@ public class UserDAOOperation implements UserDAOInterface{
 		}
 		catch(SQLException e)
 		{
-			System.out.println(e.getMessage());
+			logger.info(e.getMessage());
 		} catch (StudentNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+			logger.info(e.getMessage());
 		} catch (ProfNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+			logger.info(e.getMessage());
 		}
 		finally
 		{
@@ -154,7 +158,7 @@ public class UserDAOOperation implements UserDAOInterface{
 					}
 					catch(SQLException e)
 					{
-						System.out.println(e.getMessage());
+						logger.info(e.getMessage());
 					}
 				}
 				else if (role == Role.Professor)
@@ -177,7 +181,7 @@ public class UserDAOOperation implements UserDAOInterface{
 					}
 					catch(SQLException e)
 					{
-						System.out.println(e.getMessage());
+						logger.info(e.getMessage());
 					}
 				}
 				else
@@ -198,14 +202,14 @@ public class UserDAOOperation implements UserDAOInterface{
 					}
 					catch(SQLException e)
 					{
-						System.out.println(e.getMessage());
+						logger.info(e.getMessage());
 					}
 				}
 			}
 		}
 		catch(SQLException e)
 		{
-			System.out.println(e.getMessage());
+			logger.info(e.getMessage());
 		}
 		finally
 		{

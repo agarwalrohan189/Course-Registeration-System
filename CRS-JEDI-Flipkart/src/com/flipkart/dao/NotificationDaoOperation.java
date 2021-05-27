@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
+import com.flipkart.client.LoginMenu;
 import com.flipkart.constant.SQLQueries;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.utils.DBUtil;
@@ -17,6 +20,7 @@ import com.flipkart.utils.DBUtil;
  *
  */
 public class NotificationDaoOperation implements NotificationDaoInterface{
+	private static Logger logger = Logger.getLogger(NotificationDaoOperation.class);
 
 	private static volatile NotificationDaoOperation instance = null;
 	
@@ -49,7 +53,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 		}
 		catch(SQLException e)
 		{
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		finally
 		{
@@ -72,19 +76,19 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 			selectNotification.setString(1, sid);
 			ResultSet result = selectNotification.executeQuery();
 			
-			System.out.println("Notifications for student with id: " + sid);
+			logger.info("Notifications for student with id: " + sid);
 			
 			while (result.next())
 			{
-				System.out.println("\nNotification id: " + result.getInt("nid"));
-				System.out.println("Student id: " + result.getString("sid"));
-				System.out.println("Notification type: " + result.getString("notificationType"));
-				System.out.println("Notification message: " + result.getString("message")+"\n");
+				logger.info("\nNotification id: " + result.getInt("nid"));
+				logger.info("Student id: " + result.getString("sid"));
+				logger.info("Notification type: " + result.getString("notificationType"));
+				logger.info("Notification message: " + result.getString("message")+"\n");
 			}
 		}
 		catch(SQLException e)
 		{
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		finally
 		{
@@ -119,7 +123,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 		}
 		catch(SQLException e)
 		{
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		finally
 		{
