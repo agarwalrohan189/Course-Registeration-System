@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.exception.*;
@@ -26,6 +28,7 @@ import java.sql.SQLException;
  *
  */
 public class RegistrationDaoOperation implements RegistrationDaoInterface {
+	private static Logger logger = Logger.getLogger(NotificationDaoOperation.class);
 
     private static volatile RegistrationDaoOperation instance = null;
     private PreparedStatement statement = null;
@@ -56,7 +59,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		 }
 		 catch (SQLException e) 
          {
-             System.err.println(e.getMessage());
+             logger.error(e.getMessage());
              throw new StudentNotFoundException(studentId);
          }
          finally
@@ -66,8 +69,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
                  conn.close();
              }
              catch(Exception e){
-                 System.err.println("Couldn't close connection to database");
-                 System.err.println(e.getMessage());
+                 logger.error("Couldn't close connection to database");
+                 logger.error(e.getMessage());
              }
          }
 	}
@@ -91,7 +94,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
         }
         catch (SQLException e) 
         {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             throw new CourseNotFoundException(courseId);
         } catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -110,8 +113,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
                 conn.close();
             }
             catch(Exception e){
-                System.err.println("Couldn't close connection to database");
-                System.err.println(e.getMessage());
+                logger.error("Couldn't close connection to database");
+                logger.error(e.getMessage());
             }
         }
         return null;
@@ -136,7 +139,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
         }
         catch (SQLException e) 
         {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             throw new DatabaseException();
         }
         finally
@@ -146,8 +149,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
                 conn.close();
             }
             catch(Exception e){
-                System.err.println("Couldn't close connection to database");
-                System.err.println(e.getMessage());
+                logger.error("Couldn't close connection to database");
+                logger.error(e.getMessage());
             }
         }
 	}
@@ -172,7 +175,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
         }
         catch (SQLException e) 
         {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             throw new DatabaseException();
         }
         finally
@@ -182,8 +185,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
                 conn.close();
             }
             catch(Exception e){
-                System.err.println("Couldn't close connection to database");
-                System.err.println(e.getMessage());
+                logger.error("Couldn't close connection to database");
+                logger.error(e.getMessage());
             }
         }
 	}
@@ -206,7 +209,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		}
         catch (SQLException e) 
         {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             throw new StudentNotFoundException(studentId);
         } catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -222,8 +225,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
                 conn.close();
             }
             catch(Exception e){
-                System.err.println("Couldn't close connection to database");
-                System.err.println(e.getMessage());
+                logger.error("Couldn't close connection to database");
+                logger.error(e.getMessage());
             }
         }
 		return registeredCourseList;
@@ -246,7 +249,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		} 
 		catch (SQLException e) 
         {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             throw new StudentNotFoundException(studentId);
         }
         finally
@@ -256,8 +259,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
                 conn.close();
             }
             catch(Exception e){
-                System.err.println("Couldn't close connection to database");
-                System.err.println(e.getMessage());
+                logger.error("Couldn't close connection to database");
+                logger.error(e.getMessage());
             }
         }
 	}
@@ -276,7 +279,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		} 
 		catch (SQLException e) 
         {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             throw new StudentNotFoundException(studentId);
         }
         finally
@@ -286,8 +289,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
                 conn.close();
             }
             catch(Exception e){
-                System.err.println("Couldn't close connection to database");
-                System.err.println(e.getMessage());
+                logger.error("Couldn't close connection to database");
+                logger.error(e.getMessage());
             }
         }
 		return regDone;
@@ -307,7 +310,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		} 
 		catch (SQLException e) 
         {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             throw new StudentNotFoundException(studentId);
         }
         finally
@@ -317,8 +320,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
                 conn.close();
             }
             catch(Exception e){
-                System.err.println("Couldn't close connection to database");
-                System.err.println(e.getMessage());
+                logger.error("Couldn't close connection to database");
+                logger.error(e.getMessage());
             }
         }
 		return paid;
@@ -338,7 +341,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		} 
 		catch (SQLException e) 
         {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             throw new NotifIdNotExistsException(notifId);
         }
         finally
@@ -348,8 +351,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
                 conn.close();
             }
             catch(Exception e){
-                System.err.println("Couldn't close connection to database");
-                System.err.println(e.getMessage());
+                logger.error("Couldn't close connection to database");
+                logger.error(e.getMessage());
             }
         }
 		return notifMessage;

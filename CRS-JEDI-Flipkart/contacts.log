@@ -38,3 +38,9 @@
 08:36:08,330  INFO LoginMenu,main:48 - 2. Sign Up (for students only)
 08:36:08,330  INFO LoginMenu,main:49 - 3. Exit
 08:36:08,331  INFO LoginMenu,main:50 - ________________________
+08:37:20,177  INFO LoginMenu,main:45 - ________________________
+08:37:20,182  INFO LoginMenu,main:46 - Welcome
+08:37:20,182  INFO LoginMenu,main:47 - 1. Login
+08:37:20,182  INFO LoginMenu,main:48 - 2. Sign Up (for students only)
+08:37:20,182  INFO LoginMenu,main:49 - 3. Exit
+08:37:20,183  INFO LoginMenu,main:50 - ________________________
