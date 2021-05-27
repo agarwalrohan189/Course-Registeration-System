@@ -10,6 +10,7 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Notification;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.constant.ModeOfPayment;
@@ -94,7 +95,7 @@ public class StudentMenu {
 				break;
 				
 			case 8:
-				NotificationOperation.getInstance().showNotifications(studentID);
+				showNotifications();
 				break;
 
 			case 9:
@@ -107,6 +108,21 @@ public class StudentMenu {
 				System.err.println("No such operation exists, valid choices 1, 2, 3, 4, 5 ,6 ,7 ,8");
 			}
 		}
+	}
+	
+	/**
+	 * Show notifications
+	 */
+	private void showNotifications ()
+	{
+		System.out.println("Notifications for student with id: " + studentID);
+		List<Notification> notifications = NotificationOperation.getInstance().getNotifications(studentID);
+		notifications.forEach(notification -> {
+			System.out.println("\nNotification id: " + notification.getNotificationId());
+			System.out.println("Student id: " + notification.getStudentId());
+			System.out.println("Notification type: " + notification.getType());
+			System.out.println("Notification message: " + notification.getMessage()+"\n");
+		});
 	}
 
 	/**

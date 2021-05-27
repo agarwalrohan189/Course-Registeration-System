@@ -1,7 +1,10 @@
 package com.flipkart.service;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
+import com.flipkart.bean.Notification;
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.PaymentNotification;
 import com.flipkart.client.LoginMenu;
@@ -46,8 +49,8 @@ public class NotificationOperation implements NotificationInterface{
 	  	return;
 	  }
 	  
-	  public void showNotifications(String sid)
+	  public List<Notification> getNotifications(String sid)
 	  {
-		  NotificationDaoOperation.getInstance().showNotifications(sid);;
+		  return NotificationDaoOperation.getInstance().getNotifications(sid);
 	  }
 }

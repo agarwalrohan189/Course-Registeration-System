@@ -3,6 +3,10 @@
  */
 package com.flipkart.dao;
 
+import java.util.List;
+
+import com.flipkart.bean.Notification;
+
 /**
  * @author Shubham
  *
@@ -21,7 +25,7 @@ public interface NotificationDaoInterface {
 	 * Method to show notification of the student
 	 * @param sid student ID
 	 */
-	public void showNotifications(String sid);
+	public List<Notification> getNotifications(String sid);
 
 	/**
 	 * To generate unique notification ID

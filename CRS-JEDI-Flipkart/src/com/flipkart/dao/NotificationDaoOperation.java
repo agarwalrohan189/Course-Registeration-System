@@ -7,9 +7,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.flipkart.bean.Notification;
 import com.flipkart.client.LoginMenu;
 import com.flipkart.constant.SQLQueries;
 import com.flipkart.exception.UserNotFoundException;
@@ -81,7 +84,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 	 * @param sid student ID
 	 */
 	@Override
-	public void showNotifications(String sid) {
+	public List<Notification> getNotifications(String sid) {
 		// TODO Auto-generated method stub
 		Connection conn = DBUtil.getConnection();
 		try
@@ -90,15 +93,14 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 			selectNotification.setString(1, sid);
 			ResultSet result = selectNotification.executeQuery();
 			
-			logger.info("Notifications for student with id: " + sid);
+			List<Notification> notificationsList = new ArrayList<Notification>();
 			
 			while (result.next())
 			{
-				logger.info("\nNotification id: " + result.getInt("nid"));
-				logger.info("Student id: " + result.getString("sid"));
-				logger.info("Notification type: " + result.getString("notificationType"));
-				logger.info("Notification message: " + result.getString("message")+"\n");
+				Notification n = new Notification (result.getInt("nid"), result.getString("sid"), result.getString("notificationType"), result.getString("message"));
+				notificationsList.add(n);
 			}
+			return notificationsList;
 		}
 		catch(SQLException e)
 		{
@@ -113,6 +115,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 				e.printStackTrace();
 			}
 		}
+		return null;
 	}
 
 	/**

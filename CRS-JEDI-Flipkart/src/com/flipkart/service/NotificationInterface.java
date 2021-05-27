@@ -1,5 +1,8 @@
 package com.flipkart.service;
 
+import java.util.List;
+
+import com.flipkart.bean.Notification;
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.PaymentNotification;
 
@@ -20,5 +23,5 @@ public interface NotificationInterface {
 
 	public void sendNotification(String sid, String type, String message);
 	
-	public void showNotifications(String sid);
+	public List<Notification> getNotifications(String sid);
 }
