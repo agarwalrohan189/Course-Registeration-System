@@ -28,7 +28,7 @@ import com.flipkart.service.UserOperation;
  */
 public class LoginMenu {
 
-	private static Logger logger = Logger.getLogger(LoginMenu.class);
+//	private static Logger logger = Logger.getLogger(LoginMenu.class);
 
 	/**
 	 * @param args
@@ -42,12 +42,12 @@ public class LoginMenu {
 	public static void showMainMenu() {
 		while (true)
 		{
-			logger.info("________________________");
-			logger.info("Welcome");
-			logger.info("1. Login");
-			logger.info("2. Sign Up (for students only)");
-			logger.info("3. Exit");
-			logger.info("________________________");
+			System.out.println("________________________________________________");
+			System.out.println("Welcome to the Course Registration System");
+			System.out.println("1. Login");
+			System.out.println("2. Sign Up (for students only)");
+			System.out.println("3. Exit");
+			System.out.println("________________________________________________");
 			int optionChosen = scanner.nextInt();
 			scanner.nextLine();
 			switch(optionChosen) {		
@@ -68,14 +68,14 @@ public class LoginMenu {
 
 	private static void exit() {
 		// TODO Auto-generated method stub
-		logger.info("Exit Application");
+		System.out.println("Exit Application");
 	}
 
 	private static void login() {
 		// TODO Auto-generated method stub
-		logger.info("Enter username: ");
+		System.out.println("Enter username: ");
 		String uName = scanner.next();
-		logger.info("Enter password: ");
+		System.out.println("Enter password: ");
 		String password = scanner.next();
 		loginMain(uName, password);
 	}
@@ -84,14 +84,14 @@ public class LoginMenu {
 		try {
 			StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
 
-			logger.info("Enter Student ID");
+			System.out.println("Enter Student ID");
 			String sid = scanner.nextLine();
-			logger.info("Enter Student name");
+			System.out.println("Enter Student name");
 			String name = scanner.nextLine();
 			Role role = Role.Student;
-			logger.info("Enter Student Password");
+			System.out.println("Enter Student Password");
 			String pass = scanner.nextLine();
-			logger.info("Enter Student Gender, 1=male, 2=female, 3=other");
+			System.out.println("Enter Student Gender, 1=male, 2=female, 3=other");
 			int gende = scanner.nextInt();scanner.nextLine();
 			Gender gender = Gender.OTHER;
 			switch (gende){
@@ -102,27 +102,27 @@ public class LoginMenu {
 				case 3:
 					gender = Gender.OTHER;break;
 			}
-			logger.info("Enter Address of student");
+			System.out.println("Enter Address of student");
 			String address = scanner.nextLine();
-			logger.info("Enter Username of student");
+			System.out.println("Enter Username of student");
 			String username = scanner.nextLine();
-			logger.info("Enter Student DOB(Date of Birth) in dd/mm/yyyy format");
+			System.out.println("Enter Student DOB(Date of Birth) in dd/mm/yyyy format");
 			String dob = scanner.nextLine();
 			Date doB = new SimpleDateFormat("dd/MM/yyyy").parse(dob);
-			logger.info("Enter Branch of the student");
+			System.out.println("Enter Branch of the student");
 			String branch = scanner.nextLine();
-			logger.info("Enter Student's Batch year");
+			System.out.println("Enter Student's Batch year");
 			int batchYear = scanner.nextInt();scanner.nextLine();
 
 			Student student = new Student(sid,name,role,pass,gender,address,username,doB,branch,batchYear,false, false);
 
 			studentDaoInterface.signUp(student);
 
-			logger.info("++++++++   Sign up complete   +++++++++");
-			logger.info("++++++++ Waiting for approval +++++++++");
+			System.out.println("++++++++   Sign up complete   +++++++++");
+			System.out.println("++++++++ Waiting for approval +++++++++");
 
 		}catch (Exception e){
-			logger.info(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -133,15 +133,15 @@ public class LoginMenu {
 			role = UserOperation.getInstance().login(userId, password);
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			logger.info(e.getMessage());
+			System.out.println(e.getMessage());
 		} catch (PasswordMismatchException e) {
 			// TODO Auto-generated catch block
-			logger.info(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 		finally
 		{
 			if (role != null)
-				logger.info("Logged in successfully with userid: " + userId);
+				System.out.println("Logged in successfully with userid: " + userId);
 			if (role == Role.Student)
 			{
 				StudentInterface studentInterface = StudentOperation.getInstance();
@@ -150,10 +150,10 @@ public class LoginMenu {
 						StudentMenu sm = new StudentMenu(userId);
 						sm.displayMenu();
 					} else {
-						logger.info("++++++++ Waiting for approval +++++++++");
+						System.out.println("++++++++ Waiting for approval +++++++++");
 					}
 				} catch (StudentNotFoundException e) {
-					logger.info(e.getMessage());
+					System.out.println(e.getMessage());
 				}
 			}
 			else if (role == Role.Professor)
@@ -171,22 +171,22 @@ public class LoginMenu {
 
 //	private static void registration() {
 //		// TODO Auto-generated method stub
-//		logger.info("Enter name: ");
+//		System.out.println("Enter name: ");
 //		String name = scanner.next();
-//		logger.info("Enter gender: ");
+//		System.out.println("Enter gender: ");
 //		String gender = scanner.next();
-//		logger.info("Enter dob: ");
+//		System.out.println("Enter dob: ");
 //		String dob = scanner.next();
-//		logger.info("Enter role: ");
+//		System.out.println("Enter role: ");
 //		String role = scanner.next();
-//		logger.info("Enter password: ");
+//		System.out.println("Enter password: ");
 //		String password = scanner.next();
 //		registrationMain(name, gender, dob, role, password);
 //	}
 //
 //	private static void registrationMain(String name, String gender, String dob, String role, String password) {
 //		// TODO Auto-generated method stub
-//		logger.info("Register " + name);
+//		System.out.println("Register " + name);
 //	}
 	
 	

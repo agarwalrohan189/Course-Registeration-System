@@ -25,28 +25,28 @@ import org.apache.log4j.Logger;
  *
  */
 public class AdminMenu {
-	private static Logger logger = Logger.getLogger(LoginMenu.class);
+//	private static Logger logger = Logger.getLogger(LoginMenu.class);
 	
 	Scanner scanner = new Scanner(System.in);
 	public void printAdminMenu() {
 		boolean looping = true;
 		while (looping) {
-			logger.info("_________________________________________");
-			logger.info("Admin Menu");
-			logger.info(" 1. View Course Catalog");
-			logger.info(" 2. Add Course");
-			logger.info(" 3. Remove Course");
-			logger.info(" 4. Add Professor");
-			logger.info(" 5. Remove Professor");
-			logger.info(" 6. Approve Student");
-			logger.info(" 7. Remove Student");
-			logger.info(" 8. Validate Registrations");
-			logger.info(" 9. Confirm Fee Payment");
-			logger.info(" 10. Assign Professor to course");
-			logger.info(" 11. Generate report card of the student");
-			logger.info(" 12. Logout");
-			logger.info("Enter Option : ");
-			logger.info("_________________________________________");
+			System.out.println("_________________________________________");
+			System.out.println("Admin Menu");
+			System.out.println(" 1. View Course Catalog");
+			System.out.println(" 2. Add Course");
+			System.out.println(" 3. Remove Course");
+			System.out.println(" 4. Add Professor");
+			System.out.println(" 5. Remove Professor");
+			System.out.println(" 6. Approve Student");
+			System.out.println(" 7. Remove Student");
+			System.out.println(" 8. Validate Registrations");
+			System.out.println(" 9. Confirm Fee Payment");
+			System.out.println(" 10. Assign Professor to course");
+			System.out.println(" 11. Generate report card of the student");
+			System.out.println(" 12. Logout");
+			System.out.println("Enter Option : ");
+			System.out.println("_________________________________________");
 			int optionChosen = scanner.nextInt();scanner.nextLine();
 
 			switch (optionChosen) {
@@ -102,12 +102,12 @@ public class AdminMenu {
 	}
 
 	private void confirmFeePayment() {
-		logger.info("Enter Student Id:");
+		System.out.println("Enter Student Id:");
 		String studentId = scanner.next();
-		logger.info("Select Mode Of Payment:");
-		logger.info("1. Scholarship");
-		logger.info("2. Demand Draft");
-		logger.info("3. Cancel");
+		System.out.println("Select Mode Of Payment:");
+		System.out.println("1. Scholarship");
+		System.out.println("2. Demand Draft");
+		System.out.println("3. Cancel");
 		int choice = scanner.nextInt();
 		switch(choice) {
 			case 1:
@@ -117,7 +117,7 @@ public class AdminMenu {
 				AdminOperation.getInstance().paymentDoneViaDemandDraft(studentId);
 				break;
 			default:
-				logger.info("Confirmation Of Payment Cancelled");
+				System.out.println("Confirmation Of Payment Cancelled");
 				break;
 		}
 		
@@ -126,29 +126,29 @@ public class AdminMenu {
 	private void generateReport() {
 		try {
 
-			logger.info("Enter Student ID of student whose report is to be generated");
+			System.out.println("Enter Student ID of student whose report is to be generated");
 			String studentID = scanner.nextLine();
 
 			AdminOperation.getInstance().generateReportCard(studentID);
 
 		}catch (Exception e){
-			logger.info(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
 	private void assignProf() {
 		try {
 
-			logger.info("Enter the professor ID");
+			System.out.println("Enter the professor ID");
 			String profID = scanner.nextLine();
-			logger.info("Enter Course ID of course to be assigned");
+			System.out.println("Enter Course ID of course to be assigned");
 			int cid = scanner.nextInt();scanner.nextLine();
 
 			AdminOperation.getInstance().assignProf(profID, cid);
 
-			logger.info("Course is assigned to professor");
+			System.out.println("Course is assigned to professor");
 		}catch (Exception e){
-			logger.info(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -157,63 +157,63 @@ public class AdminMenu {
 
 			AdminOperation.getInstance().validateRegistration();
 
-			logger.info(":) :) :) registrations Validated :) :) :)");
+			System.out.println(":) :) :) registrations Validated :) :) :)");
 		}catch (Exception e){
-			logger.info(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
 	private void removeStudent() {
 		try {
-			logger.info("Enter Student ID");
+			System.out.println("Enter Student ID");
 			String studentID = scanner.nextLine();
 
 			AdminOperation.getInstance().removeStudent(studentID);
 
-			logger.info("----------Student Removed---------");
+			System.out.println("----------Student Removed---------");
 		}catch (Exception e){
-			logger.info(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
 	private void approveStudent() {
 		try
 		{
-			logger.info("Enter student id: ");
+			System.out.println("Enter student id: ");
 			String studentId = scanner.nextLine();
 			AdminOperation.getInstance().approveStudent(studentId);
 		}
 		catch (Exception e)
 		{
-			logger.error(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 	}
 
 	private void removeProf() {
 		try {
 
-			logger.info("Enter Professor ID");
+			System.out.println("Enter Professor ID");
 			String profID = scanner.nextLine();
 			
 			AdminOperation.getInstance().removeProf(profID);
 
-			logger.info("----------Professor Removed---------");
+			System.out.println("----------Professor Removed---------");
 
 		}catch (Exception e){
-			logger.info(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
 	private void addProf() {
 		try {
-			logger.info("Enter Professor ID");
+			System.out.println("Enter Professor ID");
 			String pid = scanner.nextLine();
-			logger.info("Enter Professor name");
+			System.out.println("Enter Professor name");
 			String name = scanner.nextLine();
 			Role role = Role.Professor;
-			logger.info("Enter Professor Password");
+			System.out.println("Enter Professor Password");
 			String pass = scanner.nextLine();
-			logger.info("Enter Professor Gender, 1=male, 2=female, 3=other");
+			System.out.println("Enter Professor Gender, 1=male, 2=female, 3=other");
 			int gende = scanner.nextInt();scanner.nextLine();
 			Gender gender = Gender.OTHER;
 			switch (gende){
@@ -224,18 +224,18 @@ public class AdminMenu {
 				case 3:
 					gender = Gender.OTHER;break;
 			}
-			logger.info("Enter Address of Professor");
+			System.out.println("Enter Address of Professor");
 			String address = scanner.nextLine();
-			logger.info("Enter Username of Professor");
+			System.out.println("Enter Username of Professor");
 			String username = scanner.nextLine();
-			logger.info("Enter Professor DOB in dd/mm/yyyy format");
+			System.out.println("Enter Professor DOB in dd/mm/yyyy format");
 			String dob = scanner.nextLine();
 			Date doB = new SimpleDateFormat("dd/MM/yyyy").parse(dob);
-			logger.info("Enter Professor department");
+			System.out.println("Enter Professor department");
 			String dept = scanner.nextLine();
-			logger.info("Enter Professor qualification(s)");
+			System.out.println("Enter Professor qualification(s)");
 			String qual = scanner.nextLine();
-			logger.info("Enter Professor's Date of joining in dd/MM/yyyy format");
+			System.out.println("Enter Professor's Date of joining in dd/MM/yyyy format");
 			String doj = scanner.nextLine();
 			Date doJ = new SimpleDateFormat("dd/MM/yyyy").parse(doj);
 
@@ -243,39 +243,39 @@ public class AdminMenu {
 
 			AdminOperation.getInstance().addProf(professor);
 
-			logger.info("++++++++++Professor Added+++++++++++");
+			System.out.println("++++++++++Professor Added+++++++++++");
 		}catch (Exception e){
-			logger.info(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
 	private void removeCourse() {
 		try {
-			logger.info("Enter CourseID of course to be removed");
+			System.out.println("Enter CourseID of course to be removed");
 			int cid = scanner.nextInt();scanner.nextLine();
 
 			AdminOperation.getInstance().removeCourse(cid);
 
-			logger.info("----------Course Removed---------");
+			System.out.println("----------Course Removed---------");
 
 		}catch (Exception e){
-			logger.info(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
 	private void addCourse() {
 		try {
-			logger.info("Please Enter Following details of the course");
-			logger.info("Course ID:");
+			System.out.println("Please Enter Following details of the course");
+			System.out.println("Course ID:");
 			int cid = scanner.nextInt();scanner.nextLine();
-			logger.info("Course Name:");
+			System.out.println("Course Name:");
 			String cname = scanner.nextLine();
 			
 			AdminOperation.getInstance().addCourse(new Course(cid,cname,"p0","p0",0));
 
-			logger.info("+++++++++Course Added+++++++++");
+			System.out.println("+++++++++Course Added+++++++++");
 		}catch (Exception e){
-			logger.info(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -283,20 +283,20 @@ public class AdminMenu {
 		try {
 			 List<Course> courseList = AdminOperation.getInstance().viewCourses();
 
-			logger.info("Course ID\tCourse Name\tInstructor ID\tInstructor Name\tFilled Seats");
+			System.out.println("Course ID\tCourse Name\tInstructor ID\tInstructor Name\tFilled Seats");
 			for (Course course : courseList) {
-				logger.info(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getInstructorId() +
+				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getInstructorId() +
 						"\t\t" + course.getInstructorName() + "\t\t" + course.getFilledSeats());
 			}
 
 		}catch (Exception e){
-			logger.info(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
 
 	private void logout() {
 //		scanner.close();
-		logger.info("---------------Logging out---------------");
+		System.out.println("---------------Logging out---------------");
 	}
 }

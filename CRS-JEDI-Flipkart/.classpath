@@ -6,11 +6,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-<<<<<<< Updated upstream
-	<classpathentry kind="lib" path="C:/study/flipkart/jedi_project/log4j-1.2.11.jar"/>
-	<classpathentry kind="lib" path="C:/study/flipkart/jedi_project/mysql-connector-java-5.1.7-bin.jar"/>
-=======
 	<classpathentry kind="lib" path="/Users/rohanagarwal/Desktop/jedi_setup/mysql-connector-java-8.0.19.jar"/>
->>>>>>> Stashed changes
+	<classpathentry kind="lib" path="/Users/rohanagarwal/Desktop/jedi_setup/log4j-1.2.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

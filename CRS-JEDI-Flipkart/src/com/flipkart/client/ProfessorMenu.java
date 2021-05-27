@@ -21,7 +21,7 @@ import com.flipkart.service.ProfessorOperation;
  */
 public class ProfessorMenu {
 
-	private static Logger logger = Logger.getLogger(ProfessorMenu.class);
+//	private static Logger logger = Logger.getLogger(ProfessorMenu.class);
 
 	String professorID;
 	ProfessorInterface professorInterface = ProfessorOperation.getInstance();
@@ -42,12 +42,12 @@ public class ProfessorMenu {
 		Scanner sc = new Scanner(System.in);
 
 		while (true) {
-			logger.info("========= Available Operations for Professor ========");
-			logger.info("1. View Courses");
-			logger.info("2. View Enrolled Students");
-			logger.info("3. Assign grade");
-			logger.info("4. Logout\n");
-			logger.info("Enter Option : ");
+			System.out.println("========= Available Operations for Professor ========");
+			System.out.println("1. View Courses");
+			System.out.println("2. View Enrolled Students");
+			System.out.println("3. Assign grade");
+			System.out.println("4. Logout\n");
+			System.out.println("Enter Option : ");
 
 			int input = sc.nextInt();
 			sc.nextLine();
@@ -68,10 +68,10 @@ public class ProfessorMenu {
 			case 4:
 				// Logout
 //				sc.close();
-				logger.info("==================== Logging Out ====================");
+				System.out.println("==================== Logging Out ====================");
 				return;
 			default:
-				logger.error("No such operation exists, valid choices 1, 2, 3, 4");
+				System.err.println("No such operation exists, valid choices 1, 2, 3, 4");
 			}
 		}
 	}
@@ -82,13 +82,13 @@ public class ProfessorMenu {
 	private void viewCourses() {
 		try{
 			List<Course> courses = professorInterface.viewCourses(professorID);
-			logger.info("Course ID\tCourse Name\tFilled Seats");
+			System.out.println("Course ID\tCourse Name\tFilled Seats");
 			for (Course course : courses) {
-				logger.info(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getFilledSeats());
+				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getFilledSeats());
 			}
 		}
 		catch(Exception e){
-			logger.error(e.getMessage());
+			System.err.println(e.getMessage());
 			e.printStackTrace();	
 		}
 		
@@ -100,16 +100,16 @@ public class ProfessorMenu {
 	private void viewStudents() {
 		Scanner sc = new Scanner(System.in);
 		try{
-			logger.info("Enter CourseID : ");
+			System.out.println("Enter CourseID : ");
 			int courseID = sc.nextInt();
 			List<Student> students = professorInterface.viewStudent(courseID, professorID);
-			logger.info("StudentID\tStudent Name\tBranch");
+			System.out.println("StudentID\tStudent Name\tBranch");
 			for (Student student : students) {
-				logger.info(student.getId() + "\t\t" + student.getName() + "\t\t" + student.getBranch());
+				System.out.println(student.getId() + "\t\t" + student.getName() + "\t\t" + student.getBranch());
 			}
 		}
 		catch(Exception e){
-			logger.error(e.getMessage());
+			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
 		finally{
@@ -122,17 +122,17 @@ public class ProfessorMenu {
 	 */
 	private void assignGrades() {
 		Scanner sc = new Scanner(System.in);
-		logger.info("Enter Course ID");
+		System.out.println("Enter Course ID");
 		int courseID = sc.nextInt();
-		logger.info("Enter Student ID");
+		System.out.println("Enter Student ID");
 		String studentID = sc.next();
-		logger.info("Enter Grade");
+		System.out.println("Enter Grade");
 		String grade = sc.next();
 		try {
 			professorInterface.assignGrade(studentID, courseID, Grade.fromString(grade));
 		}
 		catch(Exception e){
-			logger.error(e.getMessage());
+			System.err.println(e.getMessage());
 			e.printStackTrace();	
 		}
 		finally{
