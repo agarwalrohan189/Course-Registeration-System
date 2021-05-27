@@ -85,4 +85,15 @@ public interface AdminInterface {
      * Method to accept Demand Draft from students
      */
     public void paymentDoneViaDemandDraft(String studentID);
+
+    /**
+     * Method to fetch the list of all enrolled professors
+     * @return List of Professors in table Professors
+     */
+    public List<Professor> viewProfessors();
+
+    /**
+     * Method view pending approvals of students
+     */
+    public List<Student> viewPending();
 }

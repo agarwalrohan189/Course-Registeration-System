@@ -763,4 +763,96 @@ public class AdminDaoInterfaceImpl implements AdminDaoInterface {
         }
 
     }
+
+    /**
+     * Method to fetch the list of all enrolled professors
+     *
+     * @return List of Professors in table Professors
+     */
+    @Override
+    public List<Professor> viewProfessors() {
+        Connection connection = DBUtil.getConnection();
+        statement = null;
+        List<Professor> professorList = new ArrayList<Professor>();
+        try {
+
+            String sql = SQLQueries.VIEW_PROFESSOR_QUERY;
+            statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while(resultSet.next()) {
+                String pid = resultSet.getString("id");
+                Professor professor = (Professor) UserDAOOperation.getInstance().getDetails(pid);
+                professorList.add(professor);
+            }
+
+            logger.info("Professor list generated");
+
+        }catch(SQLException se) {
+            logger.error(se.getMessage());
+        } catch (UserNotFoundException e) {
+            //
+        } catch (StudentNotFoundException e) {
+            //e.printStackTrace();
+        } catch (ProfNotFoundException e) {
+            //e.printStackTrace();
+        }finally {
+            try {
+                connection.close();
+            }
+            catch(SQLException ex){
+                System.out.println(ex.getMessage());
+                try {
+                    throw new DatabaseException();
+                } catch (DatabaseException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+        return professorList;
+    }
+
+    /**
+     * Method view pending approvals of students
+     */
+    @Override
+    public List<Student> viewPending() {
+        Connection connection = DBUtil.getConnection();
+        statement = null;
+        List<Student> studentList  = new ArrayList<Student>();
+        try{
+            String sql = SQLQueries.VIEW_PENDING_STUDENTS;
+            statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String sid = resultSet.getString("id");
+                Student student = (Student) UserDAOOperation.getInstance().getDetails(sid);
+                studentList.add(student);
+            }
+        }catch (SQLException se){
+            logger.error(se.getMessage());
+        } catch (UserNotFoundException e) {
+            //e.printStackTrace();
+        } catch (StudentNotFoundException e) {
+            //e.printStackTrace();
+        } catch (ProfNotFoundException e) {
+            //e.printStackTrace();
+        }finally {
+            try {
+                connection.close();
+            }
+            catch(SQLException ex){
+                System.out.println(ex.getMessage());
+                try {
+                    throw new DatabaseException();
+                } catch (DatabaseException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+        return studentList;
+    }
 }

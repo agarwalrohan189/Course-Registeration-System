@@ -214,4 +214,30 @@ public class AdminOperation implements AdminInterface{
     	NotificationOperation.getInstance().sendNotification(studentID, "payment", "Payment done for student with id " + studentID + " via Demand Draft");
 
     }
+
+    /**
+     * Method to fetch the list of all enrolled professors
+     *
+     * @return List of Professors in table Professors
+     */
+    @Override
+    public List<Professor> viewProfessors() {
+        try {
+            return adminDaoInterfaceImpl.viewProfessors();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    /**
+     * Method view pending approvals of students
+     */
+    @Override
+    public List<Student> viewPending() {
+        try {
+            return adminDaoInterfaceImpl.viewPending();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

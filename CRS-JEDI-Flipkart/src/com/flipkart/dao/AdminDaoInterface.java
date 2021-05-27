@@ -110,4 +110,14 @@ public interface AdminDaoInterface {
      */
     public void approveStudent(String studentId) throws StudentNotFoundException;
 
+    /**
+     * Method to fetch the list of all enrolled professors
+     * @return List of Professors in table Professors
+     */
+    public List<Professor> viewProfessors();
+
+    /**
+     * Method view pending approvals of students
+     */
+    public List<Student> viewPending();
 }

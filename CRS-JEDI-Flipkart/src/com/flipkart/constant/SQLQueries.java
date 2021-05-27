@@ -39,7 +39,8 @@ public class SQLQueries {
 	public static final String GET_STUDENT_GRADES = "select * from registeredcourse where sid = ?";
 	public static final String APPROVE_STUDENT_QUERY = "update Students set isApproved = 1 where id = ?";
 	public static final String IS_APPROVED_STUDENT_QUERY = "select isApproved from Students where id = ?";
-
+	public static final String VIEW_PROFESSOR_QUERY = "select id from Professors";
+	public static final String VIEW_PENDING_STUDENTS = "select id from Students where isApproved = 0";
 	// StudentDao Queries
 	public static final String GET_STUDENT_DETAILS_QUERY = "select * from Students where id = ?";
 
