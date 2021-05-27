@@ -6,12 +6,8 @@ package com.flipkart.client;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.RegisteredCourse;
-import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
-import com.flipkart.dao.AdminDaoInterfaceImpl;
-import com.flipkart.dao.UserDAOInterface;
-import com.flipkart.dao.UserDAOOperation;
 import com.flipkart.service.AdminOperation;
 import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.RegistrationOperation;
@@ -21,7 +17,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
 
 /**
  * @author Yash
@@ -38,7 +33,7 @@ public class AdminMenu {
 	public void printAdminMenu() {
 		boolean looping = true;
 		while (looping) {
-			System.out.println("_________________________________________");
+			System.out.println("\n==========================================================================\n");
 			System.out.println("Admin Menu");
 			System.out.println(" 1. View Course Catalog");
 			System.out.println(" 2. Add Course");
@@ -52,8 +47,8 @@ public class AdminMenu {
 			System.out.println(" 10. Assign Professor to course");
 			System.out.println(" 11. Generate report card of the student");
 			System.out.println(" 12. Logout");
+			System.out.println("\n==========================================================================\n");
 			System.out.println("Enter Option : ");
-			System.out.println("_________________________________________");
 			int optionChosen = scanner.nextInt();scanner.nextLine();
 
 			switch (optionChosen) {
@@ -127,7 +122,7 @@ public class AdminMenu {
 				AdminOperation.getInstance().paymentDoneViaDemandDraft(studentId);
 				break;
 			default:
-				System.out.println("Confirmation Of Payment Cancelled");
+				System.out.println("Confirmation Of Payment Cancelled.");
 				break;
 		}
 		
@@ -139,15 +134,15 @@ public class AdminMenu {
 	private void generateReport() {
 		try {
 
-			System.out.println("Enter Student ID of student whose report is to be generated");
+			System.out.println("Enter Student ID : ");
 			String studentID = scanner.nextLine();
 			RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
 			List<RegisteredCourse> courses = registrationInterface.viewRegisteredCourses(studentID);
-			System.out.println("Course ID\tCourse Name\tGrade");
+			System.out.printf("%10s%20s%20s\n","Course ID","Course Name","Grade");
 			float cpi=0;
 			int count=0;
 			for(RegisteredCourse course:courses) {
-				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getGrade());
+				System.out.format("%10d%20s%20s\n", course.getCourseId(), course.getCourseName(), course.getGrade().toString());
 				if(course.getGrade()!=null) {
 					cpi+=course.getGrade().hasValue();
 					count++;
@@ -336,8 +331,6 @@ public class AdminMenu {
 			System.out.printf("%10s%20s%20s%20s%20s\n","Course ID","Course Name","Instructor ID","Instructor Name","Filled Seats");
 			for (Course course : courseList) {
 				System.out.format("%10d%20s%20s%20s%20d\n", course.getCourseId(), course.getCourseName(), course.getInstructorId(),course.getInstructorName(),course.getFilledSeats());
-//				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getInstructorId() +
-//						"\t\t" + course.getInstructorName() + "\t\t" + course.getFilledSeats());
 			}
 
 		}catch (Exception e){

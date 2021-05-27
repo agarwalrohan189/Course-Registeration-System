@@ -7,8 +7,6 @@ import java.util.List;
 
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
-
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Grade;
@@ -42,11 +40,13 @@ public class ProfessorMenu {
 		Scanner sc = new Scanner(System.in);
 
 		while (true) {
-			System.out.println("========= Available Operations for Professor ========");
+			System.out.println("\n==========================================================================\n");
+			System.out.println("Professor Menu");
 			System.out.println("1. View Courses");
 			System.out.println("2. View Enrolled Students");
 			System.out.println("3. Assign grade");
 			System.out.println("4. Logout\n");
+			System.out.println("\n==========================================================================\n");
 			System.out.println("Enter Option : ");
 
 			int input = sc.nextInt();
@@ -82,14 +82,13 @@ public class ProfessorMenu {
 	private void viewCourses() {
 		try{
 			List<Course> courses = professorInterface.viewCourses(professorID);
-			System.out.println("Course ID\tCourse Name\tFilled Seats");
+			System.out.printf("%10s%20s%20s\n","Course ID","Course Name","Filled Seats");
 			for (Course course : courses) {
-				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getFilledSeats());
+				System.out.format("%10d%20s%20s\n", course.getCourseId(), course.getCourseName(), course.getFilledSeats());
 			}
 		}
 		catch(Exception e){
 			System.err.println(e.getMessage());
-			e.printStackTrace();	
 		}
 		
 	}
@@ -103,17 +102,13 @@ public class ProfessorMenu {
 			System.out.println("Enter CourseID : ");
 			int courseID = sc.nextInt();
 			List<Student> students = professorInterface.viewStudent(courseID, professorID);
-			System.out.println("StudentID\tStudent Name\tBranch");
+			System.out.printf("%10s%20s%20s\n","StudentID","Student Name","Branch");
 			for (Student student : students) {
-				System.out.println(student.getId() + "\t\t" + student.getName() + "\t\t" + student.getBranch());
+				System.out.format("%10d%20s%20s\n", student.getId(),  student.getName(), student.getBranch());
 			}
 		}
 		catch(Exception e){
 			System.err.println(e.getMessage());
-			e.printStackTrace();
-		}
-		finally{
-//			sc.close();
 		}
 	}
 
@@ -122,21 +117,17 @@ public class ProfessorMenu {
 	 */
 	private void assignGrades() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter Course ID");
+		System.out.println("Enter Course ID : ");
 		int courseID = sc.nextInt();
-		System.out.println("Enter Student ID");
+		System.out.println("Enter Student ID : ");
 		String studentID = sc.next();
-		System.out.println("Enter Grade");
+		System.out.println("Enter Grade : ");
 		String grade = sc.next();
 		try {
 			professorInterface.assignGrade(studentID, courseID, Grade.fromString(grade));
 		}
 		catch(Exception e){
 			System.err.println(e.getMessage());
-			e.printStackTrace();	
-		}
-		finally{
-//			sc.close();
 		}
 	}
 }

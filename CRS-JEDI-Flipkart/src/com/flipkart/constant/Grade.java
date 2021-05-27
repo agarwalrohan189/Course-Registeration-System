@@ -58,8 +58,7 @@ public enum Grade {
             case 3:
                 return Grade.E1;
             default:
-                System.err.println("No such grade Exists");
-                return null;
+            	return null;
         }
     }
 

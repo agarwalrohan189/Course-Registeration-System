@@ -7,12 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
-
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
-import com.flipkart.dao.AdminDaoInterfaceImpl;
 import com.flipkart.dao.StudentDaoInterface;
 import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.exception.PasswordMismatchException;
@@ -46,12 +43,12 @@ public class LoginMenu {
 	public static void showMainMenu() {
 		while (true)
 		{
-			System.out.println("________________________________________________");
+			System.out.println("\n==========================================================================\n");
 			System.out.println("Welcome to the Course Registration System");
 			System.out.println("1. Login");
 			System.out.println("2. Sign Up (for students only)");
 			System.out.println("3. Exit");
-			System.out.println("________________________________________________");
+			System.out.println("\n==========================================================================\n");
 			System.out.println("Enter Option : ");
 			int optionChosen = scanner.nextInt();
 			scanner.nextLine();
@@ -86,9 +83,9 @@ public class LoginMenu {
 	 */
 	private static void login() {
 		// TODO Auto-generated method stub
-		System.out.println("Enter username: ");
+		System.out.println("Enter username : ");
 		String uName = scanner.next();
-		System.out.println("Enter password: ");
+		System.out.println("Enter password : ");
 		String password = scanner.next();
 		loginMain(uName, password);
 	}
@@ -100,14 +97,14 @@ public class LoginMenu {
 		try {
 			StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
 
-			System.out.println("Enter Student ID");
+			System.out.println("Enter Student ID : ");
 			String sid = scanner.nextLine();
-			System.out.println("Enter Student name");
+			System.out.println("Enter Student name : ");
 			String name = scanner.nextLine();
 			Role role = Role.Student;
-			System.out.println("Enter Student Password");
+			System.out.println("Enter Student Password : ");
 			String pass = scanner.nextLine();
-			System.out.println("Enter Student Gender, 1=male, 2=female, 3=other");
+			System.out.println("Enter Student Gender, 1=male, 2=female, 3=other : ");
 			int gende = scanner.nextInt();scanner.nextLine();
 			Gender gender = Gender.OTHER;
 			switch (gende){
@@ -118,24 +115,24 @@ public class LoginMenu {
 				case 3:
 					gender = Gender.OTHER;break;
 			}
-			System.out.println("Enter Address of student");
+			System.out.println("Enter Address of student : ");
 			String address = scanner.nextLine();
-			System.out.println("Enter Username of student");
+			System.out.println("Enter Username of student : ");
 			String username = scanner.nextLine();
-			System.out.println("Enter Student DOB(Date of Birth) in dd/mm/yyyy format");
+			System.out.println("Enter Student DOB(Date of Birth) in dd/mm/yyyy format : ");
 			String dob = scanner.nextLine();
 			Date doB = new SimpleDateFormat("dd/MM/yyyy").parse(dob);
-			System.out.println("Enter Branch of the student");
+			System.out.println("Enter Branch of the student : ");
 			String branch = scanner.nextLine();
-			System.out.println("Enter Student's Batch year");
+			System.out.println("Enter Student's Batch year : ");
 			int batchYear = scanner.nextInt();scanner.nextLine();
 
 			Student student = new Student(sid,name,role,pass,gender,address,username,doB,branch,batchYear,false, false);
 
 			studentDaoInterface.signUp(student);
 
-			System.out.println("++++++++   Sign up complete   +++++++++");
-			System.out.println("++++++++ Waiting for approval +++++++++");
+			System.out.println("Sign up complete.");
+			System.out.println("Waiting for approval.");
 
 		}catch (Exception e){
 			System.out.println(e.getMessage());
@@ -191,26 +188,4 @@ public class LoginMenu {
 			}
 		}
 	}
-
-//	private static void registration() {
-//		// TODO Auto-generated method stub
-//		System.out.println("Enter name: ");
-//		String name = scanner.next();
-//		System.out.println("Enter gender: ");
-//		String gender = scanner.next();
-//		System.out.println("Enter dob: ");
-//		String dob = scanner.next();
-//		System.out.println("Enter role: ");
-//		String role = scanner.next();
-//		System.out.println("Enter password: ");
-//		String password = scanner.next();
-//		registrationMain(name, gender, dob, role, password);
-//	}
-//
-//	private static void registrationMain(String name, String gender, String dob, String role, String password) {
-//		// TODO Auto-generated method stub
-//		System.out.println("Register " + name);
-//	}
-	
-	
 }

@@ -109,3 +109,7 @@ Notification id: 2
 11:37:20,942  INFO NotificationDaoOperation,main:85 - Notification type: payment
 11:37:20,942  INFO NotificationDaoOperation,main:86 - Notification message: Payment Successful! Transaction Id: -1130969541 Thank You
 
+11:55:54,918  INFO NotificationOperation,main:40 - ______________________
+11:55:54,922  INFO NotificationOperation,main:41 - Result of payment: 
+11:55:54,922  INFO NotificationOperation,main:42 - Payment Successful! Transaction Id: 1472222099 Thank You
+11:55:54,923  INFO NotificationOperation,main:43 - ______________________

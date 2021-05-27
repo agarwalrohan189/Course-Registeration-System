@@ -7,11 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
-
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Notification;
-import com.flipkart.bean.Student;
 import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.dao.RegistrationDaoInterface;
@@ -22,8 +19,6 @@ import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.RegistrationOperation;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentOperation;
-import com.flipkart.service.UserInterface;
-import com.flipkart.service.UserOperation;
 
 /**
  * @author shubh
@@ -51,7 +46,9 @@ public class StudentMenu {
 		// Display the options available for the Student
 		Scanner sc = new Scanner(System.in);
 		while (true) {
-			System.out.println("========= Available Operations for Student ========");
+			
+			System.out.println("\n==========================================================================\n");
+			System.out.println("Student Menu");
 			System.out.println("1. View Course Catalogue");
 			System.out.println("2. View Grades");
 			System.out.println("3. Register");
@@ -61,7 +58,8 @@ public class StudentMenu {
 			System.out.println("7. Make Payment");
 			System.out.println("8. Show Notifications");
 			System.out.println("9. Logout");
-
+			System.out.println("\n==========================================================================\n");
+			System.out.println("Enter Option : ");
 			int input = sc.nextInt();
 			sc.nextLine();
 
@@ -99,8 +97,6 @@ public class StudentMenu {
 				break;
 
 			case 9:
-				// Logout
-//				sc.close();
 				System.out.println("==================== Logging Out ====================");
 				return;
 
@@ -131,10 +127,9 @@ public class StudentMenu {
 	private void viewCourseCatalogue() {
 		try {
 			List<Course> courses = studentInterface.viewCourseCatalogue();
-			System.out.println("Course ID\tCourse Name\tInstructor ID\tInstructor Name\tFilled Seats");
+			System.out.printf("%10s|%20s%20s%20s%20s\n","Course ID","Course Name","Instructor ID","Instructor Name","Filled Seats");
 			for (Course course : courses) {
-				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getInstructorId() +
-						"\t\t" + course.getInstructorName() + "\t\t" + course.getFilledSeats());
+				System.out.format("%10d|%20s%20s%20s%20d\n", course.getCourseId(), course.getCourseName(), course.getInstructorId(),course.getInstructorName(),course.getFilledSeats());
 			}
 		}
 		catch (Exception e) {
@@ -148,9 +143,9 @@ public class StudentMenu {
 	private void viewGrades() {
 		try {
 			List<RegisteredCourse> courses = studentInterface.viewGrades(studentID);
-			System.out.println("Course ID\tCourse Name\tGrade");
+			System.out.printf("%10s|%20s%20s\n","Course ID","Course Name","Grade");
 			for(RegisteredCourse course:courses) {
-				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" + course.getGrade());
+				System.out.format("%10d|%20s%20s\n", course.getCourseId(), course.getCourseName(), course.getGrade().toString());
 			}
 		}
 		catch (StudentNotFoundException e) {
@@ -162,6 +157,7 @@ public class StudentMenu {
 	 * Register courses for the semester
 	 */
 	private void registerCourses() {
+		viewCourseCatalogue();
 		Scanner sc = new Scanner(System.in);
 		try {
 			HashMap<Integer,Boolean> courseIDs = new HashMap<>();
@@ -192,15 +188,15 @@ public class StudentMenu {
 	private void addCourse() {
 		viewCourseCatalogue();
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter CourseID");
+		System.out.println("Enter CourseID : ");
 		int courseID = sc.nextInt();
 		sc.nextLine();
 		try {
 			if(registrationInterface.addCourse(studentID, courseID)) {
-				System.out.println("Course Added!");
+				System.out.println("Course Added.");
 			}
 			else {
-				System.out.println("Please Register first.");
+				System.err.println("Please Register first.");
 			}
 		}
 		catch(Exception e) {
@@ -215,12 +211,12 @@ public class StudentMenu {
 		System.out.println("Registered Courses :");
 		viewRegisteredCourses();
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter CourseID");
+		System.out.println("Enter CourseID : ");
 		int courseID = sc.nextInt();
 		sc.nextLine();
 		try {
 			registrationInterface.dropCourse(studentID, courseID);
-			System.out.println("Course Dropped!");
+			System.out.println("Course Dropped.");
 		}
 		catch(Exception e) {
 			System.err.println(e.getMessage());
@@ -233,9 +229,9 @@ public class StudentMenu {
 	private void viewRegisteredCourses() {
 		try {
 			List<RegisteredCourse> courses = registrationInterface.viewRegisteredCourses(studentID);
-			System.out.println("Course ID\tCourse Name\tInstructor");
+			System.out.printf("%10s|%20s%20s\n","Course ID","Course Name","Instructor");
 			for(RegisteredCourse course:courses) {
-				System.out.println(course.getCourseId() + "\t\t" + course.getCourseName() + "\t\t" +course.getInstructor());
+				System.out.format("%10d|%20s%20s\n", course.getCourseId(), course.getCourseName(), course.getInstructor());
 			}
 		}
 		catch (StudentNotFoundException e) {
@@ -251,12 +247,12 @@ public class StudentMenu {
 		RegistrationDaoInterface registrationDaoInterface = RegistrationDaoOperation.getInstance();
 		try{
 			if(!registrationDaoInterface.isRegistrationDone(studentID)) {
-				System.out.println("Registration not yet complete");
+				System.err.println("Registration not yet complete.");
 			}else if(registrationDaoInterface.isPaymentDone(studentID)) {
-				System.out.println("Payment already done");
+				System.err.println("Payment already done.");
 			}else {
 				float fee = registrationInterface.calculateFee(studentID);
-				System.out.println("Pending amount is : "+fee+", Do you want to pay in full? (Y/N) : ");
+				System.out.println("Pending amount is : "+fee+", Do you want to pay? (Y/N) : ");
 				if(sc.next().equals("Y")){
 					float amount = fee;
 					System.out.println("==================== Payment Gateway ====================");
@@ -272,23 +268,18 @@ public class StudentMenu {
 					{
 					case 1:
 						payViaCreditCard(studentID, amount);
-//						registrationInterface.payFee(studentID, ModeOfPayment.CREDIT_CARD, amount);
 						break;
 					case 2:
 						payViaNetBanking(studentID, amount);
-//						registrationInterface.payFee(studentID, ModeOfPayment.NET_BANKING, amount);
 						break;
 					case 3:
 						payViaDebitCard(studentID, amount);
-//						registrationInterface.payFee(studentID, ModeOfPayment.DEBIT_CARD, amount);
 						break;
 					case 4:
 						payViaScholarship(studentID, amount);
-//						registrationInterface.payFee(studentID, ModeOfPayment.DEBIT_CARD, amount);
 						break;
 					case 5:
 						payViaDemandDraft(studentID, amount);
-//						registrationInterface.payFee(studentID, ModeOfPayment.DEBIT_CARD, amount);
 						break;
 					default:
 						System.err.println("No such mode exists, valid choices 1, 2, 3");						

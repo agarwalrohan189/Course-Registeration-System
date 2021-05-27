@@ -241,8 +241,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			ResultSet rs = statement.executeQuery();
 			
 			while (rs.next()) {
-                RegisteredCourse course = new RegisteredCourse(rs.getString("cname"), UserDAOOperation.getInstance().getDetails(rs.getString("pid")).getName(), studentId, rs.getInt("semesterNum"), rs.getInt("cid"), Grade.fromInt(rs.getInt("grade")));
-				registeredCourseList.add(course);
+				RegisteredCourse course = new RegisteredCourse(rs.getString("cname"), UserDAOOperation.getInstance().getDetails(rs.getString("pid")).getName(), studentId, rs.getInt("semesterNum"), rs.getInt("cid"), Grade.fromInt(rs.getInt("grade")));			
+                registeredCourseList.add(course);
 			}
 		}
         catch (SQLException e) 
