@@ -51,3 +51,61 @@
 10:25:04,036  INFO LoginMenu,main:49 - 3. Exit
 10:25:04,037  INFO LoginMenu,main:50 - ________________________
 10:33:24,462  INFO UserDAOOperation,main:74 - User with userId 1 does not exist
+10:48:25,798  INFO AdminDaoInterfaceImpl,main:66 - 1 course added
+10:48:25,801  INFO AdminDaoInterfaceImpl,main:72 - Course with courseCode : 9 is added to catalog.
+10:48:58,201  INFO AdminDaoInterfaceImpl,main:111 - 1 entries deleted
+10:48:58,202  INFO AdminDaoInterfaceImpl,main:116 - Course with course code : 9 deleted.
+10:49:24,553  INFO AdminDaoInterfaceImpl,main:66 - 1 course added
+10:49:24,554  INFO AdminDaoInterfaceImpl,main:72 - Course with courseCode : 9 is added to catalog.
+10:50:24,065  INFO AdminDaoInterfaceImpl,main:238 - 1 user added.
+10:50:24,066  INFO AdminDaoInterfaceImpl,main:244 - User with userId: P1 added.
+10:50:24,089  INFO AdminDaoInterfaceImpl,main:184 - 1 professor added.
+10:50:24,090  INFO AdminDaoInterfaceImpl,main:190 - Professor with professorId: P2 added.
+10:51:27,037  INFO AdminDaoInterfaceImpl,main:416 - 1 entries updated.
+10:51:27,038  INFO AdminDaoInterfaceImpl,main:422 - Prof with userId: P2 assigned to course : 8
+10:51:32,307  INFO AdminDaoInterfaceImpl,main:416 - 1 entries updated.
+10:51:32,308  INFO AdminDaoInterfaceImpl,main:422 - Prof with userId: P2 assigned to course : 9
+10:52:15,221  INFO AdminDaoInterfaceImpl,main:555 - CourseID-------Grade
+10:52:15,221  INFO AdminDaoInterfaceImpl,main:560 - 1---0
+10:52:15,222  INFO AdminDaoInterfaceImpl,main:560 - 4---0
+10:52:15,222  INFO AdminDaoInterfaceImpl,main:560 - 5---0
+10:52:15,222  INFO AdminDaoInterfaceImpl,main:565 - *_*_*_*_*_*_* CPI - 0.0 *_*_*_*_*_*_*
+11:25:54,791  INFO RegistrationOperation,main:60 - Courses sent for validation
+11:26:30,542  INFO RegistrationOperation,main:60 - Courses sent for validation
+11:26:55,320  INFO RegistrationOperation,main:60 - Courses sent for validation
+11:29:43,121  INFO AdminDaoInterfaceImpl,main:698 - Validation complete!
+11:29:43,199 ERROR NotificationDaoOperation,main:56 - Data truncation: Data too long for column 'notificationType' at row 1
+11:29:43,312 ERROR NotificationDaoOperation,main:56 - Data truncation: Data too long for column 'notificationType' at row 1
+11:29:43,388 ERROR NotificationDaoOperation,main:56 - Data truncation: Data too long for column 'notificationType' at row 1
+11:32:56,059  INFO AdminDaoInterfaceImpl,main:238 - 1 user added.
+11:32:56,063  INFO AdminDaoInterfaceImpl,main:244 - User with userId: S5 added.
+11:32:56,191  INFO StudentDaoOperation,main:74 - 1 student added.
+11:32:56,191  INFO StudentDaoOperation,main:80 - User with userId: S5 added.
+11:33:13,077  INFO AdminDaoInterfaceImpl,main:735 - 1 student approved.
+11:33:50,616  INFO UserDAOOperation,main:74 - User with userId S7 does not exist
+11:34:47,899  INFO RegistrationOperation,main:60 - Courses sent for validation
+11:35:21,668  INFO AdminDaoInterfaceImpl,main:698 - Validation complete!
+11:35:51,023  INFO NotificationDaoOperation,main:79 - Notifications for student with id: S5
+11:35:51,025  INFO NotificationDaoOperation,main:83 - 
+Notification id: 1
+11:35:51,026  INFO NotificationDaoOperation,main:84 - Student id: S5
+11:35:51,027  INFO NotificationDaoOperation,main:85 - Notification type: registration
+11:35:51,028  INFO NotificationDaoOperation,main:86 - Notification message: Your courses have been validated, check registered courses.
+
+11:37:06,942  INFO NotificationOperation,main:40 - ______________________
+11:37:06,943  INFO NotificationOperation,main:41 - Result of payment: 
+11:37:06,943  INFO NotificationOperation,main:42 - Payment Successful! Transaction Id: -1130969541 Thank You
+11:37:06,943  INFO NotificationOperation,main:43 - ______________________
+11:37:20,939  INFO NotificationDaoOperation,main:79 - Notifications for student with id: S5
+11:37:20,940  INFO NotificationDaoOperation,main:83 - 
+Notification id: 1
+11:37:20,940  INFO NotificationDaoOperation,main:84 - Student id: S5
+11:37:20,941  INFO NotificationDaoOperation,main:85 - Notification type: registration
+11:37:20,941  INFO NotificationDaoOperation,main:86 - Notification message: Your courses have been validated, check registered courses.
+
+11:37:20,941  INFO NotificationDaoOperation,main:83 - 
+Notification id: 2
+11:37:20,941  INFO NotificationDaoOperation,main:84 - Student id: S5
+11:37:20,942  INFO NotificationDaoOperation,main:85 - Notification type: payment
+11:37:20,942  INFO NotificationDaoOperation,main:86 - Notification message: Payment Successful! Transaction Id: -1130969541 Thank You
+
