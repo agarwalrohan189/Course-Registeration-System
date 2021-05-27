@@ -3,7 +3,7 @@
  */
 package com.flipkart.bean;
 
-import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.constant.ModeOfPaymentConstant;
 
 /**
  * @author rohanagarwal

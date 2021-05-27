@@ -2,8 +2,8 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
-import com.flipkart.constant.Grade;
-import com.flipkart.constant.SQLQueries;
+import com.flipkart.constant.GradeConstant;
+import com.flipkart.constant.SQLQueriesConstant;
 import com.flipkart.exception.GradeNotAssignedException;
 import com.flipkart.exception.ProfNotFoundException;
 import com.flipkart.exception.StudentNotFoundException;
@@ -14,12 +14,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 /**
  * Dao class for professor operations
  */
 public class ProfessorDaoOperation implements ProfessorDaoInterface{
+	private static Logger logger = Logger.getLogger(ProfessorDaoOperation.class);
 
     private static volatile ProfessorDaoOperation instance = null;
 
@@ -53,7 +55,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
         List<Course> courseList = new ArrayList<Course>();
 
         try{
-            PreparedStatement preparedStatement = connection.prepareStatement(SQLQueries.GET_COURSES);
+            PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstant.GET_COURSES);
 
             preparedStatement.setString(1, profID);
 
@@ -61,7 +63,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
 
             while (resultSet.next()){
                 courseList.add(new Course(resultSet.getInt("cid"),resultSet.getString("cname"),profID,
-                		UserDAOOperation.getInstance().getDetails(resultSet.getString("pid")).getName(),resultSet.getInt("filledSeats")));
+                		UserDaoOperation.getInstance().getDetails(resultSet.getString("pid")).getName(),resultSet.getInt("filledSeats")));
             }
         }catch (Exception e){
             throw new ProfNotFoundException(profID);
@@ -69,7 +71,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
             try {
                 connection.close();
             }catch (Exception e){
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
         }
         return courseList;
@@ -90,7 +92,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
         List<Student> studentList = new ArrayList<Student>();
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(SQLQueries.GET_ENROLLED_STUDENTS);
+            PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstant.GET_ENROLLED_STUDENTS);
 
             preparedStatement.setInt(1,courseID);
 
@@ -104,7 +106,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
 
             String curid = "";
             try {
-                UserDAOOperation userDAOOperation = UserDAOOperation.getInstance();
+                UserDaoOperation userDAOOperation = UserDaoOperation.getInstance();
                 for(String id:sid){
                     curid = id;
                     Student student = (Student) userDAOOperation.getDetails(id);
@@ -120,7 +122,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
             try {
                 connection.close();
             }catch (Exception e){
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
         }
         return studentList;
@@ -135,10 +137,10 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
      * @throws GradeNotAssignedException
      */
     @Override
-    public void assignGrade(String studentID, int courseID, Grade grade) throws StudentNotFoundException, GradeNotAssignedException{
+    public void assignGrade(String studentID, int courseID, GradeConstant grade) throws StudentNotFoundException, GradeNotAssignedException{
         Connection connection = DBUtil.getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(SQLQueries.ADD_GRADE);
+            PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstant.ADD_GRADE);
 
             preparedStatement.setInt(1,grade.hasValue());
             preparedStatement.setInt(2,courseID);
@@ -156,7 +158,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface{
             try {
                 connection.close();
             }catch (Exception e){
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
         }
     }

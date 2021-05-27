@@ -13,8 +13,8 @@ import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
-import com.flipkart.client.LoginMenu;
-import com.flipkart.constant.SQLQueries;
+import com.flipkart.client.CRSApplication;
+import com.flipkart.constant.SQLQueriesConstant;
 import com.flipkart.exception.*;
 import com.flipkart.utils.DBUtil;
 
@@ -48,12 +48,12 @@ public class StudentDaoOperation implements StudentDaoInterface{
 	public void signUp(Student student) throws StudentAlreadyExistsException, StudentNotAddedException {
 
 		try {
-			AdminDaoInterfaceImpl adminDaoInterface = AdminDaoInterfaceImpl.getInstance();
+			AdminDaoOperation adminDaoInterface = AdminDaoOperation.getInstance();
 			adminDaoInterface.addUser(student);
 
 		}catch (UserNotAddedException e) {
 
-			e.printStackTrace();
+			logger.error(e.getMessage());
 			throw new StudentNotAddedException(student.getId());
 		}
 
@@ -61,7 +61,7 @@ public class StudentDaoOperation implements StudentDaoInterface{
 		Connection conn = DBUtil.getConnection();
 		try {
 
-			String sql = SQLQueries.ADD_STUDENT;
+			String sql = SQLQueriesConstant.ADD_STUDENT;
 			statement = conn.prepareStatement(sql);
 
 			statement.setString(1, student.getId());
@@ -94,7 +94,7 @@ public class StudentDaoOperation implements StudentDaoInterface{
 					throw new DatabaseException();
 				} catch (DatabaseException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error(e.getMessage());
 				}
 			}
 		}
@@ -110,7 +110,7 @@ public class StudentDaoOperation implements StudentDaoInterface{
 	public boolean isApproved(String studentID) throws StudentNotFoundException {
 		Connection connection=DBUtil.getConnection();
 		try {
-			PreparedStatement statement = connection.prepareStatement(SQLQueries.IS_APPROVED_STUDENT_QUERY);
+			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstant.IS_APPROVED_STUDENT_QUERY);
 			statement.setString(1, studentID);
 			ResultSet rs = statement.executeQuery();
 
@@ -135,7 +135,7 @@ public class StudentDaoOperation implements StudentDaoInterface{
 					throw new DatabaseException();
 				} catch (DatabaseException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error(e.getMessage());
 				}
 			}
 		}
@@ -153,24 +153,24 @@ public class StudentDaoOperation implements StudentDaoInterface{
 		List<Course> courses= new ArrayList<Course>();
 		
 		try {
-			statement = conn.prepareStatement(SQLQueries.GET_COURSE_CATALOGUE);
+			statement = conn.prepareStatement(SQLQueriesConstant.GET_COURSE_CATALOGUE);
 			ResultSet catalogue= statement.executeQuery();
 			
 			while(catalogue.next()) {
-				courses.add(new Course(catalogue.getInt("cid"), catalogue.getString("cname"), catalogue.getString("pid"), UserDAOOperation.getInstance().getDetails(catalogue.getString("pid")).getName(), catalogue.getInt("filledSeats")));
+				courses.add(new Course(catalogue.getInt("cid"), catalogue.getString("cname"), catalogue.getString("pid"), UserDaoOperation.getInstance().getDetails(catalogue.getString("pid")).getName(), catalogue.getInt("filledSeats")));
 			}
 		}
 		catch(SQLException e) {
 			throw new DatabaseException();
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} catch (StudentNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} catch (ProfNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		finally {
 			try {

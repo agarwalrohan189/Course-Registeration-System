@@ -32,15 +32,6 @@ public interface AdminDaoInterface {
     public void removeCourse(int courseID) throws CourseNotFoundException, CourseNotDeletedException;
 
     /**
-     * To validate course registration of a student using SQL command.
-     * @param studentID -> ID of student to be added
-     * @param registeredStudents -> List of registered students in the course
-     * @throws StudentNotRegisteredException
-     * @throws StudentNotFoundException
-     */
-    public void validateRegistration(String studentID, List<Student> registeredStudents) throws StudentNotRegisteredException, StudentNotFoundException;
-
-    /**
      * Adds a professor object to the database using SQL command
      * @param professor : professor object containing the details of the prof
      * @throws ProfNotAddedException
@@ -74,9 +65,21 @@ public interface AdminDaoInterface {
      * @param courseID -> ID of course which professor is requesting
      */
     public void assignProf(String profID, int courseID) throws CourseNotFoundException, ProfNotFoundException;
-    
-    public HashMap<String,List<Integer>> getPreferredCourses() throws DatabaseException;
+
+    /**
+     * Get alternate courses for registration of student
+     * @return -> Map containing student ID and corresponding alternate courses
+     * @throws DatabaseException
+     */
     public HashMap<String,List<Integer>> getAlternateCourses() throws DatabaseException;
+    
+
+    /**
+     * Get primary courses for registration of student
+     * @return -> Map containing student ID and corresponding primary courses
+     * @throws DatabaseException
+     */
+    public HashMap<String,List<Integer>> getPreferredCourses() throws DatabaseException;
 
     /**
      * Method to generate Report card of student using SQL command.

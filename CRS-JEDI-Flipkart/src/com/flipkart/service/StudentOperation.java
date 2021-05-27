@@ -36,7 +36,6 @@ public class StudentOperation implements StudentInterface {
 
 	@Override
 	public List<Course> viewCourseCatalogue() throws DatabaseException{
-		// TODO Auto-generated method stub
 		StudentDaoInterface studentDaoInterface= StudentDaoOperation.getInstance();
 		return studentDaoInterface.getCourseCatalogue();
 	}

@@ -2,7 +2,7 @@ package com.flipkart.service;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
-import com.flipkart.constant.Grade;
+import com.flipkart.constant.GradeConstant;
 import com.flipkart.exception.GradeNotAssignedException;
 import com.flipkart.exception.ProfNotFoundException;
 import com.flipkart.exception.StudentNotFoundException;
@@ -40,6 +40,6 @@ public interface ProfessorInterface {
      * @throws GradeNotAssignedException
      * @throws StudentNotFoundException
      */
-    public void assignGrade(String studentID, int courseID, Grade grade) throws GradeNotAssignedException, StudentNotFoundException;
+    public void assignGrade(String studentID, int courseID, GradeConstant grade) throws GradeNotAssignedException, StudentNotFoundException;
 
 }

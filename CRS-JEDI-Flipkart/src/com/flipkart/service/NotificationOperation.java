@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.PaymentNotification;
-import com.flipkart.client.LoginMenu;
+import com.flipkart.client.CRSApplication;
 import com.flipkart.dao.NotificationDaoOperation;
 
 public class NotificationOperation implements NotificationInterface{

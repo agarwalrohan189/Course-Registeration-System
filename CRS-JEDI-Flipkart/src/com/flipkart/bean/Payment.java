@@ -5,7 +5,7 @@ package com.flipkart.bean;
 
 import java.util.Random;
 
-import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.constant.ModeOfPaymentConstant;
 
 /**
  * @author Shubham
@@ -14,7 +14,7 @@ import com.flipkart.constant.ModeOfPayment;
 public class Payment {
 	int paymentId;
 	String studentID;
-	ModeOfPayment paymentMethod;
+	ModeOfPaymentConstant paymentMethod;
 	float amount;
 	boolean status;
 
@@ -24,7 +24,7 @@ public class Payment {
 	 * @param mode -> Mode of payment
 	 * @param amount -> Amount to be paid
 	 */
-	public Payment(String studentID, ModeOfPayment mode, float amount) {
+	public Payment(String studentID, ModeOfPaymentConstant mode, float amount) {
 		this.studentID = studentID;
 		this.paymentMethod = mode;
 		this.amount = amount;
@@ -69,7 +69,7 @@ public class Payment {
 	 * Getter of Mode of payment
 	 * @return Mode of payment
 	 */
-	public ModeOfPayment getPaymentMethod() {
+	public ModeOfPaymentConstant getPaymentMethod() {
 		return paymentMethod;
 	}
 
@@ -77,7 +77,7 @@ public class Payment {
 	 * Setter of Mode of payment
 	 * @param paymentMethod -> New Mode of payment
 	 */
-	public void setPaymentMethod(ModeOfPayment paymentMethod) {
+	public void setPaymentMethod(ModeOfPaymentConstant paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 

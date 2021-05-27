@@ -4,8 +4,8 @@
 package com.flipkart.bean;
 import java.util.Date;
 
-import com.flipkart.constant.Gender;
-import com.flipkart.constant.Role;
+import com.flipkart.constant.GenderConstant;
+import com.flipkart.constant.RoleConstant;
 
 /**
  * @author Shubham
@@ -32,7 +32,7 @@ public class Professor extends User {
 	 * @param qualification
 	 * @param dateOfJoining
 	 */
-	public Professor(String id, String name, Role role, String password, Gender gender, String address,
+	public Professor(String id, String name, RoleConstant role, String password, GenderConstant gender, String address,
 			String username, Date doB, String department, String qualification,
 			Date dateOfJoining) {
 		super(id, name, role, password, gender, address, username, doB);

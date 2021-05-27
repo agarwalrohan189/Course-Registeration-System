@@ -11,11 +11,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
+import com.flipkart.dao.NotificationDaoOperation;
+
 /**
  * @author rohanagarwal
  *
  */
 public class DBUtil {
+	private static Logger logger = Logger.getLogger(NotificationDaoOperation.class);
 
     /**
      * Get connection of SQL Database
@@ -46,16 +51,16 @@ public class DBUtil {
                 
             }
             catch (ClassNotFoundException e){
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
             catch (SQLException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
             catch (FileNotFoundException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
             catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
             return connection;
         }

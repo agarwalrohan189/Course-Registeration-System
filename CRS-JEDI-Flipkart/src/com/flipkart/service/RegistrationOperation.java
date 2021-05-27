@@ -14,8 +14,8 @@ import com.flipkart.bean.Payment;
 import com.flipkart.bean.PaymentNotification;
 import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.bean.Student;
-import com.flipkart.client.LoginMenu;
-import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.client.CRSApplication;
+import com.flipkart.constant.ModeOfPaymentConstant;
 import com.flipkart.dao.ProfessorDaoOperation;
 import com.flipkart.exception.CourseLimitExceededException;
 import com.flipkart.exception.CourseNotFoundException;
@@ -113,7 +113,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 
 	@Override
-	public void payFee(String studentId, ModeOfPayment mode, float amount) throws StudentNotFoundException, NotifIdNotExistsException{
+	public void payFee(String studentId, ModeOfPaymentConstant mode, float amount) throws StudentNotFoundException, NotifIdNotExistsException{
 		float feeToBePaid = calculateFee(studentId);
 		String message;
 //		PaymentNotification notifObj = new PaymentNotification();
