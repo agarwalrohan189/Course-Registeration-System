@@ -17,12 +17,14 @@ import java.util.Properties;
  */
 public class DBUtil {
 	
+	@SuppressWarnings("unused")
 	public static Connection getConnection() {
 		
 		Connection connection = null;
 		
-        if (connection != null)
-            return connection;
+        if (connection != null) {
+			return connection;
+		} 
         else 
         {
             try 
