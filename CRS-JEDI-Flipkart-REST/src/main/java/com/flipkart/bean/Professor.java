@@ -40,6 +40,11 @@ public class Professor extends User {
 		this.qualification = qualification;
 		this.dateOfJoining = dateOfJoining;
 	}
+	
+	public Professor ()
+	{
+		
+	}
 
 
 	/**

@@ -31,6 +31,11 @@ public class Course {
 		this.instructorName = instructorName;
 		this.filledSeats = filledSeats;
 	}
+	
+	public Course()
+	{
+		
+	}
 
 	/**
 	 * getter of courseID
