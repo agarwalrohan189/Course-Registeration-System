@@ -32,6 +32,8 @@ public interface RegistrationInterface {
 	 * @throws StudentNotFoundException
 	 */
 	public boolean isRegistrationDone(String studentId) throws StudentNotFoundException;
+	
+	public boolean isPaymentDone (String studentId) throws StudentNotFoundException;
 
 	/**
 	 * Add a course

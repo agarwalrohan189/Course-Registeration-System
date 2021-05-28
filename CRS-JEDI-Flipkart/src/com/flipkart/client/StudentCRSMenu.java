@@ -11,8 +11,6 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.constant.ModeOfPaymentConstant;
-import com.flipkart.dao.RegistrationDaoInterface;
-import com.flipkart.dao.RegistrationDaoOperation;
 import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.service.NotificationOperation;
 import com.flipkart.service.RegistrationInterface;
@@ -252,11 +250,10 @@ public class StudentCRSMenu {
 	 */
 	private void payFee() {
 		Scanner sc = new Scanner(System.in);
-		RegistrationDaoInterface registrationDaoInterface = RegistrationDaoOperation.getInstance();
 		try{
-			if(!registrationDaoInterface.isRegistrationDone(studentID)) {
+			if(!registrationInterface.isRegistrationDone(studentID)) {
 				System.err.println("Registration not yet complete.");
-			}else if(registrationDaoInterface.isPaymentDone(studentID)) {
+			}else if(registrationInterface.isPaymentDone(studentID)) {
 				System.err.println("Payment already done.");
 			}else {
 				float fee = registrationInterface.calculateFee(studentID);

@@ -64,6 +64,12 @@ public class RegistrationOperation implements RegistrationInterface {
 	public boolean isRegistrationDone(String studentId) throws StudentNotFoundException{
 		return registrationDaoInterface.isRegistrationDone(studentId);
 	}
+	
+	@Override
+	public boolean isPaymentDone (String studentId) throws StudentNotFoundException
+	{
+		return registrationDaoInterface.isPaymentDone(studentId);
+	}
 
 	@Override
 	public boolean addCourse(String studentId, int courseCode)

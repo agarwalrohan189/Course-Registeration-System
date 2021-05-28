@@ -157,12 +157,11 @@ public class StudentRestAPI {
 	@Path("/payFee/{studentID}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response payFee(@PathParam("studentID") String studentID, @QueryParam("mode") String mode) {
-		RegistrationDaoInterface registrationDaoInterface = RegistrationDaoOperation.getInstance();
 		try{
-			if(!registrationDaoInterface.isRegistrationDone(studentID)) {
+			if(!registrationInterface.isRegistrationDone(studentID)) {
 				logger.info("Registration not yet complete.");
 				return Response.status(200).entity( "Registration not yet complete.").build();
-			}else if(registrationDaoInterface.isPaymentDone(studentID)) {
+			}else if(registrationInterface.isPaymentDone(studentID)) {
 				logger.info("Payment already done.");
 				return Response.status(200).entity( "Payment already done.").build();
  
