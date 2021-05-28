@@ -185,7 +185,7 @@ public class UserDaoOperation implements UserDaoInterface{
 							String dept = profresult.getString("department");
 							String qualification = profresult.getString("qualification");
 							Date doj = profresult.getDate("doj");
-							return new Professor(userId, username, role, password, gender, address, username, dob, dept, qualification, doj);
+							return new Professor(userId, name, role, password, gender, address, username, dob, dept, qualification, doj);
 						}
 					}
 					catch(SQLException e)
@@ -206,7 +206,7 @@ public class UserDaoOperation implements UserDaoInterface{
 						else
 						{
 							Date doj = adminresult.getDate("doj");
-							return new Admin(userId, username, role, password, gender, address, username, dob, doj);
+							return new Admin(userId, name, role, password, gender, address, username, dob, doj);
 						}
 					}
 					catch(SQLException e)
